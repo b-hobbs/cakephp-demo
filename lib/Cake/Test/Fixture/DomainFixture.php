@@ -32,7 +32,7 @@ class DomainFixture extends CakeTestFixture {
  * @var string 'Domain'
  * @access public
  */
-	public $name = 'Domain';
+    public $name = 'Domain';
 
 /**
  * fields property
@@ -40,12 +40,12 @@ class DomainFixture extends CakeTestFixture {
  * @var array
  * @access public
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'domain' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'domain' => array('type' => 'string', 'null' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
@@ -53,13 +53,13 @@ class DomainFixture extends CakeTestFixture {
  * @var array
  * @access public
  */
-	public $records = array(
-		array('domain' => 'cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
-		array('domain' => 'book.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
-		array('domain' => 'api.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
-		array('domain' => 'mark-story.com', 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
-		array('domain' => 'tinadurocher.com', 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
-		array('domain' => 'chavik.com', 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
-		array('domain' => 'xintesa.com', 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
-	);
+    public $records = array(
+        array('domain' => 'cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
+        array('domain' => 'book.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
+        array('domain' => 'api.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
+        array('domain' => 'mark-story.com', 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
+        array('domain' => 'tinadurocher.com', 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
+        array('domain' => 'chavik.com', 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
+        array('domain' => 'xintesa.com', 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
+    );
 }

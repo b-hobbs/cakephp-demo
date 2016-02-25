@@ -32,7 +32,7 @@ class DomainsSiteFixture extends CakeTestFixture {
  * @var string 'Domain'
  * @access public
  */
-	public $name = 'DomainsSite';
+    public $name = 'DomainsSite';
 
 /**
  * fields property
@@ -40,14 +40,14 @@ class DomainsSiteFixture extends CakeTestFixture {
  * @var array
  * @access public
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'domain_id' => array('type' => 'integer', 'null' => false),
-		'site_id' => array('type' => 'integer', 'null' => false),
-		'active' => array('type' => 'boolean', 'null' => false, 'default' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime',
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'domain_id' => array('type' => 'integer', 'null' => false),
+        'site_id' => array('type' => 'integer', 'null' => false),
+        'active' => array('type' => 'boolean', 'null' => false, 'default' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime',
+    );
 
 /**
  * records property
@@ -55,12 +55,12 @@ class DomainsSiteFixture extends CakeTestFixture {
  * @var array
  * @access public
  */
-	public $records = array(
-		array('site_id' => 1, 'domain_id' => 1, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
-		array('site_id' => 1, 'domain_id' => 2, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
-		array('site_id' => 2, 'domain_id' => 4, 'active' => true, 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
-		array('site_id' => 2, 'domain_id' => 5, 'active' => true, 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
-		array('site_id' => 3, 'domain_id' => 6, 'active' => true, 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
-		array('site_id' => 3, 'domain_id' => 7, 'active' => false, 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
-	);
+    public $records = array(
+        array('site_id' => 1, 'domain_id' => 1, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
+        array('site_id' => 1, 'domain_id' => 2, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
+        array('site_id' => 2, 'domain_id' => 4, 'active' => true, 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
+        array('site_id' => 2, 'domain_id' => 5, 'active' => true, 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),
+        array('site_id' => 3, 'domain_id' => 6, 'active' => true, 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
+        array('site_id' => 3, 'domain_id' => 7, 'active' => false, 'created' => '2001-02-03 00:01:02', 'updated' => '2007-03-17 01:22:31'),
+    );
 }

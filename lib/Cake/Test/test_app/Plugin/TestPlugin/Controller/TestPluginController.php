@@ -18,14 +18,14 @@
  */
 class TestPluginController extends TestPluginAppController {
 
-	public $uses = array();
+    public $uses = array();
 
-	public function index() {
-		$this->autoRender = false;
-	}
+    public function index() {
+        $this->autoRender = false;
+    }
 
-	public function add() {
-		$this->autoRender = false;
-	}
+    public function add() {
+        $this->autoRender = false;
+    }
 
 }

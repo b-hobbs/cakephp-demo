@@ -18,18 +18,18 @@
 ?>
 <h2><?php echo __d('cake_dev', 'Missing Database Connection'); ?></h2>
 <p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', '%s requires a database connection', $class); ?>
+    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+    <?php echo __d('cake_dev', '%s requires a database connection', $class); ?>
 </p>
 <?php if (!$enabled) : ?>
 <p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', '%s driver is NOT enabled', $class); ?>
+    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+    <?php echo __d('cake_dev', '%s driver is NOT enabled', $class); ?>
 </p>
 <?php endif; ?>
 <p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s.', APP_DIR . DS . 'View' . DS . 'Errors' . DS . basename(__FILE__)); ?>
+    <strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
+    <?php echo __d('cake_dev', 'If you want to customize this error message, create %s.', APP_DIR . DS . 'View' . DS . 'Errors' . DS . basename(__FILE__)); ?>
 </p>
 
 <?php

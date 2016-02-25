@@ -9,8 +9,8 @@
     <?php foreach ($orders as $order): ?>
     <tr>
         <td>
-			<?php echo $this->Html->link($order['Order']['id'], array('controller' => 'orders', 'action' => 'show', $order['Order']['id'])) ?>
-		</td>
+            <?php echo $this->Html->link($order['Order']['id'], array('controller' => 'orders', 'action' => 'show', $order['Order']['id'])) ?>
+        </td>
         
    
     </tr>

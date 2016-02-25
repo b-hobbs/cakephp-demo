@@ -36,7 +36,7 @@
  *
  * For instance if you'd like to use your own HttpSocket class, put it under
  *
- *		app/Network/Http/HttpSocket.php
+ *      app/Network/Http/HttpSocket.php
  *
  * ### Inspecting loaded paths
  *
@@ -67,131 +67,131 @@ class App {
  *
  * @constant APPEND
  */
-	const APPEND = 'append';
+    const APPEND = 'append';
 
 /**
  * Prepend paths
  *
  * @constant PREPEND
  */
-	const PREPEND = 'prepend';
+    const PREPEND = 'prepend';
 
 /**
  * Register package
  *
  * @constant REGISTER
  */
-	const REGISTER = 'register';
+    const REGISTER = 'register';
 
 /**
  * Reset paths instead of merging
  *
  * @constant RESET
  */
-	const RESET = true;
+    const RESET = true;
 
 /**
  * List of object types and their properties
  *
  * @var array
  */
-	public static $types = array(
-		'class' => array('extends' => null, 'core' => true),
-		'file' => array('extends' => null, 'core' => true),
-		'model' => array('extends' => 'AppModel', 'core' => false),
-		'behavior' => array('suffix' => 'Behavior', 'extends' => 'Model/ModelBehavior', 'core' => true),
-		'controller' => array('suffix' => 'Controller', 'extends' => 'AppController', 'core' => true),
-		'component' => array('suffix' => 'Component', 'extends' => null, 'core' => true),
-		'lib' => array('extends' => null, 'core' => true),
-		'view' => array('suffix' => 'View', 'extends' => null, 'core' => true),
-		'helper' => array('suffix' => 'Helper', 'extends' => 'AppHelper', 'core' => true),
-		'vendor' => array('extends' => null, 'core' => true),
-		'shell' => array('suffix' => 'Shell', 'extends' => 'AppShell', 'core' => true),
-		'plugin' => array('extends' => null, 'core' => true)
-	);
+    public static $types = array(
+        'class' => array('extends' => null, 'core' => true),
+        'file' => array('extends' => null, 'core' => true),
+        'model' => array('extends' => 'AppModel', 'core' => false),
+        'behavior' => array('suffix' => 'Behavior', 'extends' => 'Model/ModelBehavior', 'core' => true),
+        'controller' => array('suffix' => 'Controller', 'extends' => 'AppController', 'core' => true),
+        'component' => array('suffix' => 'Component', 'extends' => null, 'core' => true),
+        'lib' => array('extends' => null, 'core' => true),
+        'view' => array('suffix' => 'View', 'extends' => null, 'core' => true),
+        'helper' => array('suffix' => 'Helper', 'extends' => 'AppHelper', 'core' => true),
+        'vendor' => array('extends' => null, 'core' => true),
+        'shell' => array('suffix' => 'Shell', 'extends' => 'AppShell', 'core' => true),
+        'plugin' => array('extends' => null, 'core' => true)
+    );
 
 /**
  * Paths to search for files.
  *
  * @var array
  */
-	public static $search = array();
+    public static $search = array();
 
 /**
  * Whether or not to return the file that is loaded.
  *
  * @var boolean
  */
-	public static $return = false;
+    public static $return = false;
 
 /**
  * Holds key/value pairs of $type => file path.
  *
  * @var array
  */
-	protected static $_map = array();
+    protected static $_map = array();
 
 /**
  * Holds and key => value array of object types.
  *
  * @var array
  */
-	protected static $_objects = array();
+    protected static $_objects = array();
 
 /**
  * Holds the location of each class
  *
  * @var array
  */
-	protected static $_classMap = array();
+    protected static $_classMap = array();
 
 /**
  * Holds the possible paths for each package name
  *
  * @var array
  */
-	protected static $_packages = array();
+    protected static $_packages = array();
 
 /**
  * Holds the templates for each customizable package path in the application
  *
  * @var array
  */
-	protected static $_packageFormat = array();
+    protected static $_packageFormat = array();
 
 /**
  * Maps an old style CakePHP class type to the corresponding package
  *
  * @var array
  */
-	public static $legacy = array(
-		'models' => 'Model',
-		'behaviors' => 'Model/Behavior',
-		'datasources' => 'Model/Datasource',
-		'controllers' => 'Controller',
-		'components' => 'Controller/Component',
-		'views' => 'View',
-		'helpers' => 'View/Helper',
-		'shells' => 'Console/Command',
-		'libs' => 'Lib',
-		'vendors' => 'Vendor',
-		'plugins' => 'Plugin',
-		'locales' => 'Locale'
-	);
+    public static $legacy = array(
+        'models' => 'Model',
+        'behaviors' => 'Model/Behavior',
+        'datasources' => 'Model/Datasource',
+        'controllers' => 'Controller',
+        'components' => 'Controller/Component',
+        'views' => 'View',
+        'helpers' => 'View/Helper',
+        'shells' => 'Console/Command',
+        'libs' => 'Lib',
+        'vendors' => 'Vendor',
+        'plugins' => 'Plugin',
+        'locales' => 'Locale'
+    );
 
 /**
  * Indicates whether the class cache should be stored again because of an addition to it
  *
  * @var boolean
  */
-	protected static $_cacheChange = false;
+    protected static $_cacheChange = false;
 
 /**
  * Indicates whether the object cache should be stored again because of an addition to it
  *
  * @var boolean
  */
-	protected static $_objectCacheChange = false;
+    protected static $_objectCacheChange = false;
 
 /**
  * Indicates the the Application is in the bootstrapping process. Used to better cache
@@ -199,7 +199,7 @@ class App {
  *
  * @var boolean
  */
-	public static $bootstrapping = false;
+    public static $bootstrapping = false;
 
 /**
  * Used to read information stored path
@@ -215,28 +215,28 @@ class App {
  * @return array
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::path
  */
-	public static function path($type, $plugin = null) {
-		if (!empty(self::$legacy[$type])) {
-			$type = self::$legacy[$type];
-		}
+    public static function path($type, $plugin = null) {
+        if (!empty(self::$legacy[$type])) {
+            $type = self::$legacy[$type];
+        }
 
-		if (!empty($plugin)) {
-			$path = array();
-			$pluginPath = self::pluginPath($plugin);
-			$packageFormat = self::_packageFormat();
-			if (!empty($packageFormat[$type])) {
-				foreach ($packageFormat[$type] as $f) {
-					$path[] = sprintf($f, $pluginPath);
-				}
-			}
-			return $path;
-		}
+        if (!empty($plugin)) {
+            $path = array();
+            $pluginPath = self::pluginPath($plugin);
+            $packageFormat = self::_packageFormat();
+            if (!empty($packageFormat[$type])) {
+                foreach ($packageFormat[$type] as $f) {
+                    $path[] = sprintf($f, $pluginPath);
+                }
+            }
+            return $path;
+        }
 
-		if (!isset(self::$_packages[$type])) {
-			return array();
-		}
-		return self::$_packages[$type];
-	}
+        if (!isset(self::$_packages[$type])) {
+            return array();
+        }
+        return self::$_packages[$type];
+    }
 
 /**
  * Get all the currently loaded paths from App. Useful for inspecting
@@ -246,9 +246,9 @@ class App {
  * @return array An array of packages and their associated paths.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::paths
  */
-	public static function paths() {
-		return self::$_packages;
-	}
+    public static function paths() {
+        return self::$_packages;
+    }
 
 /**
  * Sets up each package location on the file system. You can configure multiple search paths
@@ -269,85 +269,85 @@ class App {
  *
  * @param array $paths associative array with package names as keys and a list of directories for new search paths
  * @param boolean|string $mode App::RESET will set paths, App::APPEND with append paths, App::PREPEND will prepend paths (default)
- * 	App::REGISTER will register new packages and their paths, %s in path will be replaced by APP path
+ *  App::REGISTER will register new packages and their paths, %s in path will be replaced by APP path
  * @return void
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::build
  */
-	public static function build($paths = array(), $mode = App::PREPEND) {
-		//Provides Backwards compatibility for old-style package names
-		$legacyPaths = array();
-		foreach ($paths as $type => $path) {
-			if (!empty(self::$legacy[$type])) {
-				$type = self::$legacy[$type];
-			}
-			$legacyPaths[$type] = $path;
-		}
-		$paths = $legacyPaths;
+    public static function build($paths = array(), $mode = App::PREPEND) {
+        //Provides Backwards compatibility for old-style package names
+        $legacyPaths = array();
+        foreach ($paths as $type => $path) {
+            if (!empty(self::$legacy[$type])) {
+                $type = self::$legacy[$type];
+            }
+            $legacyPaths[$type] = $path;
+        }
+        $paths = $legacyPaths;
 
-		if ($mode === App::RESET) {
-			foreach ($paths as $type => $new) {
-				self::$_packages[$type] = (array)$new;
-				self::objects($type, null, false);
-			}
-			return;
-		}
+        if ($mode === App::RESET) {
+            foreach ($paths as $type => $new) {
+                self::$_packages[$type] = (array)$new;
+                self::objects($type, null, false);
+            }
+            return;
+        }
 
-		if (empty($paths)) {
-			self::$_packageFormat = null;
-		}
+        if (empty($paths)) {
+            self::$_packageFormat = null;
+        }
 
-		$packageFormat = self::_packageFormat();
+        $packageFormat = self::_packageFormat();
 
-		if ($mode === App::REGISTER) {
-			foreach ($paths as $package => $formats) {
-				if (empty($packageFormat[$package])) {
-					$packageFormat[$package] = $formats;
-				} else {
-					$formats = array_merge($packageFormat[$package], $formats);
-					$packageFormat[$package] = array_values(array_unique($formats));
-				}
-			}
-			self::$_packageFormat = $packageFormat;
-		}
+        if ($mode === App::REGISTER) {
+            foreach ($paths as $package => $formats) {
+                if (empty($packageFormat[$package])) {
+                    $packageFormat[$package] = $formats;
+                } else {
+                    $formats = array_merge($packageFormat[$package], $formats);
+                    $packageFormat[$package] = array_values(array_unique($formats));
+                }
+            }
+            self::$_packageFormat = $packageFormat;
+        }
 
-		$defaults = array();
-		foreach ($packageFormat as $package => $format) {
-			foreach ($format as $f) {
-				$defaults[$package][] = sprintf($f, APP);
-			}
-		}
+        $defaults = array();
+        foreach ($packageFormat as $package => $format) {
+            foreach ($format as $f) {
+                $defaults[$package][] = sprintf($f, APP);
+            }
+        }
 
-		if (empty($paths)) {
-			self::$_packages = $defaults;
-			return;
-		}
+        if (empty($paths)) {
+            self::$_packages = $defaults;
+            return;
+        }
 
-		if ($mode === App::REGISTER) {
-			$paths = array();
-		}
+        if ($mode === App::REGISTER) {
+            $paths = array();
+        }
 
-		foreach ($defaults as $type => $default) {
-			if (!empty(self::$_packages[$type])) {
-				$path = self::$_packages[$type];
-			} else {
-				$path = $default;
-			}
+        foreach ($defaults as $type => $default) {
+            if (!empty(self::$_packages[$type])) {
+                $path = self::$_packages[$type];
+            } else {
+                $path = $default;
+            }
 
-			if (!empty($paths[$type])) {
-				$newPath = (array)$paths[$type];
+            if (!empty($paths[$type])) {
+                $newPath = (array)$paths[$type];
 
-				if ($mode === App::PREPEND) {
-					$path = array_merge($newPath, $path);
-				} else {
-					$path = array_merge($path, $newPath);
-				}
+                if ($mode === App::PREPEND) {
+                    $path = array_merge($newPath, $path);
+                } else {
+                    $path = array_merge($path, $newPath);
+                }
 
-				$path = array_values(array_unique($path));
-			}
+                $path = array_values(array_unique($path));
+            }
 
-			self::$_packages[$type] = $path;
-		}
-	}
+            self::$_packages[$type] = $path;
+        }
+    }
 
 /**
  * Gets the path that a plugin is on. Searches through the defined plugin paths.
@@ -360,9 +360,9 @@ class App {
  * @return string full path to the plugin.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::pluginPath
  */
-	public static function pluginPath($plugin) {
-		return CakePlugin::path($plugin);
-	}
+    public static function pluginPath($plugin) {
+        return CakePlugin::path($plugin);
+    }
 
 /**
  * Finds the path that a theme is on.  Searches through the defined theme paths.
@@ -375,15 +375,15 @@ class App {
  * @return string full path to the theme.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::themePath
  */
-	public static function themePath($theme) {
-		$themeDir = 'Themed' . DS . Inflector::camelize($theme);
-		foreach (self::$_packages['View'] as $path) {
-			if (is_dir($path . $themeDir)) {
-				return $path . $themeDir . DS;
-			}
-		}
-		return self::$_packages['View'][0] . $themeDir . DS;
-	}
+    public static function themePath($theme) {
+        $themeDir = 'Themed' . DS . Inflector::camelize($theme);
+        foreach (self::$_packages['View'] as $path) {
+            if (is_dir($path . $themeDir)) {
+                return $path . $themeDir . DS;
+            }
+        }
+        return self::$_packages['View'][0] . $themeDir . DS;
+    }
 
 /**
  * Returns the full path to a package inside the CakePHP core
@@ -396,9 +396,9 @@ class App {
  * @return array full path to package
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::core
  */
-	public static function core($type) {
-		return array(CAKE . str_replace('/', DS, $type) . DS);
-	}
+    public static function core($type) {
+        return array(CAKE . str_replace('/', DS, $type) . DS);
+    }
 
 /**
  * Returns an array of objects of the given type.
@@ -423,82 +423,82 @@ class App {
  * @return mixed Either false on incorrect / miss.  Or an array of found objects.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::objects
  */
-	public static function objects($type, $path = null, $cache = true) {
-		$extension = '/\.php$/';
-		$includeDirectories = false;
-		$name = $type;
+    public static function objects($type, $path = null, $cache = true) {
+        $extension = '/\.php$/';
+        $includeDirectories = false;
+        $name = $type;
 
-		if ($type === 'plugin') {
-			$type = 'plugins';
-		}
+        if ($type === 'plugin') {
+            $type = 'plugins';
+        }
 
-		if ($type == 'plugins') {
-			$extension = '/.*/';
-			$includeDirectories = true;
-		}
+        if ($type == 'plugins') {
+            $extension = '/.*/';
+            $includeDirectories = true;
+        }
 
-		list($plugin, $type) = pluginSplit($type);
+        list($plugin, $type) = pluginSplit($type);
 
-		if (isset(self::$legacy[$type . 's'])) {
-			$type = self::$legacy[$type . 's'];
-		}
+        if (isset(self::$legacy[$type . 's'])) {
+            $type = self::$legacy[$type . 's'];
+        }
 
-		if ($type === 'file' && !$path) {
-			return false;
-		} elseif ($type === 'file') {
-			$extension = '/\.php$/';
-			$name = $type . str_replace(DS, '', $path);
-		}
+        if ($type === 'file' && !$path) {
+            return false;
+        } elseif ($type === 'file') {
+            $extension = '/\.php$/';
+            $name = $type . str_replace(DS, '', $path);
+        }
 
-		if (empty(self::$_objects) && $cache === true) {
-			self::$_objects = Cache::read('object_map', '_cake_core_');
-		}
+        if (empty(self::$_objects) && $cache === true) {
+            self::$_objects = Cache::read('object_map', '_cake_core_');
+        }
 
-		$cacheLocation = empty($plugin) ? 'app' : $plugin;
+        $cacheLocation = empty($plugin) ? 'app' : $plugin;
 
-		if ($cache !== true || !isset(self::$_objects[$cacheLocation][$name])) {
-			$objects = array();
+        if ($cache !== true || !isset(self::$_objects[$cacheLocation][$name])) {
+            $objects = array();
 
-			if (empty($path)) {
-				$path = self::path($type, $plugin);
-			}
+            if (empty($path)) {
+                $path = self::path($type, $plugin);
+            }
 
-			foreach ((array)$path as $dir) {
-				if ($dir != APP && is_dir($dir)) {
-					$files = new RegexIterator(new DirectoryIterator($dir), $extension);
-					foreach ($files as $file) {
-						$fileName = basename($file);
-						if (!$file->isDot() && $fileName[0] !== '.') {
-							$isDir = $file->isDir();
-							if ($isDir && $includeDirectories) {
-								$objects[] = $fileName;
-							} elseif (!$includeDirectories && !$isDir) {
-								$objects[] = substr($fileName, 0, -4);
-							}
-						}
-					}
-				}
-			}
+            foreach ((array)$path as $dir) {
+                if ($dir != APP && is_dir($dir)) {
+                    $files = new RegexIterator(new DirectoryIterator($dir), $extension);
+                    foreach ($files as $file) {
+                        $fileName = basename($file);
+                        if (!$file->isDot() && $fileName[0] !== '.') {
+                            $isDir = $file->isDir();
+                            if ($isDir && $includeDirectories) {
+                                $objects[] = $fileName;
+                            } elseif (!$includeDirectories && !$isDir) {
+                                $objects[] = substr($fileName, 0, -4);
+                            }
+                        }
+                    }
+                }
+            }
 
-			if ($type !== 'file') {
-				foreach ($objects as $key => $value) {
-					$objects[$key] = Inflector::camelize($value);
-				}
-			}
+            if ($type !== 'file') {
+                foreach ($objects as $key => $value) {
+                    $objects[$key] = Inflector::camelize($value);
+                }
+            }
 
-			sort($objects);
-			if ($plugin) {
-				return $objects;
-			}
+            sort($objects);
+            if ($plugin) {
+                return $objects;
+            }
 
-			self::$_objects[$cacheLocation][$name] = $objects;
-			if ($cache) {
-				self::$_objectCacheChange = true;
-			}
-		}
+            self::$_objects[$cacheLocation][$name] = $objects;
+            if ($cache) {
+                self::$_objectCacheChange = true;
+            }
+        }
 
-		return self::$_objects[$cacheLocation][$name];
-	}
+        return self::$_objects[$cacheLocation][$name];
+    }
 
 /**
  * Declares a package for a class. This package location will be used
@@ -515,9 +515,9 @@ class App {
  * @return void
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::uses
  */
-	public static function uses($className, $location) {
-		self::$_classMap[$className] = $location;
-	}
+    public static function uses($className, $location) {
+        self::$_classMap[$className] = $location;
+    }
 
 /**
  * Method to handle the automatic class loading. It will look for each class' package
@@ -528,41 +528,41 @@ class App {
  * @param string $className the name of the class to load
  * @return boolean
  */
-	public static function load($className) {
-		if (!isset(self::$_classMap[$className])) {
-			return false;
-		}
+    public static function load($className) {
+        if (!isset(self::$_classMap[$className])) {
+            return false;
+        }
 
-		$parts = explode('.', self::$_classMap[$className], 2);
-		list($plugin, $package) = count($parts) > 1 ? $parts : array(null, current($parts));
+        $parts = explode('.', self::$_classMap[$className], 2);
+        list($plugin, $package) = count($parts) > 1 ? $parts : array(null, current($parts));
 
-		if ($file = self::_mapped($className, $plugin)) {
-			return include $file;
-		}
-		$paths = self::path($package, $plugin);
+        if ($file = self::_mapped($className, $plugin)) {
+            return include $file;
+        }
+        $paths = self::path($package, $plugin);
 
-		if (empty($plugin)) {
-			$appLibs = empty(self::$_packages['Lib']) ? APPLIBS : current(self::$_packages['Lib']);
-			$paths[] = $appLibs . $package . DS;
-			$paths[] = APP . $package . DS;
-			$paths[] = CAKE . $package . DS;
-		} else {
-			$pluginPath = self::pluginPath($plugin);
-			$paths[] = $pluginPath . 'Lib' . DS . $package . DS;
-			$paths[] = $pluginPath . $package . DS;
-		}
+        if (empty($plugin)) {
+            $appLibs = empty(self::$_packages['Lib']) ? APPLIBS : current(self::$_packages['Lib']);
+            $paths[] = $appLibs . $package . DS;
+            $paths[] = APP . $package . DS;
+            $paths[] = CAKE . $package . DS;
+        } else {
+            $pluginPath = self::pluginPath($plugin);
+            $paths[] = $pluginPath . 'Lib' . DS . $package . DS;
+            $paths[] = $pluginPath . $package . DS;
+        }
 
-		$normalizedClassName = str_replace('\\', DS, $className);
-		foreach ($paths as $path) {
-			$file = $path . $normalizedClassName . '.php';
-			if (file_exists($file)) {
-				self::_map($file, $className, $plugin);
-				return include $file;
-			}
-		}
+        $normalizedClassName = str_replace('\\', DS, $className);
+        foreach ($paths as $path) {
+            $file = $path . $normalizedClassName . '.php';
+            if (file_exists($file)) {
+                self::_map($file, $className, $plugin);
+                return include $file;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 /**
  * Returns the package name where a class was defined to be located at
@@ -571,12 +571,12 @@ class App {
  * @return string package name or null if not declared
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::location
  */
-	public static function location($className) {
-		if (!empty(self::$_classMap[$className])) {
-			return self::$_classMap[$className];
-		}
-		return null;
-	}
+    public static function location($className) {
+        if (!empty(self::$_classMap[$className])) {
+            return self::$_classMap[$className];
+        }
+        return null;
+    }
 
 /**
  * Finds classes based on $name or specific file(s) to search.  Calling App::import() will
@@ -596,56 +596,56 @@ class App {
  *                         statement in it to work: return $variable;
  * @return boolean true if Class is already in memory or if file is found and loaded, false if not
  */
-	public static function import($type = null, $name = null, $parent = true, $search = array(), $file = null, $return = false) {
-		$ext = null;
+    public static function import($type = null, $name = null, $parent = true, $search = array(), $file = null, $return = false) {
+        $ext = null;
 
-		if (is_array($type)) {
-			extract($type, EXTR_OVERWRITE);
-		}
+        if (is_array($type)) {
+            extract($type, EXTR_OVERWRITE);
+        }
 
-		if (is_array($parent)) {
-			extract($parent, EXTR_OVERWRITE);
-		}
+        if (is_array($parent)) {
+            extract($parent, EXTR_OVERWRITE);
+        }
 
-		if ($name == null && $file == null) {
-			return false;
-		}
+        if ($name == null && $file == null) {
+            return false;
+        }
 
-		if (is_array($name)) {
-			foreach ($name as $class) {
-				if (!App::import(compact('type', 'parent', 'search', 'file', 'return') + array('name' => $class))) {
-					return false;
-				}
-			}
-			return true;
-		}
+        if (is_array($name)) {
+            foreach ($name as $class) {
+                if (!App::import(compact('type', 'parent', 'search', 'file', 'return') + array('name' => $class))) {
+                    return false;
+                }
+            }
+            return true;
+        }
 
-		$originalType = strtolower($type);
-		$specialPackage = in_array($originalType, array('file', 'vendor'));
-		if (!$specialPackage && isset(self::$legacy[$originalType . 's'])) {
-			$type = self::$legacy[$originalType . 's'];
-		}
-		list($plugin, $name) = pluginSplit($name);
-		if (!empty($plugin)) {
-			if (!CakePlugin::loaded($plugin)) {
-				return false;
-			}
-		}
+        $originalType = strtolower($type);
+        $specialPackage = in_array($originalType, array('file', 'vendor'));
+        if (!$specialPackage && isset(self::$legacy[$originalType . 's'])) {
+            $type = self::$legacy[$originalType . 's'];
+        }
+        list($plugin, $name) = pluginSplit($name);
+        if (!empty($plugin)) {
+            if (!CakePlugin::loaded($plugin)) {
+                return false;
+            }
+        }
 
-		if (!$specialPackage) {
-			return self::_loadClass($name, $plugin, $type, $originalType, $parent);
-		}
+        if (!$specialPackage) {
+            return self::_loadClass($name, $plugin, $type, $originalType, $parent);
+        }
 
-		if ($originalType == 'file' && !empty($file)) {
-			return self::_loadFile($name, $plugin, $search, $file, $return);
-		}
+        if ($originalType == 'file' && !empty($file)) {
+            return self::_loadFile($name, $plugin, $search, $file, $return);
+        }
 
-		if ($originalType == 'vendor') {
-			return self::_loadVendor($name, $plugin, $file, $ext);
-		}
+        if ($originalType == 'vendor') {
+            return self::_loadVendor($name, $plugin, $file, $ext);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 /**
  * Helper function to include classes
@@ -658,33 +658,33 @@ class App {
  * @param boolean $parent whether to load the class parent or not
  * @return boolean true indicating the successful load and existence of the class
  */
-	protected static function _loadClass($name, $plugin, $type, $originalType, $parent) {
-		if ($type == 'Console/Command' && $name == 'Shell') {
-			$type = 'Console';
-		} elseif (isset(self::$types[$originalType]['suffix'])) {
-			$suffix = self::$types[$originalType]['suffix'];
-			$name .= ($suffix == $name) ? '' : $suffix;
-		}
-		if ($parent && isset(self::$types[$originalType]['extends'])) {
-			$extends = self::$types[$originalType]['extends'];
-			$extendType = $type;
-			if (strpos($extends, '/') !== false) {
-				$parts = explode('/', $extends);
-				$extends = array_pop($parts);
-				$extendType = implode('/', $parts);
-			}
-			App::uses($extends, $extendType);
-			if ($plugin && in_array($originalType, array('controller', 'model'))) {
-				App::uses($plugin . $extends, $plugin . '.' . $type);
-			}
-		}
-		if ($plugin) {
-			$plugin .= '.';
-		}
-		$name = Inflector::camelize($name);
-		App::uses($name, $plugin . $type);
-		return class_exists($name);
-	}
+    protected static function _loadClass($name, $plugin, $type, $originalType, $parent) {
+        if ($type == 'Console/Command' && $name == 'Shell') {
+            $type = 'Console';
+        } elseif (isset(self::$types[$originalType]['suffix'])) {
+            $suffix = self::$types[$originalType]['suffix'];
+            $name .= ($suffix == $name) ? '' : $suffix;
+        }
+        if ($parent && isset(self::$types[$originalType]['extends'])) {
+            $extends = self::$types[$originalType]['extends'];
+            $extendType = $type;
+            if (strpos($extends, '/') !== false) {
+                $parts = explode('/', $extends);
+                $extends = array_pop($parts);
+                $extendType = implode('/', $parts);
+            }
+            App::uses($extends, $extendType);
+            if ($plugin && in_array($originalType, array('controller', 'model'))) {
+                App::uses($plugin . $extends, $plugin . '.' . $type);
+            }
+        }
+        if ($plugin) {
+            $plugin .= '.';
+        }
+        $name = Inflector::camelize($name);
+        App::uses($name, $plugin . $type);
+        return class_exists($name);
+    }
 
 /**
  * Helper function to include single files
@@ -696,33 +696,33 @@ class App {
  * @param boolean $return whether this function should return the contents of the file after being parsed by php or just a success notice
  * @return mixed if $return contents of the file after php parses it, boolean indicating success otherwise
  */
-	protected static function _loadFile($name, $plugin, $search, $file, $return) {
-		$mapped = self::_mapped($name, $plugin);
-		if ($mapped) {
-			$file = $mapped;
-		} elseif (!empty($search)) {
-			foreach ($search as $path) {
-				$found = false;
-				if (file_exists($path . $file)) {
-					$file = $path . $file;
-					$found = true;
-					break;
-				}
-				if (empty($found)) {
-					$file = false;
-				}
-			}
-		}
-		if (!empty($file) && file_exists($file)) {
-			self::_map($file, $name, $plugin);
-			$returnValue = include $file;
-			if ($return) {
-				return $returnValue;
-			}
-			return (bool)$returnValue;
-		}
-		return false;
-	}
+    protected static function _loadFile($name, $plugin, $search, $file, $return) {
+        $mapped = self::_mapped($name, $plugin);
+        if ($mapped) {
+            $file = $mapped;
+        } elseif (!empty($search)) {
+            foreach ($search as $path) {
+                $found = false;
+                if (file_exists($path . $file)) {
+                    $file = $path . $file;
+                    $found = true;
+                    break;
+                }
+                if (empty($found)) {
+                    $file = false;
+                }
+            }
+        }
+        if (!empty($file) && file_exists($file)) {
+            self::_map($file, $name, $plugin);
+            $returnValue = include $file;
+            if ($return) {
+                return $returnValue;
+            }
+            return (bool)$returnValue;
+        }
+        return false;
+    }
 
 /**
  * Helper function to load files from vendors folders
@@ -733,43 +733,43 @@ class App {
  * @param string $ext file extension if known
  * @return boolean true if the file was loaded successfully, false otherwise
  */
-	protected static function _loadVendor($name, $plugin, $file, $ext) {
-		if ($mapped = self::_mapped($name, $plugin)) {
-			return (bool)include_once $mapped;
-		}
-		$fileTries = array();
-		$paths = ($plugin) ? App::path('vendors', $plugin) : App::path('vendors');
-		if (empty($ext)) {
-			$ext = 'php';
-		}
-		if (empty($file)) {
-			$fileTries[] = $name . '.' . $ext;
-			$fileTries[] = Inflector::underscore($name) . '.' . $ext;
-		} else {
-			$fileTries[] = $file;
-		}
+    protected static function _loadVendor($name, $plugin, $file, $ext) {
+        if ($mapped = self::_mapped($name, $plugin)) {
+            return (bool)include_once $mapped;
+        }
+        $fileTries = array();
+        $paths = ($plugin) ? App::path('vendors', $plugin) : App::path('vendors');
+        if (empty($ext)) {
+            $ext = 'php';
+        }
+        if (empty($file)) {
+            $fileTries[] = $name . '.' . $ext;
+            $fileTries[] = Inflector::underscore($name) . '.' . $ext;
+        } else {
+            $fileTries[] = $file;
+        }
 
-		foreach ($fileTries as $file) {
-			foreach ($paths as $path) {
-				if (file_exists($path . $file)) {
-					self::_map($path . $file, $name, $plugin);
-					return (bool)include $path . $file;
-				}
-			}
-		}
-		return false;
-	}
+        foreach ($fileTries as $file) {
+            foreach ($paths as $path) {
+                if (file_exists($path . $file)) {
+                    self::_map($path . $file, $name, $plugin);
+                    return (bool)include $path . $file;
+                }
+            }
+        }
+        return false;
+    }
 
 /**
  * Initializes the cache for App, registers a shutdown function.
  *
  * @return void
  */
-	public static function init() {
-		self::$_map += (array)Cache::read('file_map', '_cake_core_');
-		self::$_objects += (array)Cache::read('object_map', '_cake_core_');
-		register_shutdown_function(array('App', 'shutdown'));
-	}
+    public static function init() {
+        self::$_map += (array)Cache::read('file_map', '_cake_core_');
+        self::$_objects += (array)Cache::read('object_map', '_cake_core_');
+        register_shutdown_function(array('App', 'shutdown'));
+    }
 
 /**
  * Maps the $name to the $file.
@@ -779,21 +779,21 @@ class App {
  * @param string $plugin camelized if object is from a plugin, the name of the plugin
  * @return void
  */
-	protected static function _map($file, $name, $plugin = null) {
-		$key = $name;
-		if ($plugin) {
-			$key = 'plugin.' . $name;
-		}
-		if ($plugin && empty(self::$_map[$name])) {
-			self::$_map[$key] = $file;
-		}
-		if (!$plugin && empty(self::$_map['plugin.' . $name])) {
-			self::$_map[$key] = $file;
-		}
-		if (!self::$bootstrapping) {
-			self::$_cacheChange = true;
-		}
-	}
+    protected static function _map($file, $name, $plugin = null) {
+        $key = $name;
+        if ($plugin) {
+            $key = 'plugin.' . $name;
+        }
+        if ($plugin && empty(self::$_map[$name])) {
+            self::$_map[$key] = $file;
+        }
+        if (!$plugin && empty(self::$_map['plugin.' . $name])) {
+            self::$_map[$key] = $file;
+        }
+        if (!self::$bootstrapping) {
+            self::$_cacheChange = true;
+        }
+    }
 
 /**
  * Returns a file's complete path.
@@ -802,83 +802,83 @@ class App {
  * @param string $plugin camelized if object is from a plugin, the name of the plugin
  * @return mixed file path if found, false otherwise
  */
-	protected static function _mapped($name, $plugin = null) {
-		$key = $name;
-		if ($plugin) {
-			$key = 'plugin.' . $name;
-		}
-		return isset(self::$_map[$key]) ? self::$_map[$key] : false;
-	}
+    protected static function _mapped($name, $plugin = null) {
+        $key = $name;
+        if ($plugin) {
+            $key = 'plugin.' . $name;
+        }
+        return isset(self::$_map[$key]) ? self::$_map[$key] : false;
+    }
 
 /**
  * Sets then returns the templates for each customizable package path
  *
  * @return array templates for each customizable package path
  */
-	protected static function _packageFormat() {
-		if (empty(self::$_packageFormat)) {
-			self::$_packageFormat = array(
-				'Model' => array(
-					'%s' . 'Model' . DS
-				),
-				'Model/Behavior' => array(
-					'%s' . 'Model' . DS . 'Behavior' . DS
-				),
-				'Model/Datasource' => array(
-					'%s' . 'Model' . DS . 'Datasource' . DS
-				),
-				'Model/Datasource/Database' => array(
-					'%s' . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
-				),
-				'Model/Datasource/Session' => array(
-					'%s' . 'Model' . DS . 'Datasource' . DS . 'Session' . DS
-				),
-				'Controller' => array(
-					'%s' . 'Controller' . DS
-				),
-				'Controller/Component' => array(
-					'%s' . 'Controller' . DS . 'Component' . DS
-				),
-				'Controller/Component/Auth' => array(
-					'%s' . 'Controller' . DS . 'Component' . DS . 'Auth' . DS
-				),
-				'Controller/Component/Acl' => array(
-					'%s' . 'Controller' . DS . 'Component' . DS . 'Acl' . DS
-				),
-				'View' => array(
-					'%s' . 'View' . DS
-				),
-				'View/Helper' => array(
-					'%s' . 'View' . DS . 'Helper' . DS
-				),
-				'Console' => array(
-					'%s' . 'Console' . DS
-				),
-				'Console/Command' => array(
-					'%s' . 'Console' . DS . 'Command' . DS
-				),
-				'Console/Command/Task' => array(
-					'%s' . 'Console' . DS . 'Command' . DS . 'Task' . DS
-				),
-				'Lib' => array(
-					'%s' . 'Lib' . DS
-				),
-				'Locale' => array(
-					'%s' . 'Locale' . DS
-				),
-				'Vendor' => array(
-					'%s' . 'Vendor' . DS,
-					dirname(dirname(CAKE)) . DS . 'vendors' . DS,
-				),
-				'Plugin' => array(
-					APP . 'Plugin' . DS,
-					dirname(dirname(CAKE)) . DS . 'plugins' . DS
-				)
-			);
-		}
+    protected static function _packageFormat() {
+        if (empty(self::$_packageFormat)) {
+            self::$_packageFormat = array(
+                'Model' => array(
+                    '%s' . 'Model' . DS
+                ),
+                'Model/Behavior' => array(
+                    '%s' . 'Model' . DS . 'Behavior' . DS
+                ),
+                'Model/Datasource' => array(
+                    '%s' . 'Model' . DS . 'Datasource' . DS
+                ),
+                'Model/Datasource/Database' => array(
+                    '%s' . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
+                ),
+                'Model/Datasource/Session' => array(
+                    '%s' . 'Model' . DS . 'Datasource' . DS . 'Session' . DS
+                ),
+                'Controller' => array(
+                    '%s' . 'Controller' . DS
+                ),
+                'Controller/Component' => array(
+                    '%s' . 'Controller' . DS . 'Component' . DS
+                ),
+                'Controller/Component/Auth' => array(
+                    '%s' . 'Controller' . DS . 'Component' . DS . 'Auth' . DS
+                ),
+                'Controller/Component/Acl' => array(
+                    '%s' . 'Controller' . DS . 'Component' . DS . 'Acl' . DS
+                ),
+                'View' => array(
+                    '%s' . 'View' . DS
+                ),
+                'View/Helper' => array(
+                    '%s' . 'View' . DS . 'Helper' . DS
+                ),
+                'Console' => array(
+                    '%s' . 'Console' . DS
+                ),
+                'Console/Command' => array(
+                    '%s' . 'Console' . DS . 'Command' . DS
+                ),
+                'Console/Command/Task' => array(
+                    '%s' . 'Console' . DS . 'Command' . DS . 'Task' . DS
+                ),
+                'Lib' => array(
+                    '%s' . 'Lib' . DS
+                ),
+                'Locale' => array(
+                    '%s' . 'Locale' . DS
+                ),
+                'Vendor' => array(
+                    '%s' . 'Vendor' . DS,
+                    dirname(dirname(CAKE)) . DS . 'vendors' . DS,
+                ),
+                'Plugin' => array(
+                    APP . 'Plugin' . DS,
+                    dirname(dirname(CAKE)) . DS . 'plugins' . DS
+                )
+            );
+        }
 
-		return self::$_packageFormat;
-	}
+        return self::$_packageFormat;
+    }
 
 /**
  * Object destructor.
@@ -888,42 +888,42 @@ class App {
  *
  * @return void
  */
-	public static function shutdown() {
-		if (self::$_cacheChange) {
-			Cache::write('file_map', array_filter(self::$_map), '_cake_core_');
-		}
-		if (self::$_objectCacheChange) {
-			Cache::write('object_map', self::$_objects, '_cake_core_');
-		}
+    public static function shutdown() {
+        if (self::$_cacheChange) {
+            Cache::write('file_map', array_filter(self::$_map), '_cake_core_');
+        }
+        if (self::$_objectCacheChange) {
+            Cache::write('object_map', self::$_objects, '_cake_core_');
+        }
 
-		self::_checkFatalError();
-	}
+        self::_checkFatalError();
+    }
 
 /**
  * Check if a fatal error happened and trigger the configured handler if configured
  *
  * @return void
  */
-	protected static function _checkFatalError() {
-		$lastError = error_get_last();
-		if (!is_array($lastError)) {
-			return;
-		}
+    protected static function _checkFatalError() {
+        $lastError = error_get_last();
+        if (!is_array($lastError)) {
+            return;
+        }
 
-		list(, $log) = ErrorHandler::mapErrorCode($lastError['type']);
-		if ($log !== LOG_ERR) {
-			return;
-		}
+        list(, $log) = ErrorHandler::mapErrorCode($lastError['type']);
+        if ($log !== LOG_ERR) {
+            return;
+        }
 
-		if (PHP_SAPI === 'cli') {
-			$errorHandler = Configure::read('Error.consoleHandler');
-		} else {
-			$errorHandler = Configure::read('Error.handler');
-		}
-		if (!is_callable($errorHandler)) {
-			return;
-		}
-		call_user_func($errorHandler, $lastError['type'], $lastError['message'], $lastError['file'], $lastError['line'], array());
-	}
+        if (PHP_SAPI === 'cli') {
+            $errorHandler = Configure::read('Error.consoleHandler');
+        } else {
+            $errorHandler = Configure::read('Error.handler');
+        }
+        if (!is_callable($errorHandler)) {
+            return;
+        }
+        call_user_func($errorHandler, $lastError['type'], $lastError['message'], $lastError['file'], $lastError['line'], array());
+    }
 
 }

@@ -18,20 +18,20 @@
  */
 class TestsController extends TestPluginAppController {
 
-	public $name = 'Tests';
+    public $name = 'Tests';
 
-	public $uses = array();
+    public $uses = array();
 
-	public $helpers = array('TestPlugin.OtherHelper', 'Html');
+    public $helpers = array('TestPlugin.OtherHelper', 'Html');
 
-	public $components = array('TestPlugin.Plugins');
+    public $components = array('TestPlugin.Plugins');
 
-	public function index() {
-		$this->set('test_value', 'It is a variable');
-	}
+    public function index() {
+        $this->set('test_value', 'It is a variable');
+    }
 
-	public function some_method() {
-		return 25;
-	}
+    public function some_method() {
+        return 25;
+    }
 
 }

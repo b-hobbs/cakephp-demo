@@ -29,23 +29,23 @@ class SessionFixture extends CakeTestFixture {
  *
  * @var string 'Session'
  */
-	public $name = 'Session';
+    public $name = 'Session';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'string', 'length' => 128, 'key' => 'primary'),
-		'data' => array('type' => 'text','null' => true),
-		'expires' => array('type' => 'integer', 'length' => 11, 'null' => true)
-	);
+    public $fields = array(
+        'id' => array('type' => 'string', 'length' => 128, 'key' => 'primary'),
+        'data' => array('type' => 'text','null' => true),
+        'expires' => array('type' => 'integer', 'length' => 11, 'null' => true)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+    public $records = array();
 }

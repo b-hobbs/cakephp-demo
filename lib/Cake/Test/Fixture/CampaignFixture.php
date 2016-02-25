@@ -30,26 +30,26 @@ class CampaignFixture extends CakeTestFixture {
  *
  * @var string 'Campaign'
  */
-	public $name = 'Campaign';
+    public $name = 'Campaign';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'length' => 255, 'null' => false),
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'length' => 255, 'null' => false),
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'Hurtigruten'),
-		array('name' => 'Colorline'),
-		array('name' => 'Queen of Scandinavia')
-	);
+    public $records = array(
+        array('name' => 'Hurtigruten'),
+        array('name' => 'Colorline'),
+        array('name' => 'Queen of Scandinavia')
+    );
 }

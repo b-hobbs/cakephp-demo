@@ -20,11 +20,11 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
  * data.  Can be used by configuring AuthComponent to use it via the AuthComponent::$authenticate setting.
  *
  * {{{
- *	$this->Auth->authenticate = array(
- *		'Form' => array(
- *			'scope' => array('User.active' => 1)
- *		)
- *	)
+ *  $this->Auth->authenticate = array(
+ *      'Form' => array(
+ *          'scope' => array('User.active' => 1)
+ *      )
+ *  )
  * }}}
  *
  * When configuring FormAuthenticate you can pass in settings to which fields, model and additional conditions
@@ -45,24 +45,24 @@ class FormAuthenticate extends BaseAuthenticate {
  * @param CakeResponse $response Unused response object.
  * @return mixed.  False on login failure.  An array of User data on success.
  */
-	public function authenticate(CakeRequest $request, CakeResponse $response) {
-		$userModel = $this->settings['userModel'];
-		list($plugin, $model) = pluginSplit($userModel);
+    public function authenticate(CakeRequest $request, CakeResponse $response) {
+        $userModel = $this->settings['userModel'];
+        list($plugin, $model) = pluginSplit($userModel);
 
-		$fields = $this->settings['fields'];
-		if (empty($request->data[$model])) {
-			return false;
-		}
-		if (
-			empty($request->data[$model][$fields['username']]) ||
-			empty($request->data[$model][$fields['password']])
-		) {
-			return false;
-		}
-		return $this->_findUser(
-			$request->data[$model][$fields['username']],
-			$request->data[$model][$fields['password']]
-		);
-	}
+        $fields = $this->settings['fields'];
+        if (empty($request->data[$model])) {
+            return false;
+        }
+        if (
+            empty($request->data[$model][$fields['username']]) ||
+            empty($request->data[$model][$fields['password']])
+        ) {
+            return false;
+        }
+        return $this->_findUser(
+            $request->data[$model][$fields['username']],
+            $request->data[$model][$fields['password']]
+        );
+    }
 
 }

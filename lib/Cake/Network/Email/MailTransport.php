@@ -31,24 +31,24 @@ class MailTransport extends AbstractTransport {
  * @return array
  * @throws SocketException When mail cannot be sent.
  */
-	public function send(CakeEmail $email) {
-		$eol = PHP_EOL;
-		if (isset($this->_config['eol'])) {
-			$eol = $this->_config['eol'];
-		}
-		$headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc'));
-		$to = $headers['To'];
-		unset($headers['To']);
-		$headers = $this->_headersToString($headers, $eol);
-		$message = implode($eol, $email->message());
-		if (ini_get('safe_mode') || !isset($this->_config['additionalParameters'])) {
-			if (!@mail($to, $email->subject(), $message, $headers)) {
-				throw new SocketException(__d('cake_dev', 'Could not send email.'));
-			}
-		} elseif (!@mail($to, $email->subject(), $message, $headers, $this->_config['additionalParameters'])) {
-			throw new SocketException(__d('cake_dev', 'Could not send email.'));
-		}
-		return array('headers' => $headers, 'message' => $message);
-	}
+    public function send(CakeEmail $email) {
+        $eol = PHP_EOL;
+        if (isset($this->_config['eol'])) {
+            $eol = $this->_config['eol'];
+        }
+        $headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc'));
+        $to = $headers['To'];
+        unset($headers['To']);
+        $headers = $this->_headersToString($headers, $eol);
+        $message = implode($eol, $email->message());
+        if (ini_get('safe_mode') || !isset($this->_config['additionalParameters'])) {
+            if (!@mail($to, $email->subject(), $message, $headers)) {
+                throw new SocketException(__d('cake_dev', 'Could not send email.'));
+            }
+        } elseif (!@mail($to, $email->subject(), $message, $headers, $this->_config['additionalParameters'])) {
+            throw new SocketException(__d('cake_dev', 'Could not send email.'));
+        }
+        return array('headers' => $headers, 'message' => $message);
+    }
 
 }

@@ -31,7 +31,7 @@ class ApcEngine extends CacheEngine {
  *
  * @var array
  **/
-	protected $_compiledGroupNames = array();
+    protected $_compiledGroupNames = array();
 
 /**
  * Initialize the Cache Engine
@@ -43,14 +43,14 @@ class ApcEngine extends CacheEngine {
  * @return boolean True if the engine has been successfully initialized, false if not
  * @see CacheEngine::__defaults
  */
-	public function init($settings = array()) {
-		if (!isset($settings['prefix'])) {
-			$settings['prefix'] = Inflector::slug(APP_DIR) . '_';
-		}
-		$settings += array('engine' => 'Apc');
-		parent::init($settings);
-		return function_exists('apc_dec');
-	}
+    public function init($settings = array()) {
+        if (!isset($settings['prefix'])) {
+            $settings['prefix'] = Inflector::slug(APP_DIR) . '_';
+        }
+        $settings += array('engine' => 'Apc');
+        parent::init($settings);
+        return function_exists('apc_dec');
+    }
 
 /**
  * Write data for key into cache
@@ -60,15 +60,15 @@ class ApcEngine extends CacheEngine {
  * @param integer $duration How long to cache the data, in seconds
  * @return boolean True if the data was successfully cached, false on failure
  */
-	public function write($key, $value, $duration) {
-		if ($duration == 0) {
-			$expires = 0;
-		} else {
-			$expires = time() + $duration;
-		}
-		apc_store($key . '_expires', $expires, $duration);
-		return apc_store($key, $value, $duration);
-	}
+    public function write($key, $value, $duration) {
+        if ($duration == 0) {
+            $expires = 0;
+        } else {
+            $expires = time() + $duration;
+        }
+        apc_store($key . '_expires', $expires, $duration);
+        return apc_store($key, $value, $duration);
+    }
 
 /**
  * Read a key from the cache
@@ -76,14 +76,14 @@ class ApcEngine extends CacheEngine {
  * @param string $key Identifier for the data
  * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
  */
-	public function read($key) {
-		$time = time();
-		$cachetime = intval(apc_fetch($key . '_expires'));
-		if ($cachetime !== 0 && ($cachetime < $time || ($time + $this->settings['duration']) < $cachetime)) {
-			return false;
-		}
-		return apc_fetch($key);
-	}
+    public function read($key) {
+        $time = time();
+        $cachetime = intval(apc_fetch($key . '_expires'));
+        if ($cachetime !== 0 && ($cachetime < $time || ($time + $this->settings['duration']) < $cachetime)) {
+            return false;
+        }
+        return apc_fetch($key);
+    }
 
 /**
  * Increments the value of an integer cached key
@@ -92,9 +92,9 @@ class ApcEngine extends CacheEngine {
  * @param integer $offset How much to increment
  * @return New incremented value, false otherwise
  */
-	public function increment($key, $offset = 1) {
-		return apc_inc($key, $offset);
-	}
+    public function increment($key, $offset = 1) {
+        return apc_inc($key, $offset);
+    }
 
 /**
  * Decrements the value of an integer cached key
@@ -103,9 +103,9 @@ class ApcEngine extends CacheEngine {
  * @param integer $offset How much to subtract
  * @return New decremented value, false otherwise
  */
-	public function decrement($key, $offset = 1) {
-		return apc_dec($key, $offset);
-	}
+    public function decrement($key, $offset = 1) {
+        return apc_dec($key, $offset);
+    }
 
 /**
  * Delete a key from the cache
@@ -113,9 +113,9 @@ class ApcEngine extends CacheEngine {
  * @param string $key Identifier for the data
  * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
  */
-	public function delete($key) {
-		return apc_delete($key);
-	}
+    public function delete($key) {
+        return apc_delete($key);
+    }
 
 /**
  * Delete all keys from the cache.  This will clear every cache config using APC.
@@ -124,20 +124,20 @@ class ApcEngine extends CacheEngine {
  *    from APC as they expired.  This flag is really only used by FileEngine.
  * @return boolean True Returns true.
  */
-	public function clear($check) {
-		if ($check) {
-			return true;
-		}
-		$info = apc_cache_info('user');
-		$cacheKeys = $info['cache_list'];
-		unset($info);
-		foreach ($cacheKeys as $key) {
-			if (strpos($key['info'], $this->settings['prefix']) === 0) {
-				apc_delete($key['info']);
-			}
-		}
-		return true;
-	}
+    public function clear($check) {
+        if ($check) {
+            return true;
+        }
+        $info = apc_cache_info('user');
+        $cacheKeys = $info['cache_list'];
+        unset($info);
+        foreach ($cacheKeys as $key) {
+            if (strpos($key['info'], $this->settings['prefix']) === 0) {
+                apc_delete($key['info']);
+            }
+        }
+        return true;
+    }
 
 /**
  * Returns the `group value` for each of the configured groups
@@ -146,31 +146,31 @@ class ApcEngine extends CacheEngine {
  *
  * @return array
  **/
-	public function groups() {
-		if (empty($this->_compiledGroupNames)) {
-			foreach ($this->settings['groups'] as $group) {
-				$this->_compiledGroupNames[] = $this->settings['prefix'] . $group;
-			}
-		}
+    public function groups() {
+        if (empty($this->_compiledGroupNames)) {
+            foreach ($this->settings['groups'] as $group) {
+                $this->_compiledGroupNames[] = $this->settings['prefix'] . $group;
+            }
+        }
 
-		$groups = apc_fetch($this->_compiledGroupNames);
-		if (count($groups) !== count($this->settings['groups'])) {
-			foreach ($this->_compiledGroupNames as $group) {
-				if (!isset($groups[$group])) {
-					apc_store($group, 1);
-					$groups[$group] = 1;
-				}
-			}
-			ksort($groups);
-		}
+        $groups = apc_fetch($this->_compiledGroupNames);
+        if (count($groups) !== count($this->settings['groups'])) {
+            foreach ($this->_compiledGroupNames as $group) {
+                if (!isset($groups[$group])) {
+                    apc_store($group, 1);
+                    $groups[$group] = 1;
+                }
+            }
+            ksort($groups);
+        }
 
-		$result = array();
-		$groups = array_values($groups);
-		foreach ($this->settings['groups'] as $i => $group) {
-			$result[] = $group . $groups[$i];
-		}
-		return $result;
-	}
+        $result = array();
+        $groups = array_values($groups);
+        foreach ($this->settings['groups'] as $i => $group) {
+            $result[] = $group . $groups[$i];
+        }
+        return $result;
+    }
 
 /**
  * Increments the group value to simulate deletion of all keys under a group
@@ -178,9 +178,9 @@ class ApcEngine extends CacheEngine {
  *
  * @return boolean success
  **/
-	public function clearGroup($group) {
-		apc_inc($this->settings['prefix'] . $group, 1, $success);
-		return $success;
-	}
+    public function clearGroup($group) {
+        apc_inc($this->settings['prefix'] . $group, 1, $success);
+        return $success;
+    }
 
 }

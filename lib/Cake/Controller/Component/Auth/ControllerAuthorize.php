@@ -20,12 +20,12 @@ App::uses('BaseAuthorize', 'Controller/Component/Auth');
  * Your controller's isAuthorized() method should return a boolean to indicate whether or not the user is authorized.
  *
  * {{{
- *	public function isAuthorized($user) {
- *		if (!empty($this->request->params['admin'])) {
- *			return $user['role'] == 'admin';
- *		}
- *		return !empty($user);
- *	}
+ *  public function isAuthorized($user) {
+ *      if (!empty($this->request->params['admin'])) {
+ *          return $user['role'] == 'admin';
+ *      }
+ *      return !empty($user);
+ *  }
  * }}}
  *
  * the above is simple implementation that would only authorize users of the 'admin' role to access
@@ -44,14 +44,14 @@ class ControllerAuthorize extends BaseAuthorize {
  * @return mixed
  * @throws CakeException
  */
-	public function controller(Controller $controller = null) {
-		if ($controller) {
-			if (!method_exists($controller, 'isAuthorized')) {
-				throw new CakeException(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
-			}
-		}
-		return parent::controller($controller);
-	}
+    public function controller(Controller $controller = null) {
+        if ($controller) {
+            if (!method_exists($controller, 'isAuthorized')) {
+                throw new CakeException(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
+            }
+        }
+        return parent::controller($controller);
+    }
 
 /**
  * Checks user authorization using a controller callback.
@@ -60,8 +60,8 @@ class ControllerAuthorize extends BaseAuthorize {
  * @param CakeRequest $request
  * @return boolean
  */
-	public function authorize($user, CakeRequest $request) {
-		return (bool)$this->_Controller->isAuthorized($user);
-	}
+    public function authorize($user, CakeRequest $request) {
+        return (bool)$this->_Controller->isAuthorized($user);
+    }
 
 }

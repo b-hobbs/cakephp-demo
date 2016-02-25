@@ -19,12 +19,12 @@ $pluginDot = empty($plugin) ? null : $plugin . '.';
 ?>
 <h2><?php echo __d('cake_dev', 'Missing Behavior'); ?></h2>
 <p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', '%s could not be found.', '<em>' . $pluginDot . $class . '</em>'); ?>
+    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+    <?php echo __d('cake_dev', '%s could not be found.', '<em>' . $pluginDot . $class . '</em>'); ?>
 </p>
 <p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', 'Create the class %s below in file: %s', '<em>' . $class . '</em>', (empty($plugin) ? APP_DIR . DS : CakePlugin::path($plugin)) . 'Model' . DS . 'Behavior' . DS . $class . '.php'); ?>
+    <strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+    <?php echo __d('cake_dev', 'Create the class %s below in file: %s', '<em>' . $class . '</em>', (empty($plugin) ? APP_DIR . DS : CakePlugin::path($plugin)) . 'Model' . DS . 'Behavior' . DS . $class . '.php'); ?>
 </p>
 <pre>
 &lt;?php
@@ -33,8 +33,8 @@ class <?php echo $class; ?> extends ModelBehavior {
 }
 </pre>
 <p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_behavior.ctp'); ?>
+    <strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
+    <?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_behavior.ctp'); ?>
 </p>
 
 <?php echo $this->element('exception_stack_trace'); ?>

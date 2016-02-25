@@ -26,9 +26,9 @@ App::uses('CacheEngine', 'Cache');
  * be
  *
  * {{{
- *	Cache::config('shared', array(
- *		'engine' => 'Apc',
- *		'prefix' => 'my_app_'
+ *  Cache::config('shared', array(
+ *      'engine' => 'Apc',
+ *      'prefix' => 'my_app_'
  *  ));
  * }}}
  *
@@ -48,21 +48,21 @@ class Cache {
  *
  * @var array
  */
-	protected static $_config = array();
+    protected static $_config = array();
 
 /**
  * Whether to reset the settings with the next call to Cache::set();
  *
  * @var array
  */
-	protected static $_reset = false;
+    protected static $_reset = false;
 
 /**
  * Engine instances keyed by configuration name.
  *
  * @var array
  */
-	protected static $_engines = array();
+    protected static $_engines = array();
 
 /**
  * Set the cache configuration to use.  config() can
@@ -111,34 +111,34 @@ class Cache {
  * @return array(engine, settings) on success, false on failure
  * @throws CacheException
  */
-	public static function config($name = null, $settings = array()) {
-		if (is_array($name)) {
-			$settings = $name;
-		}
+    public static function config($name = null, $settings = array()) {
+        if (is_array($name)) {
+            $settings = $name;
+        }
 
-		$current = array();
-		if (isset(self::$_config[$name])) {
-			$current = self::$_config[$name];
-		}
+        $current = array();
+        if (isset(self::$_config[$name])) {
+            $current = self::$_config[$name];
+        }
 
-		if (!empty($settings)) {
-			self::$_config[$name] = array_merge($current, $settings);
-		}
+        if (!empty($settings)) {
+            self::$_config[$name] = array_merge($current, $settings);
+        }
 
-		if (empty(self::$_config[$name]['engine'])) {
-			return false;
-		}
+        if (empty(self::$_config[$name]['engine'])) {
+            return false;
+        }
 
-		$engine = self::$_config[$name]['engine'];
+        $engine = self::$_config[$name]['engine'];
 
-		if (!isset(self::$_engines[$name])) {
-			self::_buildEngine($name);
-			$settings = self::$_config[$name] = self::settings($name);
-		} elseif ($settings = self::set(self::$_config[$name], null, $name)) {
-			self::$_config[$name] = $settings;
-		}
-		return compact('engine', 'settings');
-	}
+        if (!isset(self::$_engines[$name])) {
+            self::_buildEngine($name);
+            $settings = self::$_config[$name] = self::settings($name);
+        } elseif ($settings = self::set(self::$_config[$name], null, $name)) {
+            self::$_config[$name] = $settings;
+        }
+        return compact('engine', 'settings');
+    }
 
 /**
  * Finds and builds the instance of the required engine class.
@@ -147,37 +147,37 @@ class Cache {
  * @return boolean
  * @throws CacheException
  */
-	protected static function _buildEngine($name) {
-		$config = self::$_config[$name];
+    protected static function _buildEngine($name) {
+        $config = self::$_config[$name];
 
-		list($plugin, $class) = pluginSplit($config['engine'], true);
-		$cacheClass = $class . 'Engine';
-		App::uses($cacheClass, $plugin . 'Cache/Engine');
-		if (!class_exists($cacheClass)) {
-			return false;
-		}
-		$cacheClass = $class . 'Engine';
-		if (!is_subclass_of($cacheClass, 'CacheEngine')) {
-			throw new CacheException(__d('cake_dev', 'Cache engines must use CacheEngine as a base class.'));
-		}
-		self::$_engines[$name] = new $cacheClass();
-		if (self::$_engines[$name]->init($config)) {
-			if (self::$_engines[$name]->settings['probability'] && time() % self::$_engines[$name]->settings['probability'] === 0) {
-				self::$_engines[$name]->gc();
-			}
-			return true;
-		}
-		return false;
-	}
+        list($plugin, $class) = pluginSplit($config['engine'], true);
+        $cacheClass = $class . 'Engine';
+        App::uses($cacheClass, $plugin . 'Cache/Engine');
+        if (!class_exists($cacheClass)) {
+            return false;
+        }
+        $cacheClass = $class . 'Engine';
+        if (!is_subclass_of($cacheClass, 'CacheEngine')) {
+            throw new CacheException(__d('cake_dev', 'Cache engines must use CacheEngine as a base class.'));
+        }
+        self::$_engines[$name] = new $cacheClass();
+        if (self::$_engines[$name]->init($config)) {
+            if (self::$_engines[$name]->settings['probability'] && time() % self::$_engines[$name]->settings['probability'] === 0) {
+                self::$_engines[$name]->gc();
+            }
+            return true;
+        }
+        return false;
+    }
 
 /**
  * Returns an array containing the currently configured Cache settings.
  *
  * @return array Array of configured Cache config names.
  */
-	public static function configured() {
-		return array_keys(self::$_config);
-	}
+    public static function configured() {
+        return array_keys(self::$_config);
+    }
 
 /**
  * Drops a cache engine.  Deletes the cache configuration information
@@ -187,13 +187,13 @@ class Cache {
  * @param string $name A currently configured cache config you wish to remove.
  * @return boolean success of the removal, returns false when the config does not exist.
  */
-	public static function drop($name) {
-		if (!isset(self::$_config[$name])) {
-			return false;
-		}
-		unset(self::$_config[$name], self::$_engines[$name]);
-		return true;
-	}
+    public static function drop($name) {
+        if (!isset(self::$_config[$name])) {
+            return false;
+        }
+        unset(self::$_config[$name], self::$_engines[$name]);
+        return true;
+    }
 
 /**
  * Temporarily change the settings on a cache config.  The settings will persist for the next write
@@ -218,34 +218,34 @@ class Cache {
  * @param string $config The configuration name you are changing. Defaults to 'default'
  * @return array Array of settings.
  */
-	public static function set($settings = array(), $value = null, $config = 'default') {
-		if (is_array($settings) && $value !== null) {
-			$config = $value;
-		}
-		if (!isset(self::$_config[$config]) || !isset(self::$_engines[$config])) {
-			return false;
-		}
-		if (!empty($settings)) {
-			self::$_reset = true;
-		}
+    public static function set($settings = array(), $value = null, $config = 'default') {
+        if (is_array($settings) && $value !== null) {
+            $config = $value;
+        }
+        if (!isset(self::$_config[$config]) || !isset(self::$_engines[$config])) {
+            return false;
+        }
+        if (!empty($settings)) {
+            self::$_reset = true;
+        }
 
-		if (self::$_reset === true) {
-			if (empty($settings)) {
-				self::$_reset = false;
-				$settings = self::$_config[$config];
-			} else {
-				if (is_string($settings) && $value !== null) {
-					$settings = array($settings => $value);
-				}
-				$settings = array_merge(self::$_config[$config], $settings);
-				if (isset($settings['duration']) && !is_numeric($settings['duration'])) {
-					$settings['duration'] = strtotime($settings['duration']) - time();
-				}
-			}
-			self::$_engines[$config]->settings = $settings;
-		}
-		return self::settings($config);
-	}
+        if (self::$_reset === true) {
+            if (empty($settings)) {
+                self::$_reset = false;
+                $settings = self::$_config[$config];
+            } else {
+                if (is_string($settings) && $value !== null) {
+                    $settings = array($settings => $value);
+                }
+                $settings = array_merge(self::$_config[$config], $settings);
+                if (isset($settings['duration']) && !is_numeric($settings['duration'])) {
+                    $settings['duration'] = strtotime($settings['duration']) - time();
+                }
+            }
+            self::$_engines[$config]->settings = $settings;
+        }
+        return self::settings($config);
+    }
 
 /**
  * Garbage collection
@@ -256,9 +256,9 @@ class Cache {
  * @param integer $expires [optional] An expires timestamp. Defaults to NULL
  * @return void
  */
-	public static function gc($config = 'default', $expires = null) {
-		self::$_engines[$config]->gc($expires);
-	}
+    public static function gc($config = 'default', $expires = null) {
+        self::$_engines[$config]->gc($expires);
+    }
 
 /**
  * Write data for key into cache. Will automatically use the currently
@@ -280,36 +280,36 @@ class Cache {
  * @param string $config Optional string configuration name to write to. Defaults to 'default'
  * @return boolean True if the data was successfully cached, false on failure
  */
-	public static function write($key, $value, $config = 'default') {
-		$settings = self::settings($config);
+    public static function write($key, $value, $config = 'default') {
+        $settings = self::settings($config);
 
-		if (empty($settings)) {
-			return false;
-		}
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$key = self::$_engines[$config]->key($key);
+        if (empty($settings)) {
+            return false;
+        }
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $key = self::$_engines[$config]->key($key);
 
-		if (!$key || is_resource($value)) {
-			return false;
-		}
+        if (!$key || is_resource($value)) {
+            return false;
+        }
 
-		$success = self::$_engines[$config]->write($settings['prefix'] . $key, $value, $settings['duration']);
-		self::set(null, $config);
-		if ($success === false && $value !== '') {
-			trigger_error(
-				__d('cake_dev',
-					"%s cache was unable to write '%s' to %s cache",
-					$config,
-					$key,
-					self::$_engines[$config]->settings['engine']
-				),
-				E_USER_WARNING
-			);
-		}
-		return $success;
-	}
+        $success = self::$_engines[$config]->write($settings['prefix'] . $key, $value, $settings['duration']);
+        self::set(null, $config);
+        if ($success === false && $value !== '') {
+            trigger_error(
+                __d('cake_dev',
+                    "%s cache was unable to write '%s' to %s cache",
+                    $config,
+                    $key,
+                    self::$_engines[$config]->settings['engine']
+                ),
+                E_USER_WARNING
+            );
+        }
+        return $success;
+    }
 
 /**
  * Read a key from the cache.  Will automatically use the currently
@@ -330,21 +330,21 @@ class Cache {
  * @param string $config optional name of the configuration to use. Defaults to 'default'
  * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
  */
-	public static function read($key, $config = 'default') {
-		$settings = self::settings($config);
+    public static function read($key, $config = 'default') {
+        $settings = self::settings($config);
 
-		if (empty($settings)) {
-			return false;
-		}
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$key = self::$_engines[$config]->key($key);
-		if (!$key) {
-			return false;
-		}
-		return self::$_engines[$config]->read($settings['prefix'] . $key);
-	}
+        if (empty($settings)) {
+            return false;
+        }
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $key = self::$_engines[$config]->key($key);
+        if (!$key) {
+            return false;
+        }
+        return self::$_engines[$config]->read($settings['prefix'] . $key);
+    }
 
 /**
  * Increment a number under the key and return incremented value.
@@ -355,24 +355,24 @@ class Cache {
  * @return mixed new value, or false if the data doesn't exist, is not integer,
  *    or if there was an error fetching it.
  */
-	public static function increment($key, $offset = 1, $config = 'default') {
-		$settings = self::settings($config);
+    public static function increment($key, $offset = 1, $config = 'default') {
+        $settings = self::settings($config);
 
-		if (empty($settings)) {
-			return false;
-		}
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$key = self::$_engines[$config]->key($key);
+        if (empty($settings)) {
+            return false;
+        }
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $key = self::$_engines[$config]->key($key);
 
-		if (!$key || !is_integer($offset) || $offset < 0) {
-			return false;
-		}
-		$success = self::$_engines[$config]->increment($settings['prefix'] . $key, $offset);
-		self::set(null, $config);
-		return $success;
-	}
+        if (!$key || !is_integer($offset) || $offset < 0) {
+            return false;
+        }
+        $success = self::$_engines[$config]->increment($settings['prefix'] . $key, $offset);
+        self::set(null, $config);
+        return $success;
+    }
 
 /**
  * Decrement a number under the key and return decremented value.
@@ -383,24 +383,24 @@ class Cache {
  * @return mixed new value, or false if the data doesn't exist, is not integer,
  *   or if there was an error fetching it
  */
-	public static function decrement($key, $offset = 1, $config = 'default') {
-		$settings = self::settings($config);
+    public static function decrement($key, $offset = 1, $config = 'default') {
+        $settings = self::settings($config);
 
-		if (empty($settings)) {
-			return false;
-		}
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$key = self::$_engines[$config]->key($key);
+        if (empty($settings)) {
+            return false;
+        }
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $key = self::$_engines[$config]->key($key);
 
-		if (!$key || !is_integer($offset) || $offset < 0) {
-			return false;
-		}
-		$success = self::$_engines[$config]->decrement($settings['prefix'] . $key, $offset);
-		self::set(null, $config);
-		return $success;
-	}
+        if (!$key || !is_integer($offset) || $offset < 0) {
+            return false;
+        }
+        $success = self::$_engines[$config]->decrement($settings['prefix'] . $key, $offset);
+        self::set(null, $config);
+        return $success;
+    }
 
 /**
  * Delete a key from the cache.
@@ -419,24 +419,24 @@ class Cache {
  * @param string $config name of the configuration to use. Defaults to 'default'
  * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
  */
-	public static function delete($key, $config = 'default') {
-		$settings = self::settings($config);
+    public static function delete($key, $config = 'default') {
+        $settings = self::settings($config);
 
-		if (empty($settings)) {
-			return false;
-		}
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$key = self::$_engines[$config]->key($key);
-		if (!$key) {
-			return false;
-		}
+        if (empty($settings)) {
+            return false;
+        }
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $key = self::$_engines[$config]->key($key);
+        if (!$key) {
+            return false;
+        }
 
-		$success = self::$_engines[$config]->delete($settings['prefix'] . $key);
-		self::set(null, $config);
-		return $success;
-	}
+        $success = self::$_engines[$config]->delete($settings['prefix'] . $key);
+        self::set(null, $config);
+        return $success;
+    }
 
 /**
  * Delete all keys from the cache.
@@ -445,14 +445,14 @@ class Cache {
  * @param string $config name of the configuration to use. Defaults to 'default'
  * @return boolean True if the cache was successfully cleared, false otherwise
  */
-	public static function clear($check = false, $config = 'default') {
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$success = self::$_engines[$config]->clear($check);
-		self::set(null, $config);
-		return $success;
-	}
+    public static function clear($check = false, $config = 'default') {
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $success = self::$_engines[$config]->clear($check);
+        self::set(null, $config);
+        return $success;
+    }
 
 /**
  * Delete all keys from the cache belonging to the same group.
@@ -461,14 +461,14 @@ class Cache {
  * @param string $config name of the configuration to use. Defaults to 'default'
  * @return boolean True if the cache group was successfully cleared, false otherwise
  */
-	public static function clearGroup($group, $config = 'default') {
-		if (!self::isInitialized($config)) {
-			return false;
-		}
-		$success = self::$_engines[$config]->clearGroup($group);
-		self::set(null, $config);
-		return $success;
-	}
+    public static function clearGroup($group, $config = 'default') {
+        if (!self::isInitialized($config)) {
+            return false;
+        }
+        $success = self::$_engines[$config]->clearGroup($group);
+        self::set(null, $config);
+        return $success;
+    }
 
 /**
  * Check if Cache has initialized a working config for the given name.
@@ -476,12 +476,12 @@ class Cache {
  * @param string $config name of the configuration to use. Defaults to 'default'
  * @return boolean Whether or not the config name has been initialized.
  */
-	public static function isInitialized($config = 'default') {
-		if (Configure::read('Cache.disable')) {
-			return false;
-		}
-		return isset(self::$_engines[$config]);
-	}
+    public static function isInitialized($config = 'default') {
+        if (Configure::read('Cache.disable')) {
+            return false;
+        }
+        return isset(self::$_engines[$config]);
+    }
 
 /**
  * Return the settings for the named cache engine.
@@ -490,12 +490,12 @@ class Cache {
  * @return array list of settings for this engine
  * @see Cache::config()
  */
-	public static function settings($name = 'default') {
-		if (!empty(self::$_engines[$name])) {
-			return self::$_engines[$name]->settings();
-		}
-		return array();
-	}
+    public static function settings($name = 'default') {
+        if (!empty(self::$_engines[$name])) {
+            return self::$_engines[$name]->settings();
+        }
+        return array();
+    }
 
 }
 

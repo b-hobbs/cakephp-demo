@@ -28,7 +28,7 @@ interface AclInterface {
  * @param string $aco ACO The controlled object identifier.
  * @param string $action Action (defaults to *)
  */
-	public function check($aro, $aco, $action = "*");
+    public function check($aro, $aco, $action = "*");
 
 /**
  * Allow methods are used to grant an ARO access to an ACO.
@@ -38,7 +38,7 @@ interface AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function allow($aro, $aco, $action = "*");
+    public function allow($aro, $aco, $action = "*");
 
 /**
  * Deny methods are used to remove permission from an ARO to access an ACO.
@@ -48,7 +48,7 @@ interface AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function deny($aro, $aco, $action = "*");
+    public function deny($aro, $aco, $action = "*");
 
 /**
  * Inherit methods modify the permission for an ARO to be that of its parent object.
@@ -58,13 +58,13 @@ interface AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function inherit($aro, $aco, $action = "*");
+    public function inherit($aro, $aco, $action = "*");
 
 /**
  * Initialization method for the Acl implementation
  *
  * @param AclComponent $component
  */
-	public function initialize(Component $component);
+    public function initialize(Component $component);
 
 }

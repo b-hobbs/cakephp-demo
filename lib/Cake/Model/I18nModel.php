@@ -25,20 +25,20 @@ class I18nModel extends AppModel {
  *
  * @var string
  */
-	public $name = 'I18nModel';
+    public $name = 'I18nModel';
 
 /**
  * Table name
  *
  * @var string
  */
-	public $useTable = 'i18n';
+    public $useTable = 'i18n';
 
 /**
  * Display field
  *
  * @var string
  */
-	public $displayField = 'field';
+    public $displayField = 'field';
 
 }

@@ -33,14 +33,14 @@ class CakeErrorController extends AppController {
  *
  * @var string
  */
-	public $name = 'CakeError';
+    public $name = 'CakeError';
 
 /**
  * Uses Property
  *
  * @var array
  */
-	public $uses = array();
+    public $uses = array();
 
 /**
  * __construct
@@ -48,35 +48,35 @@ class CakeErrorController extends AppController {
  * @param CakeRequest $request
  * @param CakeResponse $response
  */
-	public function __construct($request = null, $response = null) {
-		parent::__construct($request, $response);
-		if (count(Router::extensions())) {
-			$this->components[] = 'RequestHandler';
-		}
-		$this->constructClasses();
-		if ($this->Components->enabled('Auth')) {
-			$this->Components->disable('Auth');
-		}
-		if ($this->Components->enabled('Security')) {
-			$this->Components->disable('Security');
-		}
-		$this->startupProcess();
+    public function __construct($request = null, $response = null) {
+        parent::__construct($request, $response);
+        if (count(Router::extensions())) {
+            $this->components[] = 'RequestHandler';
+        }
+        $this->constructClasses();
+        if ($this->Components->enabled('Auth')) {
+            $this->Components->disable('Auth');
+        }
+        if ($this->Components->enabled('Security')) {
+            $this->Components->disable('Security');
+        }
+        $this->startupProcess();
 
-		$this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
-	}
+        $this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
+    }
 
 /**
  * Escapes the viewVars.
  *
  * @return void
  */
-	public function beforeRender() {
-		parent::beforeRender();
-		foreach ($this->viewVars as $key => $value) {
-			if (!is_object($value)) {
-				$this->viewVars[$key] = h($value);
-			}
-		}
-	}
+    public function beforeRender() {
+        parent::beforeRender();
+        foreach ($this->viewVars as $key => $value) {
+            if (!is_object($value)) {
+                $this->viewVars[$key] = h($value);
+            }
+        }
+    }
 
 }

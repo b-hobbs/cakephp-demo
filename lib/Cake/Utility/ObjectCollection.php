@@ -31,21 +31,21 @@ abstract class ObjectCollection {
  *
  * @var array
  */
-	protected $_enabled = array();
+    protected $_enabled = array();
 
 /**
  * A hash of loaded objects, indexed by name
  *
  * @var array
  */
-	protected $_loaded = array();
+    protected $_loaded = array();
 
 /**
  * Default object priority. A non zero integer.
  *
  * @var int
  */
-	public $defaultPriority = 10;
+    public $defaultPriority = 10;
 
 /**
  * Loads a new object onto the collection. Can throw a variety of exceptions
@@ -57,7 +57,7 @@ abstract class ObjectCollection {
  * @param array $options Array of configuration options for the object to be constructed.
  * @return object the constructed object
  */
-	abstract public function load($name, $options = array());
+    abstract public function load($name, $options = array());
 
 /**
  * Trigger a callback method on every object in the collection.
@@ -91,60 +91,60 @@ abstract class ObjectCollection {
  * @return mixed Either the last result or all results if collectReturn is on.
  * @throws CakeException when modParams is used with an index that does not exist.
  */
-	public function trigger($callback, $params = array(), $options = array()) {
-		if (empty($this->_enabled)) {
-			return true;
-		}
-		if ($callback instanceof CakeEvent) {
-			$event = $callback;
-			if (is_array($event->data)) {
-				$params =& $event->data;
-			}
-			if (empty($event->omitSubject)) {
-				$subject = $event->subject();
-			}
-			//TODO: Temporary BC check, while we move all the triggers system into the CakeEventManager
-			foreach (array('break', 'breakOn', 'collectReturn', 'modParams') as $opt) {
-				if (isset($event->{$opt})) {
-					$options[$opt] = $event->{$opt};
-				}
-			}
-			$parts = explode('.', $event->name());
-			$callback = array_pop($parts);
-		}
-		$options = array_merge(
-			array(
-				'break' => false,
-				'breakOn' => false,
-				'collectReturn' => false,
-				'modParams' => false
-			),
-			$options
-		);
-		$collected = array();
-		$list = array_keys($this->_enabled);
-		if ($options['modParams'] !== false && !isset($params[$options['modParams']])) {
-			throw new CakeException(__d('cake_dev', 'Cannot use modParams with indexes that do not exist.'));
-		}
-		foreach ($list as $name) {
-			$result = call_user_func_array(array($this->_loaded[$name], $callback), compact('subject') + $params);
-			if ($options['collectReturn'] === true) {
-				$collected[] = $result;
-			}
-			if (
-				$options['break'] && ($result === $options['breakOn'] ||
-				(is_array($options['breakOn']) && in_array($result, $options['breakOn'], true)))
-			) {
-				return $result;
-			} elseif ($options['modParams'] !== false && !in_array($result, array(true, false, null), true)) {
-				$params[$options['modParams']] = $result;
-			}
-		}
-		if ($options['modParams'] !== false) {
-			return $params[$options['modParams']];
-		}
-		return $options['collectReturn'] ? $collected : $result;
-	}
+    public function trigger($callback, $params = array(), $options = array()) {
+        if (empty($this->_enabled)) {
+            return true;
+        }
+        if ($callback instanceof CakeEvent) {
+            $event = $callback;
+            if (is_array($event->data)) {
+                $params =& $event->data;
+            }
+            if (empty($event->omitSubject)) {
+                $subject = $event->subject();
+            }
+            //TODO: Temporary BC check, while we move all the triggers system into the CakeEventManager
+            foreach (array('break', 'breakOn', 'collectReturn', 'modParams') as $opt) {
+                if (isset($event->{$opt})) {
+                    $options[$opt] = $event->{$opt};
+                }
+            }
+            $parts = explode('.', $event->name());
+            $callback = array_pop($parts);
+        }
+        $options = array_merge(
+            array(
+                'break' => false,
+                'breakOn' => false,
+                'collectReturn' => false,
+                'modParams' => false
+            ),
+            $options
+        );
+        $collected = array();
+        $list = array_keys($this->_enabled);
+        if ($options['modParams'] !== false && !isset($params[$options['modParams']])) {
+            throw new CakeException(__d('cake_dev', 'Cannot use modParams with indexes that do not exist.'));
+        }
+        foreach ($list as $name) {
+            $result = call_user_func_array(array($this->_loaded[$name], $callback), compact('subject') + $params);
+            if ($options['collectReturn'] === true) {
+                $collected[] = $result;
+            }
+            if (
+                $options['break'] && ($result === $options['breakOn'] ||
+                (is_array($options['breakOn']) && in_array($result, $options['breakOn'], true)))
+            ) {
+                return $result;
+            } elseif ($options['modParams'] !== false && !in_array($result, array(true, false, null), true)) {
+                $params[$options['modParams']] = $result;
+            }
+        }
+        if ($options['modParams'] !== false) {
+            return $params[$options['modParams']];
+        }
+        return $options['collectReturn'] ? $collected : $result;
+    }
 
 /**
  * Provide public read access to the loaded objects
@@ -152,12 +152,12 @@ abstract class ObjectCollection {
  * @param string $name Name of property to read
  * @return mixed
  */
-	public function __get($name) {
-		if (isset($this->_loaded[$name])) {
-			return $this->_loaded[$name];
-		}
-		return null;
-	}
+    public function __get($name) {
+        if (isset($this->_loaded[$name])) {
+            return $this->_loaded[$name];
+        }
+        return null;
+    }
 
 /**
  * Provide isset access to _loaded
@@ -165,9 +165,9 @@ abstract class ObjectCollection {
  * @param string $name Name of object being checked.
  * @return boolean
  */
-	public function __isset($name) {
-		return isset($this->_loaded[$name]);
-	}
+    public function __isset($name) {
+        return isset($this->_loaded[$name]);
+    }
 
 /**
  * Enables callbacks on an object or array of objects
@@ -176,61 +176,61 @@ abstract class ObjectCollection {
  * @param boolean Prioritize enabled list after enabling object(s)
  * @return void
  */
-	public function enable($name, $prioritize = true) {
-		$enabled = false;
-		foreach ((array)$name as $object) {
-			if (isset($this->_loaded[$object]) && !isset($this->_enabled[$object])) {
-				$priority = isset($this->_loaded[$object]->settings['priority']) ? $this->_loaded[$object]->settings['priority'] : $this->defaultPriority;
-				$this->_enabled[$object] = array($priority);
-				$enabled = true;
-			}
-		}
-		if ($prioritize && $enabled) {
-			$this->prioritize();
-		}
-	}
+    public function enable($name, $prioritize = true) {
+        $enabled = false;
+        foreach ((array)$name as $object) {
+            if (isset($this->_loaded[$object]) && !isset($this->_enabled[$object])) {
+                $priority = isset($this->_loaded[$object]->settings['priority']) ? $this->_loaded[$object]->settings['priority'] : $this->defaultPriority;
+                $this->_enabled[$object] = array($priority);
+                $enabled = true;
+            }
+        }
+        if ($prioritize && $enabled) {
+            $this->prioritize();
+        }
+    }
 
 /**
  * Prioritize list of enabled object
  *
  * @return array Prioritized list of object
  */
-	public function prioritize() {
-		$i = 1;
-		foreach ($this->_enabled as $name => $priority) {
-			$priority[1] = $i++;
-			$this->_enabled[$name] = $priority;
-		}
-		asort($this->_enabled);
-		return $this->_enabled;
-	}
+    public function prioritize() {
+        $i = 1;
+        foreach ($this->_enabled as $name => $priority) {
+            $priority[1] = $i++;
+            $this->_enabled[$name] = $priority;
+        }
+        asort($this->_enabled);
+        return $this->_enabled;
+    }
 
 /**
  * Set priority for an object or array of objects
  *
  * @param string|array $name CamelCased name of the object(s) to enable (string or array)
- * 	If string the second param $priority is used else it should be an associative array
- * 	with keys as object names and values as priorities to set.
+ *  If string the second param $priority is used else it should be an associative array
+ *  with keys as object names and values as priorities to set.
  * @param integer|null Integer priority to set or null for default
  * @return void
  */
-	public function setPriority($name, $priority = null) {
-		if (is_string($name)) {
-			$name = array($name => $priority);
-		}
-		foreach ($name as $obj => $prio) {
-			if (isset($this->_loaded[$obj])) {
-				if (is_null($prio)) {
-					$prio = $this->defaultPriority;
-				}
-				$this->_loaded[$obj]->settings['priority'] = $prio;
-				if (isset($this->_enabled[$obj])) {
-					$this->_enabled[$obj] = array($prio);
-				}
-			}
-		}
-		$this->prioritize();
-	}
+    public function setPriority($name, $priority = null) {
+        if (is_string($name)) {
+            $name = array($name => $priority);
+        }
+        foreach ($name as $obj => $prio) {
+            if (isset($this->_loaded[$obj])) {
+                if (is_null($prio)) {
+                    $prio = $this->defaultPriority;
+                }
+                $this->_loaded[$obj]->settings['priority'] = $prio;
+                if (isset($this->_enabled[$obj])) {
+                    $this->_enabled[$obj] = array($prio);
+                }
+            }
+        }
+        $this->prioritize();
+    }
 
 /**
  * Disables callbacks on a object or array of objects.  Public object methods are still
@@ -239,11 +239,11 @@ abstract class ObjectCollection {
  * @param string|array $name CamelCased name of the objects(s) to disable (string or array)
  * @return void
  */
-	public function disable($name) {
-		foreach ((array)$name as $object) {
-			unset($this->_enabled[$object]);
-		}
-	}
+    public function disable($name) {
+        foreach ((array)$name as $object) {
+            unset($this->_enabled[$object]);
+        }
+    }
 
 /**
  * Gets the list of currently-enabled objects, or, the current status of a single objects
@@ -253,12 +253,12 @@ abstract class ObjectCollection {
  * @return mixed If $name is specified, returns the boolean status of the corresponding object.
  *   Otherwise, returns an array of all enabled objects.
  */
-	public function enabled($name = null) {
-		if (!empty($name)) {
-			return isset($this->_enabled[$name]);
-		}
-		return array_keys($this->_enabled);
-	}
+    public function enabled($name = null) {
+        if (!empty($name)) {
+            return isset($this->_enabled[$name]);
+        }
+        return array_keys($this->_enabled);
+    }
 
 /**
  * Gets the list of attached objects, or, whether the given object is attached
@@ -268,12 +268,12 @@ abstract class ObjectCollection {
  * @return mixed If $name is specified, returns the boolean status of the corresponding behavior.
  *    Otherwise, returns an array of all attached behaviors.
  */
-	public function attached($name = null) {
-		if (!empty($name)) {
-			return isset($this->_loaded[$name]);
-		}
-		return array_keys($this->_loaded);
-	}
+    public function attached($name = null) {
+        if (!empty($name)) {
+            return isset($this->_loaded[$name]);
+        }
+        return array_keys($this->_loaded);
+    }
 
 /**
  * Name of the object to remove from the collection
@@ -281,11 +281,11 @@ abstract class ObjectCollection {
  * @param string $name Name of the object to delete.
  * @return void
  */
-	public function unload($name) {
-		list($plugin, $name) = pluginSplit($name);
-		unset($this->_loaded[$name]);
-		unset($this->_enabled[$name]);
-	}
+    public function unload($name) {
+        list($plugin, $name) = pluginSplit($name);
+        unset($this->_loaded[$name]);
+        unset($this->_enabled[$name]);
+    }
 
 /**
  * Adds or overwrites an instantiated object to the collection
@@ -294,13 +294,13 @@ abstract class ObjectCollection {
  * @param Object $object The object to use
  * @return array Loaded objects
  */
-	public function set($name = null, $object = null) {
-		if (!empty($name) && !empty($object)) {
-			list($plugin, $name) = pluginSplit($name);
-			$this->_loaded[$name] = $object;
-		}
-		return $this->_loaded;
-	}
+    public function set($name = null, $object = null) {
+        if (!empty($name) && !empty($object)) {
+            list($plugin, $name) = pluginSplit($name);
+            $this->_loaded[$name] = $object;
+        }
+        return $this->_loaded;
+    }
 
 /**
  * Normalizes an object array, creates an array that makes lazy loading
@@ -309,18 +309,18 @@ abstract class ObjectCollection {
  * @param array $objects Array of child objects to normalize.
  * @return array Array of normalized objects.
  */
-	public static function normalizeObjectArray($objects) {
-		$normal = array();
-		foreach ($objects as $i => $objectName) {
-			$options = array();
-			if (!is_int($i)) {
-				$options = (array)$objectName;
-				$objectName = $i;
-			}
-			list($plugin, $name) = pluginSplit($objectName);
-			$normal[$name] = array('class' => $objectName, 'settings' => $options);
-		}
-		return $normal;
-	}
+    public static function normalizeObjectArray($objects) {
+        $normal = array();
+        foreach ($objects as $i => $objectName) {
+            $options = array();
+            if (!is_int($i)) {
+                $options = (array)$objectName;
+                $objectName = $i;
+            }
+            list($plugin, $name) = pluginSplit($objectName);
+            $normal[$name] = array('class' => $objectName, 'settings' => $options);
+        }
+        return $normal;
+    }
 
 }

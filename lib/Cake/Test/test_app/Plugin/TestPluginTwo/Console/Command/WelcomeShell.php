@@ -23,7 +23,7 @@ class WelcomeShell extends Shell {
  *
  * @return void
  */
-	public function say_hello() {
-		$this->out('This is the say_hello method called from TestPluginTwo.WelcomeShell');
-	}
+    public function say_hello() {
+        $this->out('This is the say_hello method called from TestPluginTwo.WelcomeShell');
+    }
 }

@@ -29,22 +29,22 @@ class BinaryTestFixture extends CakeTestFixture {
  *
  * @var string 'BinaryTest'
  */
-	public $name = 'BinaryTest';
+    public $name = 'BinaryTest';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'data' => array('type' => 'binary', 'length' => 300)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'data' => array('type' => 'binary', 'length' => 300)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+    public $records = array();
 }

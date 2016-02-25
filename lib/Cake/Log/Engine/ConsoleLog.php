@@ -32,7 +32,7 @@ class ConsoleLog extends BaseLog {
  *
  * @var ConsoleOutput
  */
-	protected $_output = null;
+    protected $_output = null;
 
 /**
  * Constructs a new Console Logger.
@@ -47,29 +47,29 @@ class ConsoleLog extends BaseLog {
  * @param array $config Options for the FileLog, see above.
  * @throws CakeLogException
  */
-	public function __construct($config = array()) {
-		parent::__construct($config);
-		if (DS == '\\' && !(bool)env('ANSICON')) {
-			$outputAs = ConsoleOutput::PLAIN;
-		} else {
-			$outputAs = ConsoleOutput::COLOR;
-		}
-		$config = Hash::merge(array(
-			'stream' => 'php://stderr',
-			'types' => null,
-			'scopes' => array(),
-			'outputAs' => $outputAs,
-			), $this->_config);
-		$config = $this->config($config);
-		if ($config['stream'] instanceof ConsoleOutput) {
-			$this->_output = $config['stream'];
-		} elseif (is_string($config['stream'])) {
-			$this->_output = new ConsoleOutput($config['stream']);
-		} else {
-			throw new CakeLogException('`stream` not a ConsoleOutput nor string');
-		}
-		$this->_output->outputAs($config['outputAs']);
-	}
+    public function __construct($config = array()) {
+        parent::__construct($config);
+        if (DS == '\\' && !(bool)env('ANSICON')) {
+            $outputAs = ConsoleOutput::PLAIN;
+        } else {
+            $outputAs = ConsoleOutput::COLOR;
+        }
+        $config = Hash::merge(array(
+            'stream' => 'php://stderr',
+            'types' => null,
+            'scopes' => array(),
+            'outputAs' => $outputAs,
+            ), $this->_config);
+        $config = $this->config($config);
+        if ($config['stream'] instanceof ConsoleOutput) {
+            $this->_output = $config['stream'];
+        } elseif (is_string($config['stream'])) {
+            $this->_output = new ConsoleOutput($config['stream']);
+        } else {
+            throw new CakeLogException('`stream` not a ConsoleOutput nor string');
+        }
+        $this->_output->outputAs($config['outputAs']);
+    }
 
 /**
  * Implements writing to console.
@@ -78,9 +78,9 @@ class ConsoleLog extends BaseLog {
  * @param string $message The message you want to log.
  * @return boolean success of write.
  */
-	public function write($type, $message) {
-		$output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
-		return $this->_output->write(sprintf('<%s>%s</%s>', $type, $output, $type), false);
-	}
+    public function write($type, $message) {
+        $output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
+        return $this->_output->write(sprintf('<%s>%s</%s>', $type, $output, $type), false);
+    }
 
 }

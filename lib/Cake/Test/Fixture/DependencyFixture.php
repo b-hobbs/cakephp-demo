@@ -30,24 +30,24 @@ class DependencyFixture extends CakeTestFixture {
  *
  * @var string 'Dependency'
  */
-	public $name = 'Dependency';
+    public $name = 'Dependency';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'child_id' => 'integer',
-		'parent_id' => 'integer'
-	);
+    public $fields = array(
+        'child_id' => 'integer',
+        'parent_id' => 'integer'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('child_id' => 1, 'parent_id' => 2),
-	);
+    public $records = array(
+        array('child_id' => 1, 'parent_id' => 2),
+    );
 }

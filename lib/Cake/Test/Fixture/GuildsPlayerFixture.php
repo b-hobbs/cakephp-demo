@@ -29,29 +29,29 @@ class GuildsPlayerFixture extends CakeTestFixture {
  *
  * @var string 'GuildsPlayer'
  */
-	public $name = 'GuildsPlayer';
+    public $name = 'GuildsPlayer';
 
-	public $useDbConfig = 'test2';
+    public $useDbConfig = 'test2';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'player_id' => array('type' => 'integer', 'null' => false),
-		'guild_id' => array('type' => 'integer', 'null' => false),
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'player_id' => array('type' => 'integer', 'null' => false),
+        'guild_id' => array('type' => 'integer', 'null' => false),
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('player_id' => 1, 'guild_id' => 1),
-		array('player_id' => 1, 'guild_id' => 2),
-		array('player_id' => 4, 'guild_id' => 3),
-	);
+    public $records = array(
+        array('player_id' => 1, 'guild_id' => 1),
+        array('player_id' => 1, 'guild_id' => 2),
+        array('player_id' => 4, 'guild_id' => 3),
+    );
 }

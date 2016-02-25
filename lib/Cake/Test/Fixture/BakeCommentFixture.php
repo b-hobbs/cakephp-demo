@@ -29,27 +29,27 @@ class BakeCommentFixture extends CakeTestFixture {
  *
  * @var string 'Comment'
  */
-	public $name = 'BakeComment';
+    public $name = 'BakeComment';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'otherid' => array('type' => 'integer', 'key' => 'primary'),
-		'bake_article_id' => array('type' => 'integer', 'null' => false),
-		'bake_user_id' => array('type' => 'integer', 'null' => false),
-		'comment' => 'text',
-		'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'otherid' => array('type' => 'integer', 'key' => 'primary'),
+        'bake_article_id' => array('type' => 'integer', 'null' => false),
+        'bake_user_id' => array('type' => 'integer', 'null' => false),
+        'comment' => 'text',
+        'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+    public $records = array();
 }

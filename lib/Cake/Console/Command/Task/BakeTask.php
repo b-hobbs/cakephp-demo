@@ -30,21 +30,21 @@ class BakeTask extends AppShell {
  *
  * @var string
  */
-	public $plugin = null;
+    public $plugin = null;
 
 /**
  * The db connection being used for baking
  *
  * @var string
  */
-	public $connection = null;
+    public $connection = null;
 
 /**
  * Flag for interactive mode
  *
  * @var boolean
  */
-	public $interactive = false;
+    public $interactive = false;
 
 /**
  * Disable caching and enable debug for baking.
@@ -52,11 +52,11 @@ class BakeTask extends AppShell {
  *
  * @return void
  */
-	public function startup() {
-		Configure::write('debug', 2);
-		Configure::write('Cache.disable', 1);
-		parent::startup();
-	}
+    public function startup() {
+        Configure::write('debug', 2);
+        Configure::write('Cache.disable', 1);
+        parent::startup();
+    }
 
 /**
  * Gets the path for output.  Checks the plugin property
@@ -64,13 +64,13 @@ class BakeTask extends AppShell {
  *
  * @return string Path to output.
  */
-	public function getPath() {
-		$path = $this->path;
-		if (isset($this->plugin)) {
-			$path = $this->_pluginPath($this->plugin) . $this->name . DS;
-		}
-		return $path;
-	}
+    public function getPath() {
+        $path = $this->path;
+        if (isset($this->plugin)) {
+            $path = $this->_pluginPath($this->plugin) . $this->name . DS;
+        }
+        return $path;
+    }
 
 /**
  * Base execute method parses some parameters and sets some properties on the bake tasks.
@@ -78,16 +78,16 @@ class BakeTask extends AppShell {
  *
  * @return void
  */
-	public function execute() {
-		foreach ($this->args as $i => $arg) {
-			if (strpos($arg, '.')) {
-				list($this->params['plugin'], $this->args[$i]) = pluginSplit($arg);
-				break;
-			}
-		}
-		if (isset($this->params['plugin'])) {
-			$this->plugin = $this->params['plugin'];
-		}
-	}
+    public function execute() {
+        foreach ($this->args as $i => $arg) {
+            if (strpos($arg, '.')) {
+                list($this->params['plugin'], $this->args[$i]) = pluginSplit($arg);
+                break;
+            }
+        }
+        if (isset($this->params['plugin'])) {
+            $this->plugin = $this->params['plugin'];
+        }
+    }
 
 }

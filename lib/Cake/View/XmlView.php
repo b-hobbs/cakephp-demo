@@ -56,20 +56,20 @@ class XmlView extends View {
  *
  * @var string
  */
-	public $subDir = 'xml';
+    public $subDir = 'xml';
 
 /**
  * Constructor
  *
  * @param Controller $controller
  */
-	public function __construct(Controller $controller = null) {
-		parent::__construct($controller);
+    public function __construct(Controller $controller = null) {
+        parent::__construct($controller);
 
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
-			$controller->response->type('xml');
-		}
-	}
+        if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+            $controller->response->type('xml');
+        }
+    }
 
 /**
  * Render a XML view.
@@ -83,31 +83,31 @@ class XmlView extends View {
  * @param string $layout The layout being rendered.
  * @return string The rendered view.
  */
-	public function render($view = null, $layout = null) {
-		if (isset($this->viewVars['_serialize'])) {
-			$serialize = $this->viewVars['_serialize'];
-			if (is_array($serialize)) {
-				$data = array('response' => array());
-				foreach ($serialize as $key) {
-					$data['response'][$key] = $this->viewVars[$key];
-				}
-			} else {
-				$data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
-				if (is_array($data) && Set::numeric(array_keys($data))) {
-					$data = array('response' => array($serialize => $data));
-				}
-			}
-			$content = Xml::fromArray($data)->asXML();
-			return $content;
-		}
-		if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
-			if (!$this->_helpersLoaded) {
-				$this->loadHelpers();
-			}
-			$content = $this->_render($viewFileName);
-			$this->Blocks->set('content', (string)$content);
-			return $content;
-		}
-	}
+    public function render($view = null, $layout = null) {
+        if (isset($this->viewVars['_serialize'])) {
+            $serialize = $this->viewVars['_serialize'];
+            if (is_array($serialize)) {
+                $data = array('response' => array());
+                foreach ($serialize as $key) {
+                    $data['response'][$key] = $this->viewVars[$key];
+                }
+            } else {
+                $data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
+                if (is_array($data) && Set::numeric(array_keys($data))) {
+                    $data = array('response' => array($serialize => $data));
+                }
+            }
+            $content = Xml::fromArray($data)->asXML();
+            return $content;
+        }
+        if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
+            if (!$this->_helpersLoaded) {
+                $this->loadHelpers();
+            }
+            $content = $this->_render($viewFileName);
+            $this->Blocks->set('content', (string)$content);
+            return $content;
+        }
+    }
 
 }

@@ -45,18 +45,18 @@ class Dispatcher implements CakeEventListener {
  *
  * @var CakeEventManager
  */
-	protected $_eventManager;
+    protected $_eventManager;
 
 /**
  * Constructor.
  *
  * @param string $base The base directory for the application. Writes `App.base` to Configure.
  */
-	public function __construct($base = false) {
-		if ($base !== false) {
-			Configure::write('App.base', $base);
-		}
-	}
+    public function __construct($base = false) {
+        if ($base !== false) {
+            Configure::write('App.base', $base);
+        }
+    }
 
 /**
  * Returns the CakeEventManager instance or creates one if none was
@@ -64,23 +64,23 @@ class Dispatcher implements CakeEventListener {
  *
  * @return CakeEventManager
  */
-	public function getEventManager() {
-		if (!$this->_eventManager) {
-			$this->_eventManager = new CakeEventManager();
-			$this->_eventManager->attach($this);
-			$this->_attachFilters($this->_eventManager);
-		}
-		return $this->_eventManager;
-	}
+    public function getEventManager() {
+        if (!$this->_eventManager) {
+            $this->_eventManager = new CakeEventManager();
+            $this->_eventManager->attach($this);
+            $this->_attachFilters($this->_eventManager);
+        }
+        return $this->_eventManager;
+    }
 
 /**
  * Returns the list of events this object listents to.
  *
  * @return array
  */
-	public function implementedEvents() {
-		return array('Dispatcher.beforeDispatch' => 'parseParams');
-	}
+    public function implementedEvents() {
+        return array('Dispatcher.beforeDispatch' => 'parseParams');
+    }
 
 /**
  * Attaches all event listeners for this dispatcher instance. Loads the
@@ -90,33 +90,33 @@ class Dispatcher implements CakeEventListener {
  * @return void
  * @throws MissingDispatcherFilterException
  */
-	protected function _attachFilters($manager) {
-		$filters = Configure::read('Dispatcher.filters');
-		if (empty($filters)) {
-			return;
-		}
+    protected function _attachFilters($manager) {
+        $filters = Configure::read('Dispatcher.filters');
+        if (empty($filters)) {
+            return;
+        }
 
-		foreach ($filters as $filter) {
-			if (is_string($filter)) {
-				$filter = array('callable' => $filter);
-			}
-			if (is_string($filter['callable'])) {
-				list($plugin, $callable) = pluginSplit($filter['callable'], true);
-				App::uses($callable, $plugin . 'Routing/Filter');
-				if (!class_exists($callable)) {
-					throw new MissingDispatcherFilterException($callable);
-				}
-				$manager->attach(new $callable);
-			} else {
-				$on = strtolower($filter['on']);
-				$options = array();
-				if (isset($filter['priority'])) {
-					$options = array('priority' => $filter['priority']);
-				}
-				$manager->attach($filter['callable'], 'Dispatcher.' . $on . 'Dispatch', $options);
-			}
-		}
-	}
+        foreach ($filters as $filter) {
+            if (is_string($filter)) {
+                $filter = array('callable' => $filter);
+            }
+            if (is_string($filter['callable'])) {
+                list($plugin, $callable) = pluginSplit($filter['callable'], true);
+                App::uses($callable, $plugin . 'Routing/Filter');
+                if (!class_exists($callable)) {
+                    throw new MissingDispatcherFilterException($callable);
+                }
+                $manager->attach(new $callable);
+            } else {
+                $on = strtolower($filter['on']);
+                $options = array();
+                if (isset($filter['priority'])) {
+                    $options = array('priority' => $filter['priority']);
+                }
+                $manager->attach($filter['callable'], 'Dispatcher.' . $on . 'Dispatch', $options);
+            }
+        }
+    }
 
 /**
  * Dispatches and invokes given Request, handing over control to the involved controller. If the controller is set
@@ -136,37 +136,37 @@ class Dispatcher implements CakeEventListener {
  * @return string|void if `$request['return']` is set then it returns response body, null otherwise
  * @throws MissingControllerException When the controller is missing.
  */
-	public function dispatch(CakeRequest $request, CakeResponse $response, $additionalParams = array()) {
-		$beforeEvent = new CakeEvent('Dispatcher.beforeDispatch', $this, compact('request', 'response', 'additionalParams'));
-		$this->getEventManager()->dispatch($beforeEvent);
+    public function dispatch(CakeRequest $request, CakeResponse $response, $additionalParams = array()) {
+        $beforeEvent = new CakeEvent('Dispatcher.beforeDispatch', $this, compact('request', 'response', 'additionalParams'));
+        $this->getEventManager()->dispatch($beforeEvent);
 
-		$request = $beforeEvent->data['request'];
-		if ($beforeEvent->result instanceof CakeResponse) {
-			if (isset($request->params['return'])) {
-				return $response->body();
-			}
-			$response->send();
-			return;
-		}
+        $request = $beforeEvent->data['request'];
+        if ($beforeEvent->result instanceof CakeResponse) {
+            if (isset($request->params['return'])) {
+                return $response->body();
+            }
+            $response->send();
+            return;
+        }
 
-		$controller = $this->_getController($request, $response);
+        $controller = $this->_getController($request, $response);
 
-		if (!($controller instanceof Controller)) {
-			throw new MissingControllerException(array(
-				'class' => Inflector::camelize($request->params['controller']) . 'Controller',
-				'plugin' => empty($request->params['plugin']) ? null : Inflector::camelize($request->params['plugin'])
-			));
-		}
+        if (!($controller instanceof Controller)) {
+            throw new MissingControllerException(array(
+                'class' => Inflector::camelize($request->params['controller']) . 'Controller',
+                'plugin' => empty($request->params['plugin']) ? null : Inflector::camelize($request->params['plugin'])
+            ));
+        }
 
-		$response = $this->_invoke($controller, $request, $response);
-		if (isset($request->params['return'])) {
-			return $response->body();
-		}
+        $response = $this->_invoke($controller, $request, $response);
+        if (isset($request->params['return'])) {
+            return $response->body();
+        }
 
-		$afterEvent = new CakeEvent('Dispatcher.afterDispatch', $this, compact('request', 'response'));
-		$this->getEventManager()->dispatch($afterEvent);
-		$afterEvent->data['response']->send();
-	}
+        $afterEvent = new CakeEvent('Dispatcher.afterDispatch', $this, compact('request', 'response'));
+        $this->getEventManager()->dispatch($afterEvent);
+        $afterEvent->data['response']->send();
+    }
 
 /**
  * Initializes the components and models a controller will be using.
@@ -178,26 +178,26 @@ class Dispatcher implements CakeEventListener {
  * @param CakeResponse $response The response object to receive the output
  * @return CakeResponse te resulting response object
  */
-	protected function _invoke(Controller $controller, CakeRequest $request, CakeResponse $response) {
-		$controller->constructClasses();
-		$controller->startupProcess();
+    protected function _invoke(Controller $controller, CakeRequest $request, CakeResponse $response) {
+        $controller->constructClasses();
+        $controller->startupProcess();
 
-		$render = true;
-		$result = $controller->invokeAction($request);
-		if ($result instanceof CakeResponse) {
-			$render = false;
-			$response = $result;
-		}
+        $render = true;
+        $result = $controller->invokeAction($request);
+        if ($result instanceof CakeResponse) {
+            $render = false;
+            $response = $result;
+        }
 
-		if ($render && $controller->autoRender) {
-			$response = $controller->render();
-		} elseif ($response->body() === null) {
-			$response->body($result);
-		}
-		$controller->shutdownProcess();
+        if ($render && $controller->autoRender) {
+            $response = $controller->render();
+        } elseif ($response->body() === null) {
+            $response->body($result);
+        }
+        $controller->shutdownProcess();
 
-		return $response;
-	}
+        return $response;
+    }
 
 /**
  * Applies Routing and additionalParameters to the request to be dispatched.
@@ -206,22 +206,22 @@ class Dispatcher implements CakeEventListener {
  * @param CakeEvent $event containing the request, response and additional params
  * @return void
  */
-	public function parseParams($event) {
-		$request = $event->data['request'];
-		Router::setRequestInfo($request);
-		if (count(Router::$routes) == 0) {
-			$namedExpressions = Router::getNamedExpressions();
-			extract($namedExpressions);
-			$this->_loadRoutes();
-		}
+    public function parseParams($event) {
+        $request = $event->data['request'];
+        Router::setRequestInfo($request);
+        if (count(Router::$routes) == 0) {
+            $namedExpressions = Router::getNamedExpressions();
+            extract($namedExpressions);
+            $this->_loadRoutes();
+        }
 
-		$params = Router::parse($request->url);
-		$request->addParams($params);
+        $params = Router::parse($request->url);
+        $request->addParams($params);
 
-		if (!empty($event->data['additionalParams'])) {
-			$request->addParams($event->data['additionalParams']);
-		}
-	}
+        if (!empty($event->data['additionalParams'])) {
+            $request->addParams($event->data['additionalParams']);
+        }
+    }
 
 /**
  * Get controller to use, either plugin controller or application controller
@@ -230,17 +230,17 @@ class Dispatcher implements CakeEventListener {
  * @param CakeResponse $response Response for the controller.
  * @return mixed name of controller if not loaded, or object if loaded
  */
-	protected function _getController($request, $response) {
-		$ctrlClass = $this->_loadController($request);
-		if (!$ctrlClass) {
-			return false;
-		}
-		$reflection = new ReflectionClass($ctrlClass);
-		if ($reflection->isAbstract() || $reflection->isInterface()) {
-			return false;
-		}
-		return $reflection->newInstance($request, $response);
-	}
+    protected function _getController($request, $response) {
+        $ctrlClass = $this->_loadController($request);
+        if (!$ctrlClass) {
+            return false;
+        }
+        $reflection = new ReflectionClass($ctrlClass);
+        if ($reflection->isAbstract() || $reflection->isInterface()) {
+            return false;
+        }
+        return $reflection->newInstance($request, $response);
+    }
 
 /**
  * Load controller and return controller classname
@@ -248,34 +248,34 @@ class Dispatcher implements CakeEventListener {
  * @param CakeRequest $request
  * @return string|bool Name of controller class name
  */
-	protected function _loadController($request) {
-		$pluginName = $pluginPath = $controller = null;
-		if (!empty($request->params['plugin'])) {
-			$pluginName = $controller = Inflector::camelize($request->params['plugin']);
-			$pluginPath = $pluginName . '.';
-		}
-		if (!empty($request->params['controller'])) {
-			$controller = Inflector::camelize($request->params['controller']);
-		}
-		if ($pluginPath . $controller) {
-			$class = $controller . 'Controller';
-			App::uses('AppController', 'Controller');
-			App::uses($pluginName . 'AppController', $pluginPath . 'Controller');
-			App::uses($class, $pluginPath . 'Controller');
-			if (class_exists($class)) {
-				return $class;
-			}
-		}
-		return false;
-	}
+    protected function _loadController($request) {
+        $pluginName = $pluginPath = $controller = null;
+        if (!empty($request->params['plugin'])) {
+            $pluginName = $controller = Inflector::camelize($request->params['plugin']);
+            $pluginPath = $pluginName . '.';
+        }
+        if (!empty($request->params['controller'])) {
+            $controller = Inflector::camelize($request->params['controller']);
+        }
+        if ($pluginPath . $controller) {
+            $class = $controller . 'Controller';
+            App::uses('AppController', 'Controller');
+            App::uses($pluginName . 'AppController', $pluginPath . 'Controller');
+            App::uses($class, $pluginPath . 'Controller');
+            if (class_exists($class)) {
+                return $class;
+            }
+        }
+        return false;
+    }
 
 /**
  * Loads route configuration
  *
  * @return void
  */
-	protected function _loadRoutes() {
-		include APP . 'Config' . DS . 'routes.php';
-	}
+    protected function _loadRoutes() {
+        include APP . 'Config' . DS . 'routes.php';
+    }
 
 }

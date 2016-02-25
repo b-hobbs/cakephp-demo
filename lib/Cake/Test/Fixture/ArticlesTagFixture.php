@@ -29,28 +29,28 @@ class ArticlesTagFixture extends CakeTestFixture {
  *
  * @var string 'ArticlesTag'
  */
-	public $name = 'ArticlesTag';
+    public $name = 'ArticlesTag';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'article_id' => array('type' => 'integer', 'null' => false),
-		'tag_id' => array('type' => 'integer', 'null' => false),
-		'indexes' => array('UNIQUE_TAG2' => array('column' => array('article_id', 'tag_id'), 'unique' => 1))
-	);
+    public $fields = array(
+        'article_id' => array('type' => 'integer', 'null' => false),
+        'tag_id' => array('type' => 'integer', 'null' => false),
+        'indexes' => array('UNIQUE_TAG2' => array('column' => array('article_id', 'tag_id'), 'unique' => 1))
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('article_id' => 1, 'tag_id' => 1),
-		array('article_id' => 1, 'tag_id' => 2),
-		array('article_id' => 2, 'tag_id' => 1),
-		array('article_id' => 2, 'tag_id' => 3)
-	);
+    public $records = array(
+        array('article_id' => 1, 'tag_id' => 1),
+        array('article_id' => 1, 'tag_id' => 2),
+        array('article_id' => 2, 'tag_id' => 1),
+        array('article_id' => 2, 'tag_id' => 3)
+    );
 }

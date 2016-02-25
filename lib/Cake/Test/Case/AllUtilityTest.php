@@ -31,9 +31,9 @@ class AllUtilityTest extends PHPUnit_Framework_TestSuite {
  *
  * @return void
  */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Utility class tests');
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Utility');
-		return $suite;
-	}
+    public static function suite() {
+        $suite = new CakeTestSuite('All Utility class tests');
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Utility');
+        return $suite;
+    }
 }

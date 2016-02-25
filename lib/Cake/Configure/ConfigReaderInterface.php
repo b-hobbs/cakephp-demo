@@ -28,6 +28,6 @@ interface ConfigReaderInterface {
  * @param string $key
  * @return array An array of data to merge into the runtime configuration
  */
-	public function read($key);
+    public function read($key);
 
 }

@@ -54,19 +54,19 @@ class JsonView extends View {
  * 
  * @var string
  */
-	public $subDir = 'json';
+    public $subDir = 'json';
 
 /**
  * Constructor
  *
  * @param Controller $controller
  */
-	public function __construct(Controller $controller = null) {
-		parent::__construct($controller);
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
-			$controller->response->type('json');
-		}
-	}
+    public function __construct(Controller $controller = null) {
+        parent::__construct($controller);
+        if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+            $controller->response->type('json');
+        }
+    }
 
 /**
  * Render a JSON view.
@@ -80,29 +80,29 @@ class JsonView extends View {
  * @param string $layout The layout being rendered.
  * @return string The rendered view.
  */
-	public function render($view = null, $layout = null) {
-		if (isset($this->viewVars['_serialize'])) {
-			$serialize = $this->viewVars['_serialize'];
-			if (is_array($serialize)) {
-				$data = array();
-				foreach ($serialize as $key) {
-					$data[$key] = $this->viewVars[$key];
-				}
-			} else {
-				$data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
-			}
-			$content = json_encode($data);
-			$this->Blocks->set('content', $content);
-			return $content;
-		}
-		if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
-			if (!$this->_helpersLoaded) {
-				$this->loadHelpers();
-			}
-			$content = $this->_render($viewFileName);
-			$this->Blocks->set('content', $content);
-			return $content;
-		}
-	}
+    public function render($view = null, $layout = null) {
+        if (isset($this->viewVars['_serialize'])) {
+            $serialize = $this->viewVars['_serialize'];
+            if (is_array($serialize)) {
+                $data = array();
+                foreach ($serialize as $key) {
+                    $data[$key] = $this->viewVars[$key];
+                }
+            } else {
+                $data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
+            }
+            $content = json_encode($data);
+            $this->Blocks->set('content', $content);
+            return $content;
+        }
+        if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
+            if (!$this->_helpersLoaded) {
+                $this->loadHelpers();
+            }
+            $content = $this->_render($viewFileName);
+            $this->Blocks->set('content', $content);
+            return $content;
+        }
+    }
 
 }

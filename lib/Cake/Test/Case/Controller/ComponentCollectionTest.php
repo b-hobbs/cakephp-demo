@@ -34,83 +34,83 @@ class ComponentCollectionTest extends CakeTestCase {
  *
  * @return void
  */
-	public function setUp() {
-		parent::setUp();
-		$this->Components = new ComponentCollection();
-	}
+    public function setUp() {
+        parent::setUp();
+        $this->Components = new ComponentCollection();
+    }
 
 /**
  * tearDown
  *
  * @return void
  */
-	public function tearDown() {
-		parent::tearDown();
-		unset($this->Components);
-	}
+    public function tearDown() {
+        parent::tearDown();
+        unset($this->Components);
+    }
 
 /**
  * test triggering callbacks on loaded helpers
  *
  * @return void
  */
-	public function testLoad() {
-		$result = $this->Components->load('Cookie');
-		$this->assertInstanceOf('CookieComponent', $result);
-		$this->assertInstanceOf('CookieComponent', $this->Components->Cookie);
+    public function testLoad() {
+        $result = $this->Components->load('Cookie');
+        $this->assertInstanceOf('CookieComponent', $result);
+        $this->assertInstanceOf('CookieComponent', $this->Components->Cookie);
 
-		$result = $this->Components->attached();
-		$this->assertEquals(array('Cookie'), $result, 'attached() results are wrong.');
+        $result = $this->Components->attached();
+        $this->assertEquals(array('Cookie'), $result, 'attached() results are wrong.');
 
-		$this->assertTrue($this->Components->enabled('Cookie'));
+        $this->assertTrue($this->Components->enabled('Cookie'));
 
-		$result = $this->Components->load('Cookie');
-		$this->assertSame($result, $this->Components->Cookie);
-	}
+        $result = $this->Components->load('Cookie');
+        $this->assertSame($result, $this->Components->Cookie);
+    }
 
 /**
  * Tests loading as an alias
  *
  * @return void
  */
-	public function testLoadWithAlias() {
-		$result = $this->Components->load('Cookie', array('className' => 'CookieAlias', 'somesetting' => true));
-		$this->assertInstanceOf('CookieAliasComponent', $result);
-		$this->assertInstanceOf('CookieAliasComponent', $this->Components->Cookie);
-		$this->assertTrue($this->Components->Cookie->settings['somesetting']);
+    public function testLoadWithAlias() {
+        $result = $this->Components->load('Cookie', array('className' => 'CookieAlias', 'somesetting' => true));
+        $this->assertInstanceOf('CookieAliasComponent', $result);
+        $this->assertInstanceOf('CookieAliasComponent', $this->Components->Cookie);
+        $this->assertTrue($this->Components->Cookie->settings['somesetting']);
 
-		$result = $this->Components->attached();
-		$this->assertEquals(array('Cookie'), $result, 'attached() results are wrong.');
+        $result = $this->Components->attached();
+        $this->assertEquals(array('Cookie'), $result, 'attached() results are wrong.');
 
-		$this->assertTrue($this->Components->enabled('Cookie'));
+        $this->assertTrue($this->Components->enabled('Cookie'));
 
-		$result = $this->Components->load('Cookie');
-		$this->assertInstanceOf('CookieAliasComponent', $result);
+        $result = $this->Components->load('Cookie');
+        $this->assertInstanceOf('CookieAliasComponent', $result);
 
-		App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
-		CakePlugin::load('TestPlugin');
-		$result = $this->Components->load('SomeOther', array('className' => 'TestPlugin.Other'));
-		$this->assertInstanceOf('OtherComponent', $result);
-		$this->assertInstanceOf('OtherComponent', $this->Components->SomeOther);
+        App::build(array('Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
+        CakePlugin::load('TestPlugin');
+        $result = $this->Components->load('SomeOther', array('className' => 'TestPlugin.Other'));
+        $this->assertInstanceOf('OtherComponent', $result);
+        $this->assertInstanceOf('OtherComponent', $this->Components->SomeOther);
 
-		$result = $this->Components->attached();
-		$this->assertEquals(array('Cookie', 'SomeOther'), $result, 'attached() results are wrong.');
-		App::build();
-		CakePlugin::unload();
-	}
+        $result = $this->Components->attached();
+        $this->assertEquals(array('Cookie', 'SomeOther'), $result, 'attached() results are wrong.');
+        App::build();
+        CakePlugin::unload();
+    }
 
 /**
  * test load and enable = false
  *
  * @return void
  */
-	public function testLoadWithEnableFalse() {
-		$result = $this->Components->load('Cookie', array('enabled' => false));
-		$this->assertInstanceOf('CookieComponent', $result);
-		$this->assertInstanceOf('CookieComponent', $this->Components->Cookie);
+    public function testLoadWithEnableFalse() {
+        $result = $this->Components->load('Cookie', array('enabled' => false));
+        $this->assertInstanceOf('CookieComponent', $result);
+        $this->assertInstanceOf('CookieComponent', $this->Components->Cookie);
 
-		$this->assertFalse($this->Components->enabled('Cookie'), 'Cookie should be disabled');
-	}
+        $this->assertFalse($this->Components->enabled('Cookie'), 'Cookie should be disabled');
+    }
 
 /**
  * test missingcomponent exception
@@ -118,61 +118,61 @@ class ComponentCollectionTest extends CakeTestCase {
  * @expectedException MissingComponentException
  * @return void
  */
-	public function testLoadMissingComponent() {
-		$this->Components->load('ThisComponentShouldAlwaysBeMissing');
-	}
+    public function testLoadMissingComponent() {
+        $this->Components->load('ThisComponentShouldAlwaysBeMissing');
+    }
 
 /**
  * test loading a plugin component.
  *
  * @return void
  */
-	public function testLoadPluginComponent() {
-		App::build(array(
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-		));
-		CakePlugin::load('TestPlugin');
-		$result = $this->Components->load('TestPlugin.Other');
-		$this->assertInstanceOf('OtherComponent', $result, 'Component class is wrong.');
-		$this->assertInstanceOf('OtherComponent', $this->Components->Other, 'Class is wrong');
-		App::build();
-		CakePlugin::unload();
-	}
+    public function testLoadPluginComponent() {
+        App::build(array(
+            'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
+        ));
+        CakePlugin::load('TestPlugin');
+        $result = $this->Components->load('TestPlugin.Other');
+        $this->assertInstanceOf('OtherComponent', $result, 'Component class is wrong.');
+        $this->assertInstanceOf('OtherComponent', $this->Components->Other, 'Class is wrong');
+        App::build();
+        CakePlugin::unload();
+    }
 
 /**
  * test unload()
  *
  * @return void
  */
-	public function testUnload() {
-		$this->Components->load('Cookie');
-		$this->Components->load('Security');
+    public function testUnload() {
+        $this->Components->load('Cookie');
+        $this->Components->load('Security');
 
-		$result = $this->Components->attached();
-		$this->assertEquals(array('Cookie', 'Security'), $result, 'loaded components is wrong');
+        $result = $this->Components->attached();
+        $this->assertEquals(array('Cookie', 'Security'), $result, 'loaded components is wrong');
 
-		$this->Components->unload('Cookie');
-		$this->assertFalse(isset($this->Components->Cookie));
-		$this->assertTrue(isset($this->Components->Security));
+        $this->Components->unload('Cookie');
+        $this->assertFalse(isset($this->Components->Cookie));
+        $this->assertTrue(isset($this->Components->Security));
 
-		$result = $this->Components->attached();
-		$this->assertEquals(array('Security'), $result, 'loaded components is wrong');
+        $result = $this->Components->attached();
+        $this->assertEquals(array('Security'), $result, 'loaded components is wrong');
 
-		$result = $this->Components->enabled();
-		$this->assertEquals(array('Security'), $result, 'enabled components is wrong');
-	}
+        $result = $this->Components->enabled();
+        $this->assertEquals(array('Security'), $result, 'enabled components is wrong');
+    }
 
 /**
  * test getting the controller out of the collection
  *
  * @return void
  */
-	public function testGetController() {
-		$controller = $this->getMock('Controller');
-		$controller->components = array('Security');
-		$this->Components->init($controller);
-		$result = $this->Components->getController();
+    public function testGetController() {
+        $controller = $this->getMock('Controller');
+        $controller->components = array('Security');
+        $this->Components->init($controller);
+        $result = $this->Components->getController();
 
-		$this->assertSame($controller, $result);
-	}
+        $this->assertSame($controller, $result);
+    }
 }

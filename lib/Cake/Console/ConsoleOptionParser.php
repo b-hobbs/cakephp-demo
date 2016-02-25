@@ -85,7 +85,7 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::description()
  * @var string
  */
-	protected $_description = null;
+    protected $_description = null;
 
 /**
  * Epilog text - displays after options when help is generated
@@ -93,7 +93,7 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::epilog()
  * @var string
  */
-	protected $_epilog = null;
+    protected $_epilog = null;
 
 /**
  * Option definitions.
@@ -101,14 +101,14 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::addOption()
  * @var array
  */
-	protected $_options = array();
+    protected $_options = array();
 
 /**
  * Map of short -> long options, generated when using addOption()
  *
  * @var string
  */
-	protected $_shortOptions = array();
+    protected $_shortOptions = array();
 
 /**
  * Positional argument definitions.
@@ -116,7 +116,7 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::addArgument()
  * @var array
  */
-	protected $_args = array();
+    protected $_args = array();
 
 /**
  * Subcommands for this Shell.
@@ -124,14 +124,14 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::addSubcommand()
  * @var array
  */
-	protected $_subcommands = array();
+    protected $_subcommands = array();
 
 /**
  * Command name.
  *
  * @var string
  */
-	protected $_command = '';
+    protected $_command = '';
 
 /**
  * Construct an OptionParser so you can define its behavior
@@ -140,27 +140,27 @@ class ConsoleOptionParser {
  * @param boolean $defaultOptions Whether you want the verbose and quiet options set. Setting
  *  this to false will prevent the addition of `--verbose` & `--quiet` options.
  */
-	public function __construct($command = null, $defaultOptions = true) {
-		$this->command($command);
+    public function __construct($command = null, $defaultOptions = true) {
+        $this->command($command);
 
-		$this->addOption('help', array(
-			'short' => 'h',
-			'help' => __d('cake_console', 'Display this help.'),
-			'boolean' => true
-		));
+        $this->addOption('help', array(
+            'short' => 'h',
+            'help' => __d('cake_console', 'Display this help.'),
+            'boolean' => true
+        ));
 
-		if ($defaultOptions) {
-			$this->addOption('verbose', array(
-				'short' => 'v',
-				'help' => __d('cake_console', 'Enable verbose output.'),
-				'boolean' => true
-			))->addOption('quiet', array(
-				'short' => 'q',
-				'help' => __d('cake_console', 'Enable quiet output.'),
-				'boolean' => true
-			));
-		}
-	}
+        if ($defaultOptions) {
+            $this->addOption('verbose', array(
+                'short' => 'v',
+                'help' => __d('cake_console', 'Enable verbose output.'),
+                'boolean' => true
+            ))->addOption('quiet', array(
+                'short' => 'q',
+                'help' => __d('cake_console', 'Enable quiet output.'),
+                'boolean' => true
+            ));
+        }
+    }
 
 /**
  * Static factory method for creating new OptionParsers so you can chain methods off of them.
@@ -169,51 +169,51 @@ class ConsoleOptionParser {
  * @param boolean $defaultOptions Whether you want the verbose and quiet options set.
  * @return ConsoleOptionParser
  */
-	public static function create($command, $defaultOptions = true) {
-		return new ConsoleOptionParser($command, $defaultOptions);
-	}
+    public static function create($command, $defaultOptions = true) {
+        return new ConsoleOptionParser($command, $defaultOptions);
+    }
 
 /**
  * Build a parser from an array. Uses an array like
  *
  * {{{
  * $spec = array(
- *		'description' => 'text',
- *		'epilog' => 'text',
- *		'arguments' => array(
- *			// list of arguments compatible with addArguments.
- *		),
- *		'options' => array(
- *			// list of options compatible with addOptions
- *		),
- *		'subcommands' => array(
- *			// list of subcommands to add.
- *		)
+ *      'description' => 'text',
+ *      'epilog' => 'text',
+ *      'arguments' => array(
+ *          // list of arguments compatible with addArguments.
+ *      ),
+ *      'options' => array(
+ *          // list of options compatible with addOptions
+ *      ),
+ *      'subcommands' => array(
+ *          // list of subcommands to add.
+ *      )
  * );
  * }}}
  *
  * @param array $spec The spec to build the OptionParser with.
  * @return ConsoleOptionParser
  */
-	public static function buildFromArray($spec) {
-		$parser = new ConsoleOptionParser($spec['command']);
-		if (!empty($spec['arguments'])) {
-			$parser->addArguments($spec['arguments']);
-		}
-		if (!empty($spec['options'])) {
-			$parser->addOptions($spec['options']);
-		}
-		if (!empty($spec['subcommands'])) {
-			$parser->addSubcommands($spec['subcommands']);
-		}
-		if (!empty($spec['description'])) {
-			$parser->description($spec['description']);
-		}
-		if (!empty($spec['epilog'])) {
-			$parser->epilog($spec['epilog']);
-		}
-		return $parser;
-	}
+    public static function buildFromArray($spec) {
+        $parser = new ConsoleOptionParser($spec['command']);
+        if (!empty($spec['arguments'])) {
+            $parser->addArguments($spec['arguments']);
+        }
+        if (!empty($spec['options'])) {
+            $parser->addOptions($spec['options']);
+        }
+        if (!empty($spec['subcommands'])) {
+            $parser->addSubcommands($spec['subcommands']);
+        }
+        if (!empty($spec['description'])) {
+            $parser->description($spec['description']);
+        }
+        if (!empty($spec['epilog'])) {
+            $parser->epilog($spec['epilog']);
+        }
+        return $parser;
+    }
 
 /**
  * Get or set the command name for shell/task.
@@ -221,13 +221,13 @@ class ConsoleOptionParser {
  * @param string $text The text to set, or null if you want to read
  * @return mixed If reading, the value of the command. If setting $this will be returned
  */
-	public function command($text = null) {
-		if ($text !== null) {
-			$this->_command = Inflector::underscore($text);
-			return $this;
-		}
-		return $this->_command;
-	}
+    public function command($text = null) {
+        if ($text !== null) {
+            $this->_command = Inflector::underscore($text);
+            return $this;
+        }
+        return $this->_command;
+    }
 
 /**
  * Get or set the description text for shell/task.
@@ -236,16 +236,16 @@ class ConsoleOptionParser {
  *   text will be imploded with "\n"
  * @return mixed If reading, the value of the description. If setting $this will be returned
  */
-	public function description($text = null) {
-		if ($text !== null) {
-			if (is_array($text)) {
-				$text = implode("\n", $text);
-			}
-			$this->_description = $text;
-			return $this;
-		}
-		return $this->_description;
-	}
+    public function description($text = null) {
+        if ($text !== null) {
+            if (is_array($text)) {
+                $text = implode("\n", $text);
+            }
+            $this->_description = $text;
+            return $this;
+        }
+        return $this->_description;
+    }
 
 /**
  * Get or set an epilog to the parser.  The epilog is added to the end of
@@ -254,16 +254,16 @@ class ConsoleOptionParser {
  * @param string|array $text Text when setting or null when reading. If an array the text will be imploded with "\n"
  * @return mixed If reading, the value of the epilog. If setting $this will be returned.
  */
-	public function epilog($text = null) {
-		if ($text !== null) {
-			if (is_array($text)) {
-				$text = implode("\n", $text);
-			}
-			$this->_epilog = $text;
-			return $this;
-		}
-		return $this->_epilog;
-	}
+    public function epilog($text = null) {
+        if ($text !== null) {
+            if (is_array($text)) {
+                $text = implode("\n", $text);
+            }
+            $this->_epilog = $text;
+            return $this;
+        }
+        return $this->_epilog;
+    }
 
 /**
  * Add an option to the option parser. Options allow you to define optional or required
@@ -287,28 +287,28 @@ class ConsoleOptionParser {
  * @param array $options An array of parameters that define the behavior of the option
  * @return ConsoleOptionParser $this.
  */
-	public function addOption($name, $options = array()) {
-		if (is_object($name) && $name instanceof ConsoleInputOption) {
-			$option = $name;
-			$name = $option->name();
-		} else {
-			$defaults = array(
-				'name' => $name,
-				'short' => null,
-				'help' => '',
-				'default' => null,
-				'boolean' => false,
-				'choices' => array()
-			);
-			$options = array_merge($defaults, $options);
-			$option = new ConsoleInputOption($options);
-		}
-		$this->_options[$name] = $option;
-		if ($option->short() !== null) {
-			$this->_shortOptions[$option->short()] = $name;
-		}
-		return $this;
-	}
+    public function addOption($name, $options = array()) {
+        if (is_object($name) && $name instanceof ConsoleInputOption) {
+            $option = $name;
+            $name = $option->name();
+        } else {
+            $defaults = array(
+                'name' => $name,
+                'short' => null,
+                'help' => '',
+                'default' => null,
+                'boolean' => false,
+                'choices' => array()
+            );
+            $options = array_merge($defaults, $options);
+            $option = new ConsoleInputOption($options);
+        }
+        $this->_options[$name] = $option;
+        if ($option->short() !== null) {
+            $this->_shortOptions[$option->short()] = $name;
+        }
+        return $this;
+    }
 
 /**
  * Add a positional argument to the option parser.
@@ -327,26 +327,26 @@ class ConsoleOptionParser {
  * @param array $params Parameters for the argument, see above.
  * @return ConsoleOptionParser $this.
  */
-	public function addArgument($name, $params = array()) {
-		if (is_object($name) && $name instanceof ConsoleInputArgument) {
-			$arg = $name;
-			$index = count($this->_args);
-		} else {
-			$defaults = array(
-				'name' => $name,
-				'help' => '',
-				'index' => count($this->_args),
-				'required' => false,
-				'choices' => array()
-			);
-			$options = array_merge($defaults, $params);
-			$index = $options['index'];
-			unset($options['index']);
-			$arg = new ConsoleInputArgument($options);
-		}
-		$this->_args[$index] = $arg;
-		return $this;
-	}
+    public function addArgument($name, $params = array()) {
+        if (is_object($name) && $name instanceof ConsoleInputArgument) {
+            $arg = $name;
+            $index = count($this->_args);
+        } else {
+            $defaults = array(
+                'name' => $name,
+                'help' => '',
+                'index' => count($this->_args),
+                'required' => false,
+                'choices' => array()
+            );
+            $options = array_merge($defaults, $params);
+            $index = $options['index'];
+            unset($options['index']);
+            $arg = new ConsoleInputArgument($options);
+        }
+        $this->_args[$index] = $arg;
+        return $this;
+    }
 
 /**
  * Add multiple arguments at once. Take an array of argument definitions.
@@ -356,12 +356,12 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::addArgument()
  * @return ConsoleOptionParser $this
  */
-	public function addArguments(array $args) {
-		foreach ($args as $name => $params) {
-			$this->addArgument($name, $params);
-		}
-		return $this;
-	}
+    public function addArguments(array $args) {
+        foreach ($args as $name => $params) {
+            $this->addArgument($name, $params);
+        }
+        return $this;
+    }
 
 /**
  * Add multiple options at once. Takes an array of option definitions.
@@ -371,12 +371,12 @@ class ConsoleOptionParser {
  * @see ConsoleOptionParser::addOption()
  * @return ConsoleOptionParser $this
  */
-	public function addOptions(array $options) {
-		foreach ($options as $name => $params) {
-			$this->addOption($name, $params);
-		}
-		return $this;
-	}
+    public function addOptions(array $options) {
+        foreach ($options as $name => $params) {
+            $this->addOption($name, $params);
+        }
+        return $this;
+    }
 
 /**
  * Append a subcommand to the subcommand list.
@@ -393,22 +393,22 @@ class ConsoleOptionParser {
  * @param array $options Array of params, see above.
  * @return ConsoleOptionParser $this.
  */
-	public function addSubcommand($name, $options = array()) {
-		if (is_object($name) && $name instanceof ConsoleInputSubcommand) {
-			$command = $name;
-			$name = $command->name();
-		} else {
-			$defaults = array(
-				'name' => $name,
-				'help' => '',
-				'parser' => null
-			);
-			$options = array_merge($defaults, $options);
-			$command = new ConsoleInputSubcommand($options);
-		}
-		$this->_subcommands[$name] = $command;
-		return $this;
-	}
+    public function addSubcommand($name, $options = array()) {
+        if (is_object($name) && $name instanceof ConsoleInputSubcommand) {
+            $command = $name;
+            $name = $command->name();
+        } else {
+            $defaults = array(
+                'name' => $name,
+                'help' => '',
+                'parser' => null
+            );
+            $options = array_merge($defaults, $options);
+            $command = new ConsoleInputSubcommand($options);
+        }
+        $this->_subcommands[$name] = $command;
+        return $this;
+    }
 
 /**
  * Add multiple subcommands at once.
@@ -416,39 +416,39 @@ class ConsoleOptionParser {
  * @param array $commands Array of subcommands.
  * @return ConsoleOptionParser $this
  */
-	public function addSubcommands(array $commands) {
-		foreach ($commands as $name => $params) {
-			$this->addSubcommand($name, $params);
-		}
-		return $this;
-	}
+    public function addSubcommands(array $commands) {
+        foreach ($commands as $name => $params) {
+            $this->addSubcommand($name, $params);
+        }
+        return $this;
+    }
 
 /**
  * Gets the arguments defined in the parser.
  *
  * @return array Array of argument descriptions
  */
-	public function arguments() {
-		return $this->_args;
-	}
+    public function arguments() {
+        return $this->_args;
+    }
 
 /**
  * Get the defined options in the parser.
  *
  * @return array
  */
-	public function options() {
-		return $this->_options;
-	}
+    public function options() {
+        return $this->_options;
+    }
 
 /**
  * Get the array of defined subcommands
  *
  * @return array
  */
-	public function subcommands() {
-		return $this->_subcommands;
-	}
+    public function subcommands() {
+        return $this->_subcommands;
+    }
 
 /**
  * Parse the argv array into a set of params and args.  If $command is not null
@@ -461,42 +461,42 @@ class ConsoleOptionParser {
  * @return Array array($params, $args)
  * @throws ConsoleException When an invalid parameter is encountered.
  */
-	public function parse($argv, $command = null) {
-		if (isset($this->_subcommands[$command]) && $this->_subcommands[$command]->parser()) {
-			return $this->_subcommands[$command]->parser()->parse($argv);
-		}
-		$params = $args = array();
-		$this->_tokens = $argv;
-		while (($token = array_shift($this->_tokens)) !== null) {
-			if (substr($token, 0, 2) == '--') {
-				$params = $this->_parseLongOption($token, $params);
-			} elseif (substr($token, 0, 1) == '-') {
-				$params = $this->_parseShortOption($token, $params);
-			} else {
-				$args = $this->_parseArg($token, $args);
-			}
-		}
-		foreach ($this->_args as $i => $arg) {
-			if ($arg->isRequired() && !isset($args[$i]) && empty($params['help'])) {
-				throw new ConsoleException(
-					__d('cake_console', 'Missing required arguments. %s is required.', $arg->name())
-				);
-			}
-		}
-		foreach ($this->_options as $option) {
-			$name = $option->name();
-			$isBoolean = $option->isBoolean();
-			$default = $option->defaultValue();
+    public function parse($argv, $command = null) {
+        if (isset($this->_subcommands[$command]) && $this->_subcommands[$command]->parser()) {
+            return $this->_subcommands[$command]->parser()->parse($argv);
+        }
+        $params = $args = array();
+        $this->_tokens = $argv;
+        while (($token = array_shift($this->_tokens)) !== null) {
+            if (substr($token, 0, 2) == '--') {
+                $params = $this->_parseLongOption($token, $params);
+            } elseif (substr($token, 0, 1) == '-') {
+                $params = $this->_parseShortOption($token, $params);
+            } else {
+                $args = $this->_parseArg($token, $args);
+            }
+        }
+        foreach ($this->_args as $i => $arg) {
+            if ($arg->isRequired() && !isset($args[$i]) && empty($params['help'])) {
+                throw new ConsoleException(
+                    __d('cake_console', 'Missing required arguments. %s is required.', $arg->name())
+                );
+            }
+        }
+        foreach ($this->_options as $option) {
+            $name = $option->name();
+            $isBoolean = $option->isBoolean();
+            $default = $option->defaultValue();
 
-			if ($default !== null && !isset($params[$name]) && !$isBoolean) {
-				$params[$name] = $default;
-			}
-			if ($isBoolean && !isset($params[$name])) {
-				$params[$name] = false;
-			}
-		}
-		return array($params, $args);
-	}
+            if ($default !== null && !isset($params[$name]) && !$isBoolean) {
+                $params[$name] = $default;
+            }
+            if ($isBoolean && !isset($params[$name])) {
+                $params[$name] = false;
+            }
+        }
+        return array($params, $args);
+    }
 
 /**
  * Gets formatted help for this parser object.
@@ -509,22 +509,22 @@ class ConsoleOptionParser {
  * @param integer $width The width to format user content to. Defaults to 72
  * @return string Generated help.
  */
-	public function help($subcommand = null, $format = 'text', $width = 72) {
-		if (
-			isset($this->_subcommands[$subcommand]) &&
-			$this->_subcommands[$subcommand]->parser() instanceof self
-		) {
-			$subparser = $this->_subcommands[$subcommand]->parser();
-			$subparser->command($this->command() . ' ' . $subparser->command());
-			return $subparser->help(null, $format, $width);
-		}
-		$formatter = new HelpFormatter($this);
-		if ($format == 'text' || $format === true) {
-			return $formatter->text($width);
-		} elseif ($format == 'xml') {
-			return $formatter->xml();
-		}
-	}
+    public function help($subcommand = null, $format = 'text', $width = 72) {
+        if (
+            isset($this->_subcommands[$subcommand]) &&
+            $this->_subcommands[$subcommand]->parser() instanceof self
+        ) {
+            $subparser = $this->_subcommands[$subcommand]->parser();
+            $subparser->command($this->command() . ' ' . $subparser->command());
+            return $subparser->help(null, $format, $width);
+        }
+        $formatter = new HelpFormatter($this);
+        if ($format == 'text' || $format === true) {
+            return $formatter->text($width);
+        } elseif ($format == 'xml') {
+            return $formatter->xml();
+        }
+    }
 
 /**
  * Parse the value for a long option out of $this->_tokens.  Will handle
@@ -534,14 +534,14 @@ class ConsoleOptionParser {
  * @param array $params The params to append the parsed value into
  * @return array Params with $option added in.
  */
-	protected function _parseLongOption($option, $params) {
-		$name = substr($option, 2);
-		if (strpos($name, '=') !== false) {
-			list($name, $value) = explode('=', $name, 2);
-			array_unshift($this->_tokens, $value);
-		}
-		return $this->_parseOption($name, $params);
-	}
+    protected function _parseLongOption($option, $params) {
+        $name = substr($option, 2);
+        if (strpos($name, '=') !== false) {
+            list($name, $value) = explode('=', $name, 2);
+            array_unshift($this->_tokens, $value);
+        }
+        return $this->_parseOption($name, $params);
+    }
 
 /**
  * Parse the value for a short option out of $this->_tokens
@@ -553,21 +553,21 @@ class ConsoleOptionParser {
  * @return array Params with $option added in.
  * @throws ConsoleException When unknown short options are encountered.
  */
-	protected function _parseShortOption($option, $params) {
-		$key = substr($option, 1);
-		if (strlen($key) > 1) {
-			$flags = str_split($key);
-			$key = $flags[0];
-			for ($i = 1, $len = count($flags); $i < $len; $i++) {
-				array_unshift($this->_tokens, '-' . $flags[$i]);
-			}
-		}
-		if (!isset($this->_shortOptions[$key])) {
-			throw new ConsoleException(__d('cake_console', 'Unknown short option `%s`', $key));
-		}
-		$name = $this->_shortOptions[$key];
-		return $this->_parseOption($name, $params);
-	}
+    protected function _parseShortOption($option, $params) {
+        $key = substr($option, 1);
+        if (strlen($key) > 1) {
+            $flags = str_split($key);
+            $key = $flags[0];
+            for ($i = 1, $len = count($flags); $i < $len; $i++) {
+                array_unshift($this->_tokens, '-' . $flags[$i]);
+            }
+        }
+        if (!isset($this->_shortOptions[$key])) {
+            throw new ConsoleException(__d('cake_console', 'Unknown short option `%s`', $key));
+        }
+        $name = $this->_shortOptions[$key];
+        return $this->_parseOption($name, $params);
+    }
 
 /**
  * Parse an option by its name index.
@@ -577,26 +577,26 @@ class ConsoleOptionParser {
  * @return array Params with $option added in.
  * @throws ConsoleException
  */
-	protected function _parseOption($name, $params) {
-		if (!isset($this->_options[$name])) {
-			throw new ConsoleException(__d('cake_console', 'Unknown option `%s`', $name));
-		}
-		$option = $this->_options[$name];
-		$isBoolean = $option->isBoolean();
-		$nextValue = $this->_nextToken();
-		if (!$isBoolean && !empty($nextValue) && !$this->_optionExists($nextValue)) {
-			array_shift($this->_tokens);
-			$value = $nextValue;
-		} elseif ($isBoolean) {
-			$value = true;
-		} else {
-			$value = $option->defaultValue();
-		}
-		if ($option->validChoice($value)) {
-			$params[$name] = $value;
-			return $params;
-		}
-	}
+    protected function _parseOption($name, $params) {
+        if (!isset($this->_options[$name])) {
+            throw new ConsoleException(__d('cake_console', 'Unknown option `%s`', $name));
+        }
+        $option = $this->_options[$name];
+        $isBoolean = $option->isBoolean();
+        $nextValue = $this->_nextToken();
+        if (!$isBoolean && !empty($nextValue) && !$this->_optionExists($nextValue)) {
+            array_shift($this->_tokens);
+            $value = $nextValue;
+        } elseif ($isBoolean) {
+            $value = true;
+        } else {
+            $value = $option->defaultValue();
+        }
+        if ($option->validChoice($value)) {
+            $params[$name] = $value;
+            return $params;
+        }
+    }
 
 /**
  * Check to see if $name has an option (short/long) defined for it.
@@ -604,15 +604,15 @@ class ConsoleOptionParser {
  * @param string $name The name of the option.
  * @return boolean
  */
-	protected function _optionExists($name) {
-		if (substr($name, 0, 2) === '--') {
-			return isset($this->_options[substr($name, 2)]);
-		}
-		if ($name{0} === '-' && $name{1} !== '-') {
-			return isset($this->_shortOptions[$name{1}]);
-		}
-		return false;
-	}
+    protected function _optionExists($name) {
+        if (substr($name, 0, 2) === '--') {
+            return isset($this->_options[substr($name, 2)]);
+        }
+        if ($name{0} === '-' && $name{1} !== '-') {
+            return isset($this->_shortOptions[$name{1}]);
+        }
+        return false;
+    }
 
 /**
  * Parse an argument, and ensure that the argument doesn't exceed the number of arguments
@@ -623,29 +623,29 @@ class ConsoleOptionParser {
  * @return array Args
  * @throws ConsoleException
  */
-	protected function _parseArg($argument, $args) {
-		if (empty($this->_args)) {
-			array_push($args, $argument);
-			return $args;
-		}
-		$next = count($args);
-		if (!isset($this->_args[$next])) {
-			throw new ConsoleException(__d('cake_console', 'Too many arguments.'));
-		}
+    protected function _parseArg($argument, $args) {
+        if (empty($this->_args)) {
+            array_push($args, $argument);
+            return $args;
+        }
+        $next = count($args);
+        if (!isset($this->_args[$next])) {
+            throw new ConsoleException(__d('cake_console', 'Too many arguments.'));
+        }
 
-		if ($this->_args[$next]->validChoice($argument)) {
-			array_push($args, $argument);
-			return $args;
-		}
-	}
+        if ($this->_args[$next]->validChoice($argument)) {
+            array_push($args, $argument);
+            return $args;
+        }
+    }
 
 /**
  * Find the next token in the argv set.
  *
  * @return string next token or ''
  */
-	protected function _nextToken() {
-		return isset($this->_tokens[0]) ? $this->_tokens[0] : '';
-	}
+    protected function _nextToken() {
+        return isset($this->_tokens[0]) ? $this->_tokens[0] : '';
+    }
 
 }

@@ -31,10 +31,10 @@ class AllTestSuiteTest extends PHPUnit_Framework_TestSuite {
  *
  * @return void
  */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Test Suite classes tests');
+    public static function suite() {
+        $suite = new CakeTestSuite('All Test Suite classes tests');
 
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'TestSuite');
-		return $suite;
-	}
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'TestSuite');
+        return $suite;
+    }
 }

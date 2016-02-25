@@ -27,13 +27,13 @@ echo "App::uses('{$plugin}AppController', '{$pluginPath}Controller');\n";
  *
 <?php
 if (!$isScaffold) {
-	$defaultModel = Inflector::singularize($controllerName);
-	echo " * @property {$defaultModel} \${$defaultModel}\n";
-	if (!empty($components)) {
-		foreach ($components as $component) {
-			echo " * @property {$component}Component \${$component}\n";
-		}
-	}
+    $defaultModel = Inflector::singularize($controllerName);
+    echo " * @property {$defaultModel} \${$defaultModel}\n";
+    if (!empty($components)) {
+        foreach ($components as $component) {
+            echo " * @property {$component}Component \${$component}\n";
+        }
+    }
 }
 ?>
  */
@@ -45,7 +45,7 @@ class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>App
  *
  * @var mixed
  */
-	public $scaffold;
+    public $scaffold;
 
 <?php else:
 

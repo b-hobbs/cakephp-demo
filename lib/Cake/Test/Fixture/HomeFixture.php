@@ -29,29 +29,29 @@ class HomeFixture extends CakeTestFixture {
  *
  * @var string 'Home'
  */
-	public $name = 'Home';
+    public $name = 'Home';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'another_article_id' => array('type' => 'integer', 'null' => false),
-		'advertisement_id' => array('type' => 'integer', 'null' => false),
-		'title' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'another_article_id' => array('type' => 'integer', 'null' => false),
+        'advertisement_id' => array('type' => 'integer', 'null' => false),
+        'title' => array('type' => 'string', 'null' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('another_article_id' => 1, 'advertisement_id' => 1, 'title' => 'First Home', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
-		array('another_article_id' => 3, 'advertisement_id' => 1, 'title' => 'Second Home', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31')
-	);
+    public $records = array(
+        array('another_article_id' => 1, 'advertisement_id' => 1, 'title' => 'First Home', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
+        array('another_article_id' => 3, 'advertisement_id' => 1, 'title' => 'Second Home', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31')
+    );
 }

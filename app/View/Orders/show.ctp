@@ -12,7 +12,7 @@ Customer Name: <?php echo $order[0]['Customer']['username'] ?>
         <th>Quantity</th>
     </tr>
 
-	<?php $count = 0 ?>
+    <?php $count = 0 ?>
     <?php foreach ($order as $part): ?>
     <tr>
         <td><?php echo $part['Part']['name']; ?></td>
@@ -20,9 +20,9 @@ Customer Name: <?php echo $order[0]['Customer']['username'] ?>
             <?php echo $part['Category']['name']; ?>
         </td>
         <td>
-			<?php echo $part['OrderDetail']['quantity']; ?>
-			<?php $count += $part['OrderDetail']['quantity'] ?>
-		</td>
+            <?php echo $part['OrderDetail']['quantity']; ?>
+            <?php $count += $part['OrderDetail']['quantity'] ?>
+        </td>
     </tr>
     <?php endforeach; ?>
     <?php unset($part); ?>

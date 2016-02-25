@@ -29,24 +29,24 @@ class BakeTagFixture extends CakeTestFixture {
  *
  * @var string 'Tag'
  */
-	public $name = 'BakeTag';
+    public $name = 'BakeTag';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'tag' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'tag' => array('type' => 'string', 'null' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+    public $records = array();
 }

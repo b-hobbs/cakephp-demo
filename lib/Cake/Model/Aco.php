@@ -30,12 +30,12 @@ class Aco extends AclNode {
  *
  * @var string
  */
-	public $name = 'Aco';
+    public $name = 'Aco';
 
 /**
  * Binds to ARO nodes through permissions settings
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array('Aro' => array('with' => 'Permission'));
+    public $hasAndBelongsToMany = array('Aro' => array('with' => 'Permission'));
 }

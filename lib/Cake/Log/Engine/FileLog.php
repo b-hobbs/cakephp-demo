@@ -32,7 +32,7 @@ class FileLog extends BaseLog {
  *
  * @var string
  */
-	protected $_path = null;
+    protected $_path = null;
 
 /**
  * Constructs a new File Logger.
@@ -46,21 +46,21 @@ class FileLog extends BaseLog {
  *
  * @param array $options Options for the FileLog, see above.
  */
-	public function __construct($config = array()) {
-		parent::__construct($config);
-		$config = Hash::merge(array(
-			'path' => LOGS,
-			'file' => null,
-			'types' => null,
-			'scopes' => array(),
-			), $this->_config);
-		$config = $this->config($config);
-		$this->_path = $config['path'];
-		$this->_file = $config['file'];
-		if (!empty($this->_file) && !preg_match('/\.log$/', $this->_file)) {
-			$this->_file .= '.log';
-		}
-	}
+    public function __construct($config = array()) {
+        parent::__construct($config);
+        $config = Hash::merge(array(
+            'path' => LOGS,
+            'file' => null,
+            'types' => null,
+            'scopes' => array(),
+            ), $this->_config);
+        $config = $this->config($config);
+        $this->_path = $config['path'];
+        $this->_file = $config['file'];
+        if (!empty($this->_file) && !preg_match('/\.log$/', $this->_file)) {
+            $this->_file .= '.log';
+        }
+    }
 
 /**
  * Implements writing to log files.
@@ -69,22 +69,22 @@ class FileLog extends BaseLog {
  * @param string $message The message you want to log.
  * @return boolean success of write.
  */
-	public function write($type, $message) {
-		$debugTypes = array('notice', 'info', 'debug');
+    public function write($type, $message) {
+        $debugTypes = array('notice', 'info', 'debug');
 
-		if (!empty($this->_file)) {
-			$filename = $this->_path . $this->_file;
-		} elseif ($type == 'error' || $type == 'warning') {
-			$filename = $this->_path . 'error.log';
-		} elseif (in_array($type, $debugTypes)) {
-			$filename = $this->_path . 'debug.log';
-		} elseif (in_array($type, $this->_config['scopes'])) {
-			$filename = $this->_path . $this->_file;
-		} else {
-			$filename = $this->_path . $type . '.log';
-		}
-		$output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
-		return file_put_contents($filename, $output, FILE_APPEND);
-	}
+        if (!empty($this->_file)) {
+            $filename = $this->_path . $this->_file;
+        } elseif ($type == 'error' || $type == 'warning') {
+            $filename = $this->_path . 'error.log';
+        } elseif (in_array($type, $debugTypes)) {
+            $filename = $this->_path . 'debug.log';
+        } elseif (in_array($type, $this->_config['scopes'])) {
+            $filename = $this->_path . $this->_file;
+        } else {
+            $filename = $this->_path . $type . '.log';
+        }
+        $output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
+        return file_put_contents($filename, $output, FILE_APPEND);
+    }
 
 }

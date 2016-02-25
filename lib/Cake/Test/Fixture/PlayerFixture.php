@@ -29,29 +29,29 @@ class PlayerFixture extends CakeTestFixture {
  *
  * @var string 'Player'
  */
-	public $name = 'Player';
+    public $name = 'Player';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'mark', 'created' => '2007-03-17 01:16:23'),
-		array('name' => 'jack', 'created' => '2007-03-17 01:18:23'),
-		array('name' => 'larry', 'created' => '2007-03-17 01:20:23'),
-		array('name' => 'jose', 'created' => '2007-03-17 01:22:23'),
-	);
+    public $records = array(
+        array('name' => 'mark', 'created' => '2007-03-17 01:16:23'),
+        array('name' => 'jack', 'created' => '2007-03-17 01:18:23'),
+        array('name' => 'larry', 'created' => '2007-03-17 01:20:23'),
+        array('name' => 'jose', 'created' => '2007-03-17 01:22:23'),
+    );
 }

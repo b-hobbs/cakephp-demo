@@ -28,24 +28,24 @@ class ConsoleInput {
  *
  * @var resource
  */
-	protected $_input;
+    protected $_input;
 
 /**
  * Constructor
  *
  * @param string $handle The location of the stream to use as input.
  */
-	public function __construct($handle = 'php://stdin') {
-		$this->_input = fopen($handle, 'r');
-	}
+    public function __construct($handle = 'php://stdin') {
+        $this->_input = fopen($handle, 'r');
+    }
 
 /**
  * Read a value from the stream
  *
  * @return mixed The value of the stream
  */
-	public function read() {
-		return fgets($this->_input);
-	}
+    public function read() {
+        return fgets($this->_input);
+    }
 
 }

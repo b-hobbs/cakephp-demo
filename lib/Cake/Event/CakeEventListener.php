@@ -9,11 +9,11 @@
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright	  Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link		  http://cakephp.org CakePHP(tm) Project
- * @package		  Cake.Observer
- * @since		  CakePHP(tm) v 2.1
- * @license		  MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       Cake.Observer
+ * @since         CakePHP(tm) v 2.1
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
@@ -31,18 +31,18 @@ interface CakeEventListener  {
  * ## Example:
  *
  * {{{
- *	public function implementedEvents() {
- *		return array(
- *			'Order.complete' => 'sendEmail',
- *			'Article.afterBuy' => 'decrementInventory',
- *			'User.onRegister' => array('callable' => 'logRegistration', 'priority' => 20, 'passParams' => true)
- *		);
- *	}
+ *  public function implementedEvents() {
+ *      return array(
+ *          'Order.complete' => 'sendEmail',
+ *          'Article.afterBuy' => 'decrementInventory',
+ *          'User.onRegister' => array('callable' => 'logRegistration', 'priority' => 20, 'passParams' => true)
+ *      );
+ *  }
  * }}}
  *
  * @return array associative array or event key names pointing to the function
  * that should be called in the object when the respective event is fired
  */
-	public function implementedEvents();
+    public function implementedEvents();
 
 }

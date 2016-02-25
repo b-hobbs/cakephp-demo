@@ -29,27 +29,27 @@ class MyCategoriesMyUsersFixture extends CakeTestFixture {
  *
  * @var string 'MyCategoriesMyUsers'
  */
-	public $name = 'MyCategoriesMyUsers';
+    public $name = 'MyCategoriesMyUsers';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'my_category_id' => array('type' => 'integer'),
-		'my_user_id' => array('type' => 'integer'),
-	);
+    public $fields = array(
+        'my_category_id' => array('type' => 'integer'),
+        'my_user_id' => array('type' => 'integer'),
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('my_category_id' => 1, 'my_user_id' => 1),
-		array('my_category_id' => 3, 'my_user_id' => 1),
-		array('my_category_id' => 1, 'my_user_id' => 2),
-		array('my_category_id' => 2, 'my_user_id' => 2),
-	);
+    public $records = array(
+        array('my_category_id' => 1, 'my_user_id' => 1),
+        array('my_category_id' => 3, 'my_user_id' => 1),
+        array('my_category_id' => 1, 'my_user_id' => 2),
+        array('my_category_id' => 2, 'my_user_id' => 2),
+    );
 }

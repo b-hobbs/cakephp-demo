@@ -27,7 +27,7 @@ class IniAcl extends Object implements AclInterface {
  *
  * @var array
  */
-	public $config = null;
+    public $config = null;
 
 /**
  * The Hash::extract() path to the user/aro identifier in the
@@ -36,7 +36,7 @@ class IniAcl extends Object implements AclInterface {
  *
  * @var string
  */
-	public $userPath = 'User.username';
+    public $userPath = 'User.username';
 
 /**
  * Initialize method
@@ -44,8 +44,8 @@ class IniAcl extends Object implements AclInterface {
  * @param AclBase $component
  * @return void
  */
-	public function initialize(Component $component) {
-	}
+    public function initialize(Component $component) {
+    }
 
 /**
  * No op method, allow cannot be done with IniAcl
@@ -55,8 +55,8 @@ class IniAcl extends Object implements AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function allow($aro, $aco, $action = "*") {
-	}
+    public function allow($aro, $aco, $action = "*") {
+    }
 
 /**
  * No op method, deny cannot be done with IniAcl
@@ -66,8 +66,8 @@ class IniAcl extends Object implements AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function deny($aro, $aco, $action = "*") {
-	}
+    public function deny($aro, $aco, $action = "*") {
+    }
 
 /**
  * No op method, inherit cannot be done with IniAcl
@@ -77,8 +77,8 @@ class IniAcl extends Object implements AclInterface {
  * @param string $action Action (defaults to *)
  * @return boolean Success
  */
-	public function inherit($aro, $aco, $action = "*") {
-	}
+    public function inherit($aro, $aco, $action = "*") {
+    }
 
 /**
  * Main ACL check function. Checks to see if the ARO (access request object) has access to the
@@ -90,57 +90,57 @@ class IniAcl extends Object implements AclInterface {
  * @param string $action Action
  * @return boolean Success
  */
-	public function check($aro, $aco, $action = null) {
-		if ($this->config == null) {
-			$this->config = $this->readConfigFile(APP . 'Config' . DS . 'acl.ini.php');
-		}
-		$aclConfig = $this->config;
+    public function check($aro, $aco, $action = null) {
+        if ($this->config == null) {
+            $this->config = $this->readConfigFile(APP . 'Config' . DS . 'acl.ini.php');
+        }
+        $aclConfig = $this->config;
 
-		if (is_array($aro)) {
-			$aro = Hash::get($aro, $this->userPath);
-		}
+        if (is_array($aro)) {
+            $aro = Hash::get($aro, $this->userPath);
+        }
 
-		if (isset($aclConfig[$aro]['deny'])) {
-			$userDenies = $this->arrayTrim(explode(",", $aclConfig[$aro]['deny']));
+        if (isset($aclConfig[$aro]['deny'])) {
+            $userDenies = $this->arrayTrim(explode(",", $aclConfig[$aro]['deny']));
 
-			if (array_search($aco, $userDenies)) {
-				return false;
-			}
-		}
+            if (array_search($aco, $userDenies)) {
+                return false;
+            }
+        }
 
-		if (isset($aclConfig[$aro]['allow'])) {
-			$userAllows = $this->arrayTrim(explode(",", $aclConfig[$aro]['allow']));
+        if (isset($aclConfig[$aro]['allow'])) {
+            $userAllows = $this->arrayTrim(explode(",", $aclConfig[$aro]['allow']));
 
-			if (array_search($aco, $userAllows)) {
-				return true;
-			}
-		}
+            if (array_search($aco, $userAllows)) {
+                return true;
+            }
+        }
 
-		if (isset($aclConfig[$aro]['groups'])) {
-			$userGroups = $this->arrayTrim(explode(",", $aclConfig[$aro]['groups']));
+        if (isset($aclConfig[$aro]['groups'])) {
+            $userGroups = $this->arrayTrim(explode(",", $aclConfig[$aro]['groups']));
 
-			foreach ($userGroups as $group) {
-				if (array_key_exists($group, $aclConfig)) {
-					if (isset($aclConfig[$group]['deny'])) {
-						$groupDenies = $this->arrayTrim(explode(",", $aclConfig[$group]['deny']));
+            foreach ($userGroups as $group) {
+                if (array_key_exists($group, $aclConfig)) {
+                    if (isset($aclConfig[$group]['deny'])) {
+                        $groupDenies = $this->arrayTrim(explode(",", $aclConfig[$group]['deny']));
 
-						if (array_search($aco, $groupDenies)) {
-							return false;
-						}
-					}
+                        if (array_search($aco, $groupDenies)) {
+                            return false;
+                        }
+                    }
 
-					if (isset($aclConfig[$group]['allow'])) {
-						$groupAllows = $this->arrayTrim(explode(",", $aclConfig[$group]['allow']));
+                    if (isset($aclConfig[$group]['allow'])) {
+                        $groupAllows = $this->arrayTrim(explode(",", $aclConfig[$group]['allow']));
 
-						if (array_search($aco, $groupAllows)) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
+                        if (array_search($aco, $groupAllows)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 /**
  * Parses an INI file and returns an array that reflects the 
@@ -149,11 +149,11 @@ class IniAcl extends Object implements AclInterface {
  * @param string $filename File
  * @return array INI section structure
  */
-	public function readConfigFile($filename) {
-		App::uses('IniReader', 'Configure');
-		$iniFile = new IniReader(dirname($filename) . DS);
-		return $iniFile->read(basename($filename));
-	}
+    public function readConfigFile($filename) {
+        App::uses('IniReader', 'Configure');
+        $iniFile = new IniReader(dirname($filename) . DS);
+        return $iniFile->read(basename($filename));
+    }
 
 /**
  * Removes trailing spaces on all array elements (to prepare for searching)
@@ -161,12 +161,12 @@ class IniAcl extends Object implements AclInterface {
  * @param array $array Array to trim
  * @return array Trimmed array
  */
-	public function arrayTrim($array) {
-		foreach ($array as $key => $value) {
-			$array[$key] = trim($value);
-		}
-		array_unshift($array, "");
-		return $array;
-	}
+    public function arrayTrim($array) {
+        foreach ($array as $key => $value) {
+            $array[$key] = trim($value);
+        }
+        array_unshift($array, "");
+        return $array;
+    }
 
 }

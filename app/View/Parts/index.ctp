@@ -1,10 +1,10 @@
 
 <h1>Parts</h1>
 <?php echo $this->Form->create('Part'); 
-	echo $this->Form->input('category', array(
+    echo $this->Form->input('category', array(
         'options' => array('0' => 'all', '1' => 'software', '2' => 'games', '3' => 'movies')
     ));
-	echo $this->Form->end(__('Submit')); 
+    echo $this->Form->end(__('Submit')); 
 ?>
 
 <div id="flash"></div>
@@ -23,13 +23,13 @@
             <?php echo $part['Part']['name']; ?>
         </td>
         <td>
-			<?php
+            <?php
 
 echo $this->Js->link('Add to cart', array('controller' => 'cart',
 'action'     => 'add', $part['Part']['id'], $part['Part']['name']), array('update' => '#flash'));
 
 ?>
-		</td>
+        </td>
     </tr>
     <?php endforeach; ?>
     <?php unset($part); ?>

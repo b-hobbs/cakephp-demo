@@ -29,24 +29,24 @@ class PrimaryModelFixture extends CakeTestFixture {
  *
  * @var string 'PrimaryModel'
  */
-	public $name = 'PrimaryModel';
+    public $name = 'PrimaryModel';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'primary_name' => array('type' => 'string', 'null' => false)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'primary_name' => array('type' => 'string', 'null' => false)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('primary_name' => 'Primary Name Existing')
-	);
+    public $records = array(
+        array('primary_name' => 'Primary Name Existing')
+    );
 }

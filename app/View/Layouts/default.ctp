@@ -24,20 +24,20 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
   <head>
     <meta charset="utf-8">
     <head>
-	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-		echo $this->Html->meta('icon');
+    <?php echo $this->Html->charset(); ?>
+    <title>
+        <?php echo $cakeDescription ?>:
+        <?php echo $title_for_layout; ?>
+    </title>
+    <?php
+        echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+        echo $this->Html->css('cake.generic');
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+        echo $this->fetch('meta');
+        echo $this->fetch('css');
+        echo $this->fetch('script');
+    ?>
 </head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -50,9 +50,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-	<?php echo $this->Html->script('jquery'); ?>
+    <?php echo $this->Html->script('jquery'); ?>
     <script src="/js/bootstrap.min.js"></script>
-	<?php echo $this->Js->writeBuffer(); ?>
+    <?php echo $this->Js->writeBuffer(); ?>
   </head>
 
   <body>
@@ -69,13 +69,13 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active">
-				<?php if ($userData): ?>
-				<?php echo $this->Html->link('Logout', array('controller'=>'customers', 'action'=>'logout')); ?>
-				<?php else: ?>
+                <?php if ($userData): ?>
+                <?php echo $this->Html->link('Logout', array('controller'=>'customers', 'action'=>'logout')); ?>
+                <?php else: ?>
                 <?php echo $this->Html->link('Login', array('controller'=>'customers', 'action'=>'login')); ?>
-				<?php endif; ?>
+                <?php endif; ?>
               </li>
-			  <?php if ($userData): ?>
+              <?php if ($userData): ?>
               <li class="">
                 <?php echo $this->Html->link('Parts', array('controller'=>'parts', 'action'=>'index')); ?>
               </li>
@@ -86,7 +86,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <?php echo $this->Html->link('Orders', array('controller'=>'orders', 'action'=>'index')); ?>
               </li>
            
-			  <?php endif; ?>
+              <?php endif; ?>
             </ul>
           </div>
         </div>
@@ -95,12 +95,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
     <div class="container">
 
-      		
+            
 
-			<?php echo $this->Session->flash(); ?>
+            <?php echo $this->Session->flash(); ?>
 
-	<?php echo $this->fetch('content'); ?>
-		
+    <?php echo $this->fetch('content'); ?>
+        
 
     </div> <!-- /container -->
 

@@ -31,10 +31,10 @@ class AllEventTest extends PHPUnit_Framework_TestSuite {
  *
  * @return void
  */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Event related class tests');
-		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Event');
-		return $suite;
-	}
+    public static function suite() {
+        $suite = new CakeTestSuite('All Event related class tests');
+        $suite->addTestDirectory(CORE_TEST_CASES . DS . 'Event');
+        return $suite;
+    }
 }
 

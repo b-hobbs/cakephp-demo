@@ -28,8 +28,8 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package     app.Controller
+ * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
 
@@ -49,14 +49,14 @@ public $components = array(
         'logoutRedirect' => array('controller' => 'customers', 'action' => 'login'),
         'loginAction' => array('admin' => false, 'controller' => 'parts', 'action' => 'index')
     ));
-	
-	public function beforeFilter() {
+    
+    public function beforeFilter() {
     Security::setHash('md5');
     $this->Auth->allow();
-	} 
-	
-	public function beforeRender(){
-		$this->set('userData', $this->Auth->user());
-	}
+    } 
+    
+    public function beforeRender(){
+        $this->set('userData', $this->Auth->user());
+    }
 }
 

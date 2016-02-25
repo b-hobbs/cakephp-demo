@@ -20,8 +20,8 @@
  */
 class Post extends AppModel {
 
-	public $useTable = 'posts';
+    public $useTable = 'posts';
 
-	public $name = 'Post';
+    public $name = 'Post';
 
 }

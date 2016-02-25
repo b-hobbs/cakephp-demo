@@ -31,12 +31,12 @@ class AllTasksTest extends PHPUnit_Framework_TestSuite {
  *
  * @return void
  */
-	public static function suite() {
-		$suite = new CakeTestSuite('All Tasks tests');
+    public static function suite() {
+        $suite = new CakeTestSuite('All Tasks tests');
 
-		$path = CORE_TEST_CASES . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS;
-		$suite->addTestDirectory($path);
-		return $suite;
-	}
+        $path = CORE_TEST_CASES . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS;
+        $suite->addTestDirectory($path);
+        return $suite;
+    }
 }
 

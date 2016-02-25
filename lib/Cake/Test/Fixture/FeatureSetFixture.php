@@ -29,24 +29,24 @@ class FeatureSetFixture extends CakeTestFixture {
  *
  * @var string 'FeatureSet'
  */
-	public $name = 'FeatureSet';
+    public $name = 'FeatureSet';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'FeatureSet 1')
-	);
+    public $records = array(
+        array('name' => 'FeatureSet 1')
+    );
 }

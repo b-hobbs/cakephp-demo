@@ -29,7 +29,7 @@ class ArmorsPlayerFixture extends CakeTestFixture {
  *
  * @var string 'ArmorsPlayer'
  */
-	public $name = 'ArmorsPlayer';
+    public $name = 'ArmorsPlayer';
 
 /**
  * Datasource
@@ -38,30 +38,30 @@ class ArmorsPlayerFixture extends CakeTestFixture {
  *
  * @var string 'test_database_three'
  */
-	public $useDbConfig = 'test_database_three';
+    public $useDbConfig = 'test_database_three';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'player_id' => array('type' => 'integer', 'null' => false),
-		'armor_id' => array('type' => 'integer', 'null' => false),
-		'broken' => array('type' => 'boolean', 'null' => false, 'default' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'player_id' => array('type' => 'integer', 'null' => false),
+        'armor_id' => array('type' => 'integer', 'null' => false),
+        'broken' => array('type' => 'boolean', 'null' => false, 'default' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('player_id' => 1, 'armor_id' => 1, 'broken' => false),
-		array('player_id' => 2, 'armor_id' => 2, 'broken' => false),
-		array('player_id' => 3, 'armor_id' => 3, 'broken' => false),
-	);
+    public $records = array(
+        array('player_id' => 1, 'armor_id' => 1, 'broken' => false),
+        array('player_id' => 2, 'armor_id' => 2, 'broken' => false),
+        array('player_id' => 3, 'armor_id' => 3, 'broken' => false),
+    );
 }

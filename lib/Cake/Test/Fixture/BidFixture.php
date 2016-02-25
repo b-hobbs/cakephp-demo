@@ -29,29 +29,29 @@ class BidFixture extends CakeTestFixture {
  *
  * @var string 'Bid'
  */
-	public $name = 'Bid';
+    public $name = 'Bid';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'message_id' => array('type' => 'integer', 'null' => false),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'message_id' => array('type' => 'integer', 'null' => false),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('message_id' => 1, 'name' => 'Bid 1.1'),
-		array('message_id' => 1, 'name' => 'Bid 1.2'),
-		array('message_id' => 3, 'name' => 'Bid 3.1'),
-		array('message_id' => 2, 'name' => 'Bid 2.1'),
-		array('message_id' => 2, 'name' => 'Bid 2.2')
-	);
+    public $records = array(
+        array('message_id' => 1, 'name' => 'Bid 1.1'),
+        array('message_id' => 1, 'name' => 'Bid 1.2'),
+        array('message_id' => 3, 'name' => 'Bid 3.1'),
+        array('message_id' => 2, 'name' => 'Bid 2.1'),
+        array('message_id' => 2, 'name' => 'Bid 2.2')
+    );
 }

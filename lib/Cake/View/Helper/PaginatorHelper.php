@@ -35,7 +35,7 @@ class PaginatorHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array('Html');
+    public $helpers = array('Html');
 
 /**
  * The class used for 'Ajax' pagination links. Defaults to JsHelper.  You should make sure
@@ -43,7 +43,7 @@ class PaginatorHelper extends AppHelper {
  *
  * @var string
  */
-	protected $_ajaxHelperClass = 'Js';
+    protected $_ajaxHelperClass = 'Js';
 
 /**
  * Holds the default options for pagination links
@@ -70,9 +70,9 @@ class PaginatorHelper extends AppHelper {
  *
  * @var array
  */
-	public $options = array(
-		'convertKeys' => array('page', 'limit', 'sort', 'direction')
-	);
+    public $options = array(
+        'convertKeys' => array('page', 'limit', 'sort', 'direction')
+    );
 
 /**
  * Constructor for the helper. Sets up the helper that is used for creating 'AJAX' links.
@@ -87,19 +87,19 @@ class PaginatorHelper extends AppHelper {
  * @param array $settings Array of settings.
  * @throws CakeException When the AjaxProvider helper does not implement a link method.
  */
-	public function __construct(View $View, $settings = array()) {
-		$ajaxProvider = isset($settings['ajax']) ? $settings['ajax'] : 'Js';
-		$this->helpers[] = $ajaxProvider;
-		$this->_ajaxHelperClass = $ajaxProvider;
-		App::uses($ajaxProvider . 'Helper', 'View/Helper');
-		$classname = $ajaxProvider . 'Helper';
-		if (!class_exists($classname) || !method_exists($classname, 'link')) {
-			throw new CakeException(sprintf(
-				__d('cake_dev', '%s does not implement a link() method, it is incompatible with PaginatorHelper'), $classname
-			));
-		}
-		parent::__construct($View, $settings);
-	}
+    public function __construct(View $View, $settings = array()) {
+        $ajaxProvider = isset($settings['ajax']) ? $settings['ajax'] : 'Js';
+        $this->helpers[] = $ajaxProvider;
+        $this->_ajaxHelperClass = $ajaxProvider;
+        App::uses($ajaxProvider . 'Helper', 'View/Helper');
+        $classname = $ajaxProvider . 'Helper';
+        if (!class_exists($classname) || !method_exists($classname, 'link')) {
+            throw new CakeException(sprintf(
+                __d('cake_dev', '%s does not implement a link() method, it is incompatible with PaginatorHelper'), $classname
+            ));
+        }
+        parent::__construct($View, $settings);
+    }
 
 /**
  * Before render callback. Overridden to merge passed args with url options.
@@ -107,13 +107,13 @@ class PaginatorHelper extends AppHelper {
  * @param string $viewFile
  * @return void
  */
-	public function beforeRender($viewFile) {
-		$this->options['url'] = array_merge($this->request->params['pass'], $this->request->params['named']);
-		if (!empty($this->request->query)) {
-			$this->options['url']['?'] = $this->request->query;
-		}
-		parent::beforeRender($viewFile);
-	}
+    public function beforeRender($viewFile) {
+        $this->options['url'] = array_merge($this->request->params['pass'], $this->request->params['named']);
+        if (!empty($this->request->query)) {
+            $this->options['url']['?'] = $this->request->query;
+        }
+        parent::beforeRender($viewFile);
+    }
 
 /**
  * Gets the current paging parameters from the resultset for the given model
@@ -122,15 +122,15 @@ class PaginatorHelper extends AppHelper {
  * @return array The array of paging parameters for the paginated resultset.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::params
  */
-	public function params($model = null) {
-		if (empty($model)) {
-			$model = $this->defaultModel();
-		}
-		if (!isset($this->request->params['paging']) || empty($this->request->params['paging'][$model])) {
-			return null;
-		}
-		return $this->request->params['paging'][$model];
-	}
+    public function params($model = null) {
+        if (empty($model)) {
+            $model = $this->defaultModel();
+        }
+        if (!isset($this->request->params['paging']) || empty($this->request->params['paging'][$model])) {
+            return null;
+        }
+        return $this->request->params['paging'][$model];
+    }
 
 /**
  * Sets default options for all pagination links
@@ -140,34 +140,34 @@ class PaginatorHelper extends AppHelper {
  * @return void
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::options
  */
-	public function options($options = array()) {
-		if (is_string($options)) {
-			$options = array('update' => $options);
-		}
+    public function options($options = array()) {
+        if (is_string($options)) {
+            $options = array('update' => $options);
+        }
 
-		if (!empty($options['paging'])) {
-			if (!isset($this->request->params['paging'])) {
-				$this->request->params['paging'] = array();
-			}
-			$this->request->params['paging'] = array_merge($this->request->params['paging'], $options['paging']);
-			unset($options['paging']);
-		}
-		$model = $this->defaultModel();
+        if (!empty($options['paging'])) {
+            if (!isset($this->request->params['paging'])) {
+                $this->request->params['paging'] = array();
+            }
+            $this->request->params['paging'] = array_merge($this->request->params['paging'], $options['paging']);
+            unset($options['paging']);
+        }
+        $model = $this->defaultModel();
 
-		if (!empty($options[$model])) {
-			if (!isset($this->request->params['paging'][$model])) {
-				$this->request->params['paging'][$model] = array();
-			}
-			$this->request->params['paging'][$model] = array_merge(
-				$this->request->params['paging'][$model], $options[$model]
-			);
-			unset($options[$model]);
-		}
-		if (!empty($options['convertKeys'])) {
-			$options['convertKeys'] = array_merge($this->options['convertKeys'], $options['convertKeys']);
-		}
-		$this->options = array_filter(array_merge($this->options, $options));
-	}
+        if (!empty($options[$model])) {
+            if (!isset($this->request->params['paging'][$model])) {
+                $this->request->params['paging'][$model] = array();
+            }
+            $this->request->params['paging'][$model] = array_merge(
+                $this->request->params['paging'][$model], $options[$model]
+            );
+            unset($options[$model]);
+        }
+        if (!empty($options['convertKeys'])) {
+            $options['convertKeys'] = array_merge($this->options['convertKeys'], $options['convertKeys']);
+        }
+        $this->options = array_filter(array_merge($this->options, $options));
+    }
 
 /**
  * Gets the current page of the recordset for the given model
@@ -176,14 +176,14 @@ class PaginatorHelper extends AppHelper {
  * @return string The current page number of the recordset.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::current
  */
-	public function current($model = null) {
-		$params = $this->params($model);
+    public function current($model = null) {
+        $params = $this->params($model);
 
-		if (isset($params['page'])) {
-			return $params['page'];
-		}
-		return 1;
-	}
+        if (isset($params['page'])) {
+            return $params['page'];
+        }
+        return 1;
+    }
 
 /**
  * Gets the current key by which the recordset is sorted
@@ -194,22 +194,22 @@ class PaginatorHelper extends AppHelper {
  *  null if the results are not currently sorted.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::sortKey
  */
-	public function sortKey($model = null, $options = array()) {
-		if (empty($options)) {
-			$params = $this->params($model);
-			$options = $params['options'];
-		}
-		if (isset($options['sort']) && !empty($options['sort'])) {
-			return $options['sort'];
-		}
-		if (isset($options['order'])) {
-			return is_array($options['order']) ? key($options['order']) : $options['order'];
-		}
-		if (isset($params['order'])) {
-			return is_array($params['order']) ? key($params['order']) : $params['order'];
-		}
-		return null;
-	}
+    public function sortKey($model = null, $options = array()) {
+        if (empty($options)) {
+            $params = $this->params($model);
+            $options = $params['options'];
+        }
+        if (isset($options['sort']) && !empty($options['sort'])) {
+            return $options['sort'];
+        }
+        if (isset($options['order'])) {
+            return is_array($options['order']) ? key($options['order']) : $options['order'];
+        }
+        if (isset($params['order'])) {
+            return is_array($params['order']) ? key($params['order']) : $params['order'];
+        }
+        return null;
+    }
 
 /**
  * Gets the current direction the recordset is sorted
@@ -220,27 +220,27 @@ class PaginatorHelper extends AppHelper {
  *  null if the results are not currently sorted.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::sortDir
  */
-	public function sortDir($model = null, $options = array()) {
-		$dir = null;
+    public function sortDir($model = null, $options = array()) {
+        $dir = null;
 
-		if (empty($options)) {
-			$params = $this->params($model);
-			$options = $params['options'];
-		}
+        if (empty($options)) {
+            $params = $this->params($model);
+            $options = $params['options'];
+        }
 
-		if (isset($options['direction'])) {
-			$dir = strtolower($options['direction']);
-		} elseif (isset($options['order']) && is_array($options['order'])) {
-			$dir = strtolower(current($options['order']));
-		} elseif (isset($params['order']) && is_array($params['order'])) {
-			$dir = strtolower(current($params['order']));
-		}
+        if (isset($options['direction'])) {
+            $dir = strtolower($options['direction']);
+        } elseif (isset($options['order']) && is_array($options['order'])) {
+            $dir = strtolower(current($options['order']));
+        } elseif (isset($params['order']) && is_array($params['order'])) {
+            $dir = strtolower(current($params['order']));
+        }
 
-		if ($dir == 'desc') {
-			return 'desc';
-		}
-		return 'asc';
-	}
+        if ($dir == 'desc') {
+            return 'desc';
+        }
+        return 'asc';
+    }
 
 /**
  * Generates a "previous" link for a set of paged records
@@ -258,13 +258,13 @@ class PaginatorHelper extends AppHelper {
  * @return string A "previous" link or $disabledTitle text if the link is disabled.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::prev
  */
-	public function prev($title = '<< Previous', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
-		$defaults = array(
-			'rel' => 'prev'
-		);
-		$options = array_merge($defaults, (array)$options);
-		return $this->_pagingLink('Prev', $title, $options, $disabledTitle, $disabledOptions);
-	}
+    public function prev($title = '<< Previous', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+        $defaults = array(
+            'rel' => 'prev'
+        );
+        $options = array_merge($defaults, (array)$options);
+        return $this->_pagingLink('Prev', $title, $options, $disabledTitle, $disabledOptions);
+    }
 
 /**
  * Generates a "next" link for a set of paged records
@@ -282,13 +282,13 @@ class PaginatorHelper extends AppHelper {
  * @return string A "next" link or or $disabledTitle text if the link is disabled.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::next
  */
-	public function next($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
-		$defaults = array(
-			'rel' => 'next'
-		);
-		$options = array_merge($defaults, (array)$options);
-		return $this->_pagingLink('Next', $title, $options, $disabledTitle, $disabledOptions);
-	}
+    public function next($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+        $defaults = array(
+            'rel' => 'next'
+        );
+        $options = array_merge($defaults, (array)$options);
+        return $this->_pagingLink('Next', $title, $options, $disabledTitle, $disabledOptions);
+    }
 
 /**
  * Generates a sorting link. Sets named parameters for the sort and direction.  Handles
@@ -302,48 +302,48 @@ class PaginatorHelper extends AppHelper {
  *
  * @param string $key The name of the key that the recordset should be sorted.
  * @param string $title Title for the link. If $title is null $key will be used
- *		for the title and will be generated by inflection.
+ *      for the title and will be generated by inflection.
  * @param array $options Options for sorting link. See above for list of keys.
  * @return string A link sorting default by 'asc'. If the resultset is sorted 'asc' by the specified
  *  key the returned link will sort by 'desc'.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::sort
  */
-	public function sort($key, $title = null, $options = array()) {
-		$options = array_merge(array('url' => array(), 'model' => null), $options);
-		$url = $options['url'];
-		unset($options['url']);
+    public function sort($key, $title = null, $options = array()) {
+        $options = array_merge(array('url' => array(), 'model' => null), $options);
+        $url = $options['url'];
+        unset($options['url']);
 
-		if (empty($title)) {
-			$title = $key;
-			$title = __(Inflector::humanize(preg_replace('/_id$/', '', $title)));
-		}
-		$dir = isset($options['direction']) ? $options['direction'] : 'asc';
-		unset($options['direction']);
+        if (empty($title)) {
+            $title = $key;
+            $title = __(Inflector::humanize(preg_replace('/_id$/', '', $title)));
+        }
+        $dir = isset($options['direction']) ? $options['direction'] : 'asc';
+        unset($options['direction']);
 
-		$sortKey = $this->sortKey($options['model']);
-		$defaultModel = $this->defaultModel();
-		$isSorted = (
-			$sortKey === $key ||
-			$sortKey === $defaultModel . '.' . $key ||
-			$key === $defaultModel . '.' . $sortKey
-		);
+        $sortKey = $this->sortKey($options['model']);
+        $defaultModel = $this->defaultModel();
+        $isSorted = (
+            $sortKey === $key ||
+            $sortKey === $defaultModel . '.' . $key ||
+            $key === $defaultModel . '.' . $sortKey
+        );
 
-		if ($isSorted) {
-			$dir = $this->sortDir($options['model']) === 'asc' ? 'desc' : 'asc';
-			$class = $dir === 'asc' ? 'desc' : 'asc';
-			if (!empty($options['class'])) {
-				$options['class'] .= ' ' . $class;
-			} else {
-				$options['class'] = $class;
-			}
-		}
-		if (is_array($title) && array_key_exists($dir, $title)) {
-			$title = $title[$dir];
-		}
+        if ($isSorted) {
+            $dir = $this->sortDir($options['model']) === 'asc' ? 'desc' : 'asc';
+            $class = $dir === 'asc' ? 'desc' : 'asc';
+            if (!empty($options['class'])) {
+                $options['class'] .= ' ' . $class;
+            } else {
+                $options['class'] = $class;
+            }
+        }
+        if (is_array($title) && array_key_exists($dir, $title)) {
+            $title = $title[$dir];
+        }
 
-		$url = array_merge(array('sort' => $key, 'direction' => $dir), $url, array('order' => null));
-		return $this->link($title, $url, $options);
-	}
+        $url = array_merge(array('sort' => $key, 'direction' => $dir), $url, array('order' => null));
+        return $this->link($title, $url, $options);
+    }
 
 /**
  * Generates a plain or Ajax link with pagination parameters
@@ -361,25 +361,25 @@ class PaginatorHelper extends AppHelper {
  * @return string A link with pagination parameters.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::link
  */
-	public function link($title, $url = array(), $options = array()) {
-		$options = array_merge(array('model' => null, 'escape' => true), $options);
-		$model = $options['model'];
-		unset($options['model']);
+    public function link($title, $url = array(), $options = array()) {
+        $options = array_merge(array('model' => null, 'escape' => true), $options);
+        $model = $options['model'];
+        unset($options['model']);
 
-		if (!empty($this->options)) {
-			$options = array_merge($this->options, $options);
-		}
-		if (isset($options['url'])) {
-			$url = array_merge((array)$options['url'], (array)$url);
-			unset($options['url']);
-		}
-		unset($options['convertKeys']);
+        if (!empty($this->options)) {
+            $options = array_merge($this->options, $options);
+        }
+        if (isset($options['url'])) {
+            $url = array_merge((array)$options['url'], (array)$url);
+            unset($options['url']);
+        }
+        unset($options['convertKeys']);
 
-		$url = $this->url($url, true, $model);
+        $url = $this->url($url, true, $model);
 
-		$obj = isset($options['update']) ? $this->_ajaxHelperClass : 'Html';
-		return $this->{$obj}->link($title, $url, $options);
-	}
+        $obj = isset($options['update']) ? $this->_ajaxHelperClass : 'Html';
+        return $this->{$obj}->link($title, $url, $options);
+    }
 
 /**
  * Merges passed URL options with current pagination state to generate a pagination URL.
@@ -390,25 +390,25 @@ class PaginatorHelper extends AppHelper {
  * @return mixed By default, returns a full pagination URL string for use in non-standard contexts (i.e. JavaScript)
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::url
  */
-	public function url($options = array(), $asArray = false, $model = null) {
-		$paging = $this->params($model);
-		$url = array_merge(array_filter($paging['options']), $options);
+    public function url($options = array(), $asArray = false, $model = null) {
+        $paging = $this->params($model);
+        $url = array_merge(array_filter($paging['options']), $options);
 
-		if (isset($url['order'])) {
-			$sort = $direction = null;
-			if (is_array($url['order'])) {
-				list($sort, $direction) = array($this->sortKey($model, $url), current($url['order']));
-			}
-			unset($url['order']);
-			$url = array_merge($url, compact('sort', 'direction'));
-		}
-		$url = $this->_convertUrlKeys($url, $paging['paramType']);
+        if (isset($url['order'])) {
+            $sort = $direction = null;
+            if (is_array($url['order'])) {
+                list($sort, $direction) = array($this->sortKey($model, $url), current($url['order']));
+            }
+            unset($url['order']);
+            $url = array_merge($url, compact('sort', 'direction'));
+        }
+        $url = $this->_convertUrlKeys($url, $paging['paramType']);
 
-		if ($asArray) {
-			return $url;
-		}
-		return parent::url($url);
-	}
+        if ($asArray) {
+            return $url;
+        }
+        return parent::url($url);
+    }
 
 /**
  * Converts the keys being used into the format set by options.paramType
@@ -417,21 +417,21 @@ class PaginatorHelper extends AppHelper {
  * @param string $type
  * @return array converted url params.
  */
-	protected function _convertUrlKeys($url, $type) {
-		if ($type == 'named') {
-			return $url;
-		}
-		if (!isset($url['?'])) {
-			$url['?'] = array();
-		}
-		foreach ($this->options['convertKeys'] as $key) {
-			if (isset($url[$key])) {
-				$url['?'][$key] = $url[$key];
-				unset($url[$key]);
-			}
-		}
-		return $url;
-	}
+    protected function _convertUrlKeys($url, $type) {
+        if ($type == 'named') {
+            return $url;
+        }
+        if (!isset($url['?'])) {
+            $url['?'] = array();
+        }
+        foreach ($this->options['convertKeys'] as $key) {
+            if (isset($url[$key])) {
+                $url['?'][$key] = $url[$key];
+                unset($url[$key]);
+            }
+        }
+        return $url;
+    }
 
 /**
  * Protected method for generating prev/next links
@@ -443,40 +443,40 @@ class PaginatorHelper extends AppHelper {
  * @param array $disabledOptions
  * @return string
  */
-	protected function _pagingLink($which, $title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
-		$check = 'has' . $which;
-		$_defaults = array(
-			'url' => array(), 'step' => 1, 'escape' => true,
-			'model' => null, 'tag' => 'span', 'class' => strtolower($which)
-		);
-		$options = array_merge($_defaults, (array)$options);
-		$paging = $this->params($options['model']);
-		if (empty($disabledOptions)) {
-			$disabledOptions = $options;
-		}
+    protected function _pagingLink($which, $title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+        $check = 'has' . $which;
+        $_defaults = array(
+            'url' => array(), 'step' => 1, 'escape' => true,
+            'model' => null, 'tag' => 'span', 'class' => strtolower($which)
+        );
+        $options = array_merge($_defaults, (array)$options);
+        $paging = $this->params($options['model']);
+        if (empty($disabledOptions)) {
+            $disabledOptions = $options;
+        }
 
-		if (!$this->{$check}($options['model']) && (!empty($disabledTitle) || !empty($disabledOptions))) {
-			if (!empty($disabledTitle) && $disabledTitle !== true) {
-				$title = $disabledTitle;
-			}
-			$options = array_merge($_defaults, (array)$disabledOptions);
-		} elseif (!$this->{$check}($options['model'])) {
-			return null;
-		}
+        if (!$this->{$check}($options['model']) && (!empty($disabledTitle) || !empty($disabledOptions))) {
+            if (!empty($disabledTitle) && $disabledTitle !== true) {
+                $title = $disabledTitle;
+            }
+            $options = array_merge($_defaults, (array)$disabledOptions);
+        } elseif (!$this->{$check}($options['model'])) {
+            return null;
+        }
 
-		foreach (array_keys($_defaults) as $key) {
-			${$key} = $options[$key];
-			unset($options[$key]);
-		}
-		$url = array_merge(array('page' => $paging['page'] + ($which == 'Prev' ? $step * -1 : $step)), $url);
+        foreach (array_keys($_defaults) as $key) {
+            ${$key} = $options[$key];
+            unset($options[$key]);
+        }
+        $url = array_merge(array('page' => $paging['page'] + ($which == 'Prev' ? $step * -1 : $step)), $url);
 
-		if ($this->{$check}($model)) {
-			return $this->Html->tag($tag, $this->link($title, $url, array_merge($options, compact('escape'))), compact('class'));
-		} else {
-			unset($options['rel']);
-			return $this->Html->tag($tag, $title, array_merge($options, compact('escape', 'class')));
-		}
-	}
+        if ($this->{$check}($model)) {
+            return $this->Html->tag($tag, $this->link($title, $url, array_merge($options, compact('escape'))), compact('class'));
+        } else {
+            unset($options['rel']);
+            return $this->Html->tag($tag, $title, array_merge($options, compact('escape', 'class')));
+        }
+    }
 
 /**
  * Returns true if the given result set is not at the first page
@@ -485,9 +485,9 @@ class PaginatorHelper extends AppHelper {
  * @return boolean True if the result set is not at the first page.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::hasPrev
  */
-	public function hasPrev($model = null) {
-		return $this->_hasPage($model, 'prev');
-	}
+    public function hasPrev($model = null) {
+        return $this->_hasPage($model, 'prev');
+    }
 
 /**
  * Returns true if the given result set is not at the last page
@@ -496,9 +496,9 @@ class PaginatorHelper extends AppHelper {
  * @return boolean True if the result set is not at the last page.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::hasNext
  */
-	public function hasNext($model = null) {
-		return $this->_hasPage($model, 'next');
-	}
+    public function hasNext($model = null) {
+        return $this->_hasPage($model, 'next');
+    }
 
 /**
  * Returns true if the given result set has the page number given by $page
@@ -508,14 +508,14 @@ class PaginatorHelper extends AppHelper {
  * @return boolean True if the given result set has the specified page number.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::hasPage
  */
-	public function hasPage($model = null, $page = 1) {
-		if (is_numeric($model)) {
-			$page = $model;
-			$model = null;
-		}
-		$paging = $this->params($model);
-		return $page <= $paging['pageCount'];
-	}
+    public function hasPage($model = null, $page = 1) {
+        if (is_numeric($model)) {
+            $page = $model;
+            $model = null;
+        }
+        $paging = $this->params($model);
+        return $page <= $paging['pageCount'];
+    }
 
 /**
  * Does $model have $page in its range?
@@ -524,15 +524,15 @@ class PaginatorHelper extends AppHelper {
  * @param integer $page Page number you are checking.
  * @return boolean Whether model has $page
  */
-	protected function _hasPage($model, $page) {
-		$params = $this->params($model);
-		if (!empty($params)) {
-			if ($params["{$page}Page"] == true) {
-				return true;
-			}
-		}
-		return false;
-	}
+    protected function _hasPage($model, $page) {
+        $params = $this->params($model);
+        if (!empty($params)) {
+            if ($params["{$page}Page"] == true) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 /**
  * Gets the default model of the paged sets
@@ -540,16 +540,16 @@ class PaginatorHelper extends AppHelper {
  * @return string Model name or null if the pagination isn't initialized.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::defaultModel
  */
-	public function defaultModel() {
-		if ($this->_defaultModel != null) {
-			return $this->_defaultModel;
-		}
-		if (empty($this->request->params['paging'])) {
-			return null;
-		}
-		list($this->_defaultModel) = array_keys($this->request->params['paging']);
-		return $this->_defaultModel;
-	}
+    public function defaultModel() {
+        if ($this->_defaultModel != null) {
+            return $this->_defaultModel;
+        }
+        if (empty($this->request->params['paging'])) {
+            return null;
+        }
+        list($this->_defaultModel) = array_keys($this->request->params['paging']);
+        return $this->_defaultModel;
+    }
 
 /**
  * Returns a counter string for the paged result set
@@ -569,63 +569,63 @@ class PaginatorHelper extends AppHelper {
  * @deprecated The %page% style placeholders are deprecated.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::counter
  */
-	public function counter($options = array()) {
-		if (is_string($options)) {
-			$options = array('format' => $options);
-		}
+    public function counter($options = array()) {
+        if (is_string($options)) {
+            $options = array('format' => $options);
+        }
 
-		$options = array_merge(
-			array(
-				'model' => $this->defaultModel(),
-				'format' => 'pages',
-				'separator' => __d('cake', ' of ')
-			),
-		$options);
+        $options = array_merge(
+            array(
+                'model' => $this->defaultModel(),
+                'format' => 'pages',
+                'separator' => __d('cake', ' of ')
+            ),
+        $options);
 
-		$paging = $this->params($options['model']);
-		if ($paging['pageCount'] == 0) {
-			$paging['pageCount'] = 1;
-		}
-		$start = 0;
-		if ($paging['count'] >= 1) {
-			$start = (($paging['page'] - 1) * $paging['limit']) + 1;
-		}
-		$end = $start + $paging['limit'] - 1;
-		if ($paging['count'] < $end) {
-			$end = $paging['count'];
-		}
+        $paging = $this->params($options['model']);
+        if ($paging['pageCount'] == 0) {
+            $paging['pageCount'] = 1;
+        }
+        $start = 0;
+        if ($paging['count'] >= 1) {
+            $start = (($paging['page'] - 1) * $paging['limit']) + 1;
+        }
+        $end = $start + $paging['limit'] - 1;
+        if ($paging['count'] < $end) {
+            $end = $paging['count'];
+        }
 
-		switch ($options['format']) {
-			case 'range':
-				if (!is_array($options['separator'])) {
-					$options['separator'] = array(' - ', $options['separator']);
-				}
-				$out = $start . $options['separator'][0] . $end . $options['separator'][1];
-				$out .= $paging['count'];
-			break;
-			case 'pages':
-				$out = $paging['page'] . $options['separator'] . $paging['pageCount'];
-			break;
-			default:
-				$map = array(
-					'%page%' => $paging['page'],
-					'%pages%' => $paging['pageCount'],
-					'%current%' => $paging['current'],
-					'%count%' => $paging['count'],
-					'%start%' => $start,
-					'%end%' => $end,
-					'%model%' => strtolower(Inflector::humanize(Inflector::tableize($options['model'])))
-				);
-				$out = str_replace(array_keys($map), array_values($map), $options['format']);
+        switch ($options['format']) {
+            case 'range':
+                if (!is_array($options['separator'])) {
+                    $options['separator'] = array(' - ', $options['separator']);
+                }
+                $out = $start . $options['separator'][0] . $end . $options['separator'][1];
+                $out .= $paging['count'];
+            break;
+            case 'pages':
+                $out = $paging['page'] . $options['separator'] . $paging['pageCount'];
+            break;
+            default:
+                $map = array(
+                    '%page%' => $paging['page'],
+                    '%pages%' => $paging['pageCount'],
+                    '%current%' => $paging['current'],
+                    '%count%' => $paging['count'],
+                    '%start%' => $start,
+                    '%end%' => $end,
+                    '%model%' => strtolower(Inflector::humanize(Inflector::tableize($options['model'])))
+                );
+                $out = str_replace(array_keys($map), array_values($map), $options['format']);
 
-				$newKeys = array(
-					'{:page}', '{:pages}', '{:current}', '{:count}', '{:start}', '{:end}', '{:model}'
-				);
-				$out = str_replace($newKeys, array_values($map), $out);
-			break;
-		}
-		return $out;
-	}
+                $newKeys = array(
+                    '{:page}', '{:pages}', '{:current}', '{:count}', '{:start}', '{:end}', '{:model}'
+                );
+                $out = str_replace($newKeys, array_values($map), $out);
+            break;
+        }
+        return $out;
+    }
 
 /**
  * Returns a set of numbers for the paged result set
@@ -655,112 +655,112 @@ class PaginatorHelper extends AppHelper {
  * @return string numbers string.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::numbers
  */
-	public function numbers($options = array()) {
-		if ($options === true) {
-			$options = array(
-				'before' => ' | ', 'after' => ' | ', 'first' => 'first', 'last' => 'last'
-			);
-		}
+    public function numbers($options = array()) {
+        if ($options === true) {
+            $options = array(
+                'before' => ' | ', 'after' => ' | ', 'first' => 'first', 'last' => 'last'
+            );
+        }
 
-		$defaults = array(
-			'tag' => 'span', 'before' => null, 'after' => null, 'model' => $this->defaultModel(), 'class' => null,
-			'modulus' => '8', 'separator' => ' | ', 'first' => null, 'last' => null, 'ellipsis' => '...', 'currentClass' => 'current'
-		);
-		$options += $defaults;
+        $defaults = array(
+            'tag' => 'span', 'before' => null, 'after' => null, 'model' => $this->defaultModel(), 'class' => null,
+            'modulus' => '8', 'separator' => ' | ', 'first' => null, 'last' => null, 'ellipsis' => '...', 'currentClass' => 'current'
+        );
+        $options += $defaults;
 
-		$params = (array)$this->params($options['model']) + array('page' => 1);
-		unset($options['model']);
+        $params = (array)$this->params($options['model']) + array('page' => 1);
+        unset($options['model']);
 
-		if ($params['pageCount'] <= 1) {
-			return false;
-		}
+        if ($params['pageCount'] <= 1) {
+            return false;
+        }
 
-		extract($options);
-		unset($options['tag'], $options['before'], $options['after'], $options['model'],
-			$options['modulus'], $options['separator'], $options['first'], $options['last'],
-			$options['ellipsis'], $options['class'], $options['currentClass']
-		);
+        extract($options);
+        unset($options['tag'], $options['before'], $options['after'], $options['model'],
+            $options['modulus'], $options['separator'], $options['first'], $options['last'],
+            $options['ellipsis'], $options['class'], $options['currentClass']
+        );
 
-		$out = '';
+        $out = '';
 
-		if ($modulus && $params['pageCount'] > $modulus) {
-			$half = intval($modulus / 2);
-			$end = $params['page'] + $half;
+        if ($modulus && $params['pageCount'] > $modulus) {
+            $half = intval($modulus / 2);
+            $end = $params['page'] + $half;
 
-			if ($end > $params['pageCount']) {
-				$end = $params['pageCount'];
-			}
-			$start = $params['page'] - ($modulus - ($end - $params['page']));
-			if ($start <= 1) {
-				$start = 1;
-				$end = $params['page'] + ($modulus - $params['page']) + 1;
-			}
+            if ($end > $params['pageCount']) {
+                $end = $params['pageCount'];
+            }
+            $start = $params['page'] - ($modulus - ($end - $params['page']));
+            if ($start <= 1) {
+                $start = 1;
+                $end = $params['page'] + ($modulus - $params['page']) + 1;
+            }
 
-			if ($first && $start > 1) {
-				$offset = ($start <= (int)$first) ? $start - 1 : $first;
-				if ($offset < $start - 1) {
-					$out .= $this->first($offset, compact('tag', 'separator', 'ellipsis', 'class'));
-				} else {
-					$out .= $this->first($offset, compact('tag', 'separator', 'class', 'ellipsis') + array('after' => $separator));
-				}
-			}
+            if ($first && $start > 1) {
+                $offset = ($start <= (int)$first) ? $start - 1 : $first;
+                if ($offset < $start - 1) {
+                    $out .= $this->first($offset, compact('tag', 'separator', 'ellipsis', 'class'));
+                } else {
+                    $out .= $this->first($offset, compact('tag', 'separator', 'class', 'ellipsis') + array('after' => $separator));
+                }
+            }
 
-			$out .= $before;
+            $out .= $before;
 
-			for ($i = $start; $i < $params['page']; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
-			}
+            for ($i = $start; $i < $params['page']; $i++) {
+                $out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
+            }
 
-			if ($class) {
-				$currentClass .= ' ' . $class;
-			}
-			$out .= $this->Html->tag($tag, $params['page'], array('class' => $currentClass));
-			if ($i != $params['pageCount']) {
-				$out .= $separator;
-			}
+            if ($class) {
+                $currentClass .= ' ' . $class;
+            }
+            $out .= $this->Html->tag($tag, $params['page'], array('class' => $currentClass));
+            if ($i != $params['pageCount']) {
+                $out .= $separator;
+            }
 
-			$start = $params['page'] + 1;
-			for ($i = $start; $i < $end; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
-			}
+            $start = $params['page'] + 1;
+            for ($i = $start; $i < $end; $i++) {
+                $out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
+            }
 
-			if ($end != $params['page']) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $end), $options), compact('class'));
-			}
+            if ($end != $params['page']) {
+                $out .= $this->Html->tag($tag, $this->link($i, array('page' => $end), $options), compact('class'));
+            }
 
-			$out .= $after;
+            $out .= $after;
 
-			if ($last && $end < $params['pageCount']) {
-				$offset = ($params['pageCount'] < $end + (int)$last) ? $params['pageCount'] - $end : $last;
-				if ($offset <= $last && $params['pageCount'] - $end > $offset) {
-					$out .= $this->last($offset, compact('tag', 'separator', 'ellipsis', 'class'));
-				} else {
-					$out .= $this->last($offset, compact('tag', 'separator', 'class', 'ellipsis') + array('before' => $separator));
-				}
-			}
+            if ($last && $end < $params['pageCount']) {
+                $offset = ($params['pageCount'] < $end + (int)$last) ? $params['pageCount'] - $end : $last;
+                if ($offset <= $last && $params['pageCount'] - $end > $offset) {
+                    $out .= $this->last($offset, compact('tag', 'separator', 'ellipsis', 'class'));
+                } else {
+                    $out .= $this->last($offset, compact('tag', 'separator', 'class', 'ellipsis') + array('before' => $separator));
+                }
+            }
 
-		} else {
-			$out .= $before;
+        } else {
+            $out .= $before;
 
-			for ($i = 1; $i <= $params['pageCount']; $i++) {
-				if ($i == $params['page']) {
-					if ($class) {
-						$currentClass .= ' ' . $class;
-					}
-					$out .= $this->Html->tag($tag, $i, array('class' => $currentClass));
-				} else {
-					$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
-				}
-				if ($i != $params['pageCount']) {
-					$out .= $separator;
-				}
-			}
+            for ($i = 1; $i <= $params['pageCount']; $i++) {
+                if ($i == $params['page']) {
+                    if ($class) {
+                        $currentClass .= ' ' . $class;
+                    }
+                    $out .= $this->Html->tag($tag, $i, array('class' => $currentClass));
+                } else {
+                    $out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
+                }
+                if ($i != $params['pageCount']) {
+                    $out .= $separator;
+                }
+            }
 
-			$out .= $after;
-		}
+            $out .= $after;
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 
 /**
  * Returns a first or set of numbers for the first pages.
@@ -788,46 +788,46 @@ class PaginatorHelper extends AppHelper {
  * @return string numbers string.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::first
  */
-	public function first($first = '<< first', $options = array()) {
-		$options = array_merge(
-			array(
-				'tag' => 'span',
-				'after' => null,
-				'model' => $this->defaultModel(),
-				'separator' => ' | ',
-				'ellipsis' => '...',
-				'class' => null
-			),
-		(array)$options);
+    public function first($first = '<< first', $options = array()) {
+        $options = array_merge(
+            array(
+                'tag' => 'span',
+                'after' => null,
+                'model' => $this->defaultModel(),
+                'separator' => ' | ',
+                'ellipsis' => '...',
+                'class' => null
+            ),
+        (array)$options);
 
-		$params = array_merge(array('page' => 1), (array)$this->params($options['model']));
-		unset($options['model']);
+        $params = array_merge(array('page' => 1), (array)$this->params($options['model']));
+        unset($options['model']);
 
-		if ($params['pageCount'] <= 1) {
-			return false;
-		}
-		extract($options);
-		unset($options['tag'], $options['after'], $options['model'], $options['separator'], $options['ellipsis'], $options['class']);
+        if ($params['pageCount'] <= 1) {
+            return false;
+        }
+        extract($options);
+        unset($options['tag'], $options['after'], $options['model'], $options['separator'], $options['ellipsis'], $options['class']);
 
-		$out = '';
+        $out = '';
 
-		if (is_int($first) && $params['page'] >= $first) {
-			if ($after === null) {
-				$after = $ellipsis;
-			}
-			for ($i = 1; $i <= $first; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
-				if ($i != $first) {
-					$out .= $separator;
-				}
-			}
-			$out .= $after;
-		} elseif ($params['page'] > 1 && is_string($first)) {
-			$options += array('rel' => 'first');
-			$out = $this->Html->tag($tag, $this->link($first, array('page' => 1), $options), compact('class')) . $after;
-		}
-		return $out;
-	}
+        if (is_int($first) && $params['page'] >= $first) {
+            if ($after === null) {
+                $after = $ellipsis;
+            }
+            for ($i = 1; $i <= $first; $i++) {
+                $out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
+                if ($i != $first) {
+                    $out .= $separator;
+                }
+            }
+            $out .= $after;
+        } elseif ($params['page'] > 1 && is_string($first)) {
+            $options += array('rel' => 'first');
+            $out = $this->Html->tag($tag, $this->link($first, array('page' => 1), $options), compact('class')) . $after;
+        }
+        return $out;
+    }
 
 /**
  * Returns a last or set of numbers for the last pages.
@@ -853,49 +853,49 @@ class PaginatorHelper extends AppHelper {
  * @return string numbers string.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html#PaginatorHelper::last
  */
-	public function last($last = 'last >>', $options = array()) {
-		$options = array_merge(
-			array(
-				'tag' => 'span',
-				'before' => null,
-				'model' => $this->defaultModel(),
-				'separator' => ' | ',
-				'ellipsis' => '...',
-				'class' => null
-			),
-		(array)$options);
+    public function last($last = 'last >>', $options = array()) {
+        $options = array_merge(
+            array(
+                'tag' => 'span',
+                'before' => null,
+                'model' => $this->defaultModel(),
+                'separator' => ' | ',
+                'ellipsis' => '...',
+                'class' => null
+            ),
+        (array)$options);
 
-		$params = array_merge(array('page' => 1), (array)$this->params($options['model']));
-		unset($options['model']);
+        $params = array_merge(array('page' => 1), (array)$this->params($options['model']));
+        unset($options['model']);
 
-		if ($params['pageCount'] <= 1) {
-			return false;
-		}
+        if ($params['pageCount'] <= 1) {
+            return false;
+        }
 
-		extract($options);
-		unset($options['tag'], $options['before'], $options['model'], $options['separator'], $options['ellipsis'], $options['class']);
+        extract($options);
+        unset($options['tag'], $options['before'], $options['model'], $options['separator'], $options['ellipsis'], $options['class']);
 
-		$out = '';
-		$lower = $params['pageCount'] - $last + 1;
+        $out = '';
+        $lower = $params['pageCount'] - $last + 1;
 
-		if (is_int($last) && $params['page'] <= $lower) {
-			if ($before === null) {
-				$before = $ellipsis;
-			}
-			for ($i = $lower; $i <= $params['pageCount']; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
-				if ($i != $params['pageCount']) {
-					$out .= $separator;
-				}
-			}
-			$out = $before . $out;
-		} elseif ($params['page'] < $params['pageCount'] && is_string($last)) {
-			$options += array('rel' => 'last');
-			$out = $before . $this->Html->tag(
-				$tag, $this->link($last, array('page' => $params['pageCount']), $options), compact('class')
-			);
-		}
-		return $out;
-	}
+        if (is_int($last) && $params['page'] <= $lower) {
+            if ($before === null) {
+                $before = $ellipsis;
+            }
+            for ($i = $lower; $i <= $params['pageCount']; $i++) {
+                $out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'));
+                if ($i != $params['pageCount']) {
+                    $out .= $separator;
+                }
+            }
+            $out = $before . $out;
+        } elseif ($params['page'] < $params['pageCount'] && is_string($last)) {
+            $options += array('rel' => 'last');
+            $out = $before . $this->Html->tag(
+                $tag, $this->link($last, array('page' => $params['pageCount']), $options), compact('class')
+            );
+        }
+        return $out;
+    }
 
 }

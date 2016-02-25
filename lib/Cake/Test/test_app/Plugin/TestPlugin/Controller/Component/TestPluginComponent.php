@@ -18,6 +18,6 @@
  */
 class TestPluginComponentComponent extends Object {
 
-	public $components = array('TestPlugin.TestPluginOtherComponent');
+    public $components = array('TestPlugin.TestPluginOtherComponent');
 
 }

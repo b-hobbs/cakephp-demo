@@ -30,23 +30,23 @@ class TaskCollection extends ObjectCollection {
  *
  * @var Shell
  */
-	protected $_Shell;
+    protected $_Shell;
 
 /**
  * The directory inside each shell path that contains tasks.
  *
  * @var string
  */
-	public $taskPathPrefix = 'tasks/';
+    public $taskPathPrefix = 'tasks/';
 
 /**
  * Constructor
  *
  * @param Shell $Shell
  */
-	public function __construct(Shell $Shell) {
-		$this->_Shell = $Shell;
-	}
+    public function __construct(Shell $Shell) {
+        $this->_Shell = $Shell;
+    }
 
 /**
  * Loads/constructs a task.  Will return the instance in the collection
@@ -57,26 +57,26 @@ class TaskCollection extends ObjectCollection {
  * @return Task A task object, Either the existing loaded task or a new one.
  * @throws MissingTaskException when the task could not be found
  */
-	public function load($task, $settings = array()) {
-		list($plugin, $name) = pluginSplit($task, true);
+    public function load($task, $settings = array()) {
+        list($plugin, $name) = pluginSplit($task, true);
 
-		if (isset($this->_loaded[$name])) {
-			return $this->_loaded[$name];
-		}
-		$taskClass = $name . 'Task';
-		App::uses($taskClass, $plugin . 'Console/Command/Task');
-		if (!class_exists($taskClass)) {
-			if (!class_exists($taskClass)) {
-				throw new MissingTaskException(array(
-					'class' => $taskClass
-				));
-			}
-		}
+        if (isset($this->_loaded[$name])) {
+            return $this->_loaded[$name];
+        }
+        $taskClass = $name . 'Task';
+        App::uses($taskClass, $plugin . 'Console/Command/Task');
+        if (!class_exists($taskClass)) {
+            if (!class_exists($taskClass)) {
+                throw new MissingTaskException(array(
+                    'class' => $taskClass
+                ));
+            }
+        }
 
-		$this->_loaded[$name] = new $taskClass(
-			$this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
-		);
-		return $this->_loaded[$name];
-	}
+        $this->_loaded[$name] = new $taskClass(
+            $this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
+        );
+        return $this->_loaded[$name];
+    }
 
 }

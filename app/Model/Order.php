@@ -1,4 +1,4 @@
 <?php
 class Order extends AppModel {
- public $hasMany = 'OrderDetail';
+    public $hasMany = 'OrderDetail';
 }

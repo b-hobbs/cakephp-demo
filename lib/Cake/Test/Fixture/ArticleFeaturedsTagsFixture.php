@@ -29,16 +29,16 @@ class ArticleFeaturedsTagsFixture extends CakeTestFixture {
  *
  * @var string 'ArticleFeaturedsTags'
  */
-	public $name = 'ArticleFeaturedsTags';
+    public $name = 'ArticleFeaturedsTags';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'article_featured_id' => array('type' => 'integer', 'null' => false),
-		'tag_id' => array('type' => 'integer', 'null' => false),
-		'indexes' => array('UNIQUE_FEATURED' => array('column' => array('article_featured_id', 'tag_id'), 'unique' => 1))
-	);
+    public $fields = array(
+        'article_featured_id' => array('type' => 'integer', 'null' => false),
+        'tag_id' => array('type' => 'integer', 'null' => false),
+        'indexes' => array('UNIQUE_FEATURED' => array('column' => array('article_featured_id', 'tag_id'), 'unique' => 1))
+    );
 }

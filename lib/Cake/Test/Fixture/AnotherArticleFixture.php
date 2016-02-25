@@ -29,28 +29,28 @@ class AnotherArticleFixture extends CakeTestFixture {
  *
  * @var string 'AnotherArticle'
  */
-	public $name = 'AnotherArticle';
+    public $name = 'AnotherArticle';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'title' => array('type' => 'string', 'null' => false),
+        'created' => 'datetime',
+        'updated' => 'datetime'
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
-		array('title' => 'Second Article', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
-		array('title' => 'Third Article', 'created' => '2007-03-18 10:43:23', 'updated' => '2007-03-18 10:45:31')
-	);
+    public $records = array(
+        array('title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
+        array('title' => 'Second Article', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
+        array('title' => 'Third Article', 'created' => '2007-03-18 10:43:23', 'updated' => '2007-03-18 10:45:31')
+    );
 }

@@ -38,14 +38,14 @@ class JsHelper extends AppHelper {
  *
  * @var boolean
  */
-	public $bufferScripts = true;
+    public $bufferScripts = true;
 
 /**
  * Helper dependencies
  *
  * @var array
  */
-	public $helpers = array('Html', 'Form');
+    public $helpers = array('Html', 'Form');
 
 /**
  * Variables to pass to Javascript.
@@ -53,7 +53,7 @@ class JsHelper extends AppHelper {
  * @var array
  * @see JsHelper::set()
  */
-	protected $_jsVars = array();
+    protected $_jsVars = array();
 
 /**
  * Scripts that are queued for output
@@ -61,21 +61,21 @@ class JsHelper extends AppHelper {
  * @var array
  * @see JsHelper::buffer()
  */
-	protected $_bufferedScripts = array();
+    protected $_bufferedScripts = array();
 
 /**
  * Current Javascript Engine that is being used
  *
  * @var string
  */
-	protected $_engineName;
+    protected $_engineName;
 
 /**
  * The javascript variable created by set() variables.
  *
  * @var string
  */
-	public $setVariable = 'app';
+    public $setVariable = 'app';
 
 /**
  * Constructor - determines engine helper
@@ -83,21 +83,21 @@ class JsHelper extends AppHelper {
  * @param View $View the view object the helper is attached to.
  * @param array $settings Settings array contains name of engine helper.
  */
-	public function __construct(View $View, $settings = array()) {
-		$className = 'Jquery';
-		if (is_array($settings) && isset($settings[0])) {
-			$className = $settings[0];
-		} elseif (is_string($settings)) {
-			$className = $settings;
-		}
-		$engineName = $className;
-		list($plugin, $className) = pluginSplit($className);
+    public function __construct(View $View, $settings = array()) {
+        $className = 'Jquery';
+        if (is_array($settings) && isset($settings[0])) {
+            $className = $settings[0];
+        } elseif (is_string($settings)) {
+            $className = $settings;
+        }
+        $engineName = $className;
+        list($plugin, $className) = pluginSplit($className);
 
-		$this->_engineName = $className . 'Engine';
-		$engineClass = $engineName . 'Engine';
-		$this->helpers[] = $engineClass;
-		parent::__construct($View, $settings);
-	}
+        $this->_engineName = $className . 'Engine';
+        $engineClass = $engineName . 'Engine';
+        $this->helpers[] = $engineClass;
+        parent::__construct($View, $settings);
+    }
 
 /**
  * call__ Allows for dispatching of methods to the Engine Helper.
@@ -118,40 +118,40 @@ class JsHelper extends AppHelper {
  * @param array $params Parameters for the method being called.
  * @return mixed Depends on the return of the dispatched method, or it could be an instance of the EngineHelper
  */
-	public function __call($method, $params) {
-		if ($this->{$this->_engineName} && method_exists($this->{$this->_engineName}, $method)) {
-			$buffer = false;
-			$engineHelper = $this->{$this->_engineName};
-			if (in_array(strtolower($method), $engineHelper->bufferedMethods)) {
-				$buffer = true;
-			}
-			if (count($params) > 0) {
-				$lastParam = $params[count($params) - 1];
-				$hasBufferParam = (is_bool($lastParam) || is_array($lastParam) && isset($lastParam['buffer']));
-				if ($hasBufferParam && is_bool($lastParam)) {
-					$buffer = $lastParam;
-					unset($params[count($params) - 1]);
-				} elseif ($hasBufferParam && is_array($lastParam)) {
-					$buffer = $lastParam['buffer'];
-					unset($params['buffer']);
-				}
-			}
+    public function __call($method, $params) {
+        if ($this->{$this->_engineName} && method_exists($this->{$this->_engineName}, $method)) {
+            $buffer = false;
+            $engineHelper = $this->{$this->_engineName};
+            if (in_array(strtolower($method), $engineHelper->bufferedMethods)) {
+                $buffer = true;
+            }
+            if (count($params) > 0) {
+                $lastParam = $params[count($params) - 1];
+                $hasBufferParam = (is_bool($lastParam) || is_array($lastParam) && isset($lastParam['buffer']));
+                if ($hasBufferParam && is_bool($lastParam)) {
+                    $buffer = $lastParam;
+                    unset($params[count($params) - 1]);
+                } elseif ($hasBufferParam && is_array($lastParam)) {
+                    $buffer = $lastParam['buffer'];
+                    unset($params['buffer']);
+                }
+            }
 
-			$out = call_user_func_array(array(&$engineHelper, $method), $params);
-			if ($this->bufferScripts && $buffer && is_string($out)) {
-				$this->buffer($out);
-				return null;
-			}
-			if (is_object($out) && is_a($out, 'JsBaseEngineHelper')) {
-				return $this;
-			}
-			return $out;
-		}
-		if (method_exists($this, $method . '_')) {
-			return call_user_func(array(&$this, $method . '_'), $params);
-		}
-		trigger_error(__d('cake_dev', 'JsHelper:: Missing Method %s is undefined', $method), E_USER_WARNING);
-	}
+            $out = call_user_func_array(array(&$engineHelper, $method), $params);
+            if ($this->bufferScripts && $buffer && is_string($out)) {
+                $this->buffer($out);
+                return null;
+            }
+            if (is_object($out) && is_a($out, 'JsBaseEngineHelper')) {
+                return $this;
+            }
+            return $out;
+        }
+        if (method_exists($this, $method . '_')) {
+            return call_user_func(array(&$this, $method . '_'), $params);
+        }
+        trigger_error(__d('cake_dev', 'JsHelper:: Missing Method %s is undefined', $method), E_USER_WARNING);
+    }
 
 /**
  * Overwrite inherited Helper::value()
@@ -162,12 +162,12 @@ class JsHelper extends AppHelper {
  * @return string a JavaScript-safe/JSON representation of $val
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::value
  **/
-	public function value($val = array(), $quoteString = null, $key = 'value') {
-		if ($quoteString === null) {
-			$quoteString = true;
-		}
-		return $this->{$this->_engineName}->value($val, $quoteString);
-	}
+    public function value($val = array(), $quoteString = null, $key = 'value') {
+        if ($quoteString === null) {
+            $quoteString = true;
+        }
+        return $this->{$this->_engineName}->value($val, $quoteString);
+    }
 
 /**
  * Writes all Javascript generated so far to a code block or
@@ -189,39 +189,39 @@ class JsHelper extends AppHelper {
  *   scripts null will be returned.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::writeBuffer
  */
-	public function writeBuffer($options = array()) {
-		$domReady = !$this->request->is('ajax');
-		$defaults = array(
-			'onDomReady' => $domReady, 'inline' => true,
-			'cache' => false, 'clear' => true, 'safe' => true
-		);
-		$options = array_merge($defaults, $options);
-		$script = implode("\n", $this->getBuffer($options['clear']));
+    public function writeBuffer($options = array()) {
+        $domReady = !$this->request->is('ajax');
+        $defaults = array(
+            'onDomReady' => $domReady, 'inline' => true,
+            'cache' => false, 'clear' => true, 'safe' => true
+        );
+        $options = array_merge($defaults, $options);
+        $script = implode("\n", $this->getBuffer($options['clear']));
 
-		if (empty($script)) {
-			return null;
-		}
+        if (empty($script)) {
+            return null;
+        }
 
-		if ($options['onDomReady']) {
-			$script = $this->{$this->_engineName}->domReady($script);
-		}
-		$opts = $options;
-		unset($opts['onDomReady'], $opts['cache'], $opts['clear']);
+        if ($options['onDomReady']) {
+            $script = $this->{$this->_engineName}->domReady($script);
+        }
+        $opts = $options;
+        unset($opts['onDomReady'], $opts['cache'], $opts['clear']);
 
-		if (!$options['cache'] && $options['inline']) {
-			return $this->Html->scriptBlock($script, $opts);
-		}
+        if (!$options['cache'] && $options['inline']) {
+            return $this->Html->scriptBlock($script, $opts);
+        }
 
-		if ($options['cache'] && $options['inline']) {
-			$filename = md5($script);
-			if (!file_exists(JS . $filename . '.js')) {
-				cache(str_replace(WWW_ROOT, '', JS) . $filename . '.js', $script, '+999 days', 'public');
-			}
-			return $this->Html->script($filename);
-		}
-		$this->Html->scriptBlock($script, $opts);
-		return null;
-	}
+        if ($options['cache'] && $options['inline']) {
+            $filename = md5($script);
+            if (!file_exists(JS . $filename . '.js')) {
+                cache(str_replace(WWW_ROOT, '', JS) . $filename . '.js', $script, '+999 days', 'public');
+            }
+            return $this->Html->script($filename);
+        }
+        $this->Html->scriptBlock($script, $opts);
+        return null;
+    }
 
 /**
  * Write a script to the buffered scripts.
@@ -232,13 +232,13 @@ class JsHelper extends AppHelper {
  * @return void
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::buffer
  */
-	public function buffer($script, $top = false) {
-		if ($top) {
-			array_unshift($this->_bufferedScripts, $script);
-		} else {
-			$this->_bufferedScripts[] = $script;
-		}
-	}
+    public function buffer($script, $top = false) {
+        if ($top) {
+            array_unshift($this->_bufferedScripts, $script);
+        } else {
+            $this->_bufferedScripts[] = $script;
+        }
+    }
 
 /**
  * Get all the buffered scripts
@@ -247,27 +247,27 @@ class JsHelper extends AppHelper {
  * @return array Array of scripts added to the request.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::getBuffer
  */
-	public function getBuffer($clear = true) {
-		$this->_createVars();
-		$scripts = $this->_bufferedScripts;
-		if ($clear) {
-			$this->_bufferedScripts = array();
-			$this->_jsVars = array();
-		}
-		return $scripts;
-	}
+    public function getBuffer($clear = true) {
+        $this->_createVars();
+        $scripts = $this->_bufferedScripts;
+        if ($clear) {
+            $this->_bufferedScripts = array();
+            $this->_jsVars = array();
+        }
+        return $scripts;
+    }
 
 /**
  * Generates the object string for variables passed to javascript.
  *
  * @return string Generated JSON object of all set vars
  */
-	protected function _createVars() {
-		if (!empty($this->_jsVars)) {
-			$setVar = (strpos($this->setVariable, '.')) ? $this->setVariable : 'window.' . $this->setVariable;
-			$this->buffer($setVar . ' = ' . $this->object($this->_jsVars) . ';', true);
-		}
-	}
+    protected function _createVars() {
+        if (!empty($this->_jsVars)) {
+            $setVar = (strpos($this->setVariable, '.')) ? $this->setVariable : 'window.' . $this->setVariable;
+            $this->buffer($setVar . ' = ' . $this->object($this->_jsVars) . ';', true);
+        }
+    }
 
 /**
  * Generate an 'Ajax' link.  Uses the selected JS engine to create a link
@@ -288,33 +288,33 @@ class JsHelper extends AppHelper {
  * @return string Completed link. If buffering is disabled a script tag will be returned as well.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::link
  */
-	public function link($title, $url = null, $options = array()) {
-		if (!isset($options['id'])) {
-			$options['id'] = 'link-' . intval(mt_rand());
-		}
-		list($options, $htmlOptions) = $this->_getHtmlOptions($options);
-		$out = $this->Html->link($title, $url, $htmlOptions);
-		$this->get('#' . $htmlOptions['id']);
-		$requestString = $event = '';
-		if (isset($options['confirm'])) {
-			$requestString = $this->confirmReturn($options['confirm']);
-			unset($options['confirm']);
-		}
-		$buffer = isset($options['buffer']) ? $options['buffer'] : null;
-		$safe = isset($options['safe']) ? $options['safe'] : true;
-		unset($options['buffer'], $options['safe']);
+    public function link($title, $url = null, $options = array()) {
+        if (!isset($options['id'])) {
+            $options['id'] = 'link-' . intval(mt_rand());
+        }
+        list($options, $htmlOptions) = $this->_getHtmlOptions($options);
+        $out = $this->Html->link($title, $url, $htmlOptions);
+        $this->get('#' . $htmlOptions['id']);
+        $requestString = $event = '';
+        if (isset($options['confirm'])) {
+            $requestString = $this->confirmReturn($options['confirm']);
+            unset($options['confirm']);
+        }
+        $buffer = isset($options['buffer']) ? $options['buffer'] : null;
+        $safe = isset($options['safe']) ? $options['safe'] : true;
+        unset($options['buffer'], $options['safe']);
 
-		$requestString .= $this->request($url, $options);
+        $requestString .= $this->request($url, $options);
 
-		if (!empty($requestString)) {
-			$event = $this->event('click', $requestString, $options + array('buffer' => $buffer));
-		}
-		if (isset($buffer) && !$buffer) {
-			$opts = array('safe' => $safe);
-			$out .= $this->Html->scriptBlock($event, $opts);
-		}
-		return $out;
-	}
+        if (!empty($requestString)) {
+            $event = $this->event('click', $requestString, $options + array('buffer' => $buffer));
+        }
+        if (isset($buffer) && !$buffer) {
+            $opts = array('safe' => $safe);
+            $out .= $this->Html->scriptBlock($event, $opts);
+        }
+        return $out;
+    }
 
 /**
  * Pass variables into Javascript.  Allows you to set variables that will be
@@ -326,22 +326,22 @@ class JsHelper extends AppHelper {
  * @return void
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::set
  */
-	public function set($one, $two = null) {
-		$data = null;
-		if (is_array($one)) {
-			if (is_array($two)) {
-				$data = array_combine($one, $two);
-			} else {
-				$data = $one;
-			}
-		} else {
-			$data = array($one => $two);
-		}
-		if ($data == null) {
-			return false;
-		}
-		$this->_jsVars = array_merge($this->_jsVars, $data);
-	}
+    public function set($one, $two = null) {
+        $data = null;
+        if (is_array($one)) {
+            if (is_array($two)) {
+                $data = array_combine($one, $two);
+            } else {
+                $data = $one;
+            }
+        } else {
+            $data = array($one => $two);
+        }
+        if ($data == null) {
+            return false;
+        }
+        $this->_jsVars = array_merge($this->_jsVars, $data);
+    }
 
 /**
  * Uses the selected JS engine to create a submit input
@@ -364,45 +364,45 @@ class JsHelper extends AppHelper {
  * @return string Completed submit button.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/js.html#JsHelper::submit
  */
-	public function submit($caption = null, $options = array()) {
-		if (!isset($options['id'])) {
-			$options['id'] = 'submit-' . intval(mt_rand());
-		}
-		$formOptions = array('div');
-		list($options, $htmlOptions) = $this->_getHtmlOptions($options, $formOptions);
-		$out = $this->Form->submit($caption, $htmlOptions);
+    public function submit($caption = null, $options = array()) {
+        if (!isset($options['id'])) {
+            $options['id'] = 'submit-' . intval(mt_rand());
+        }
+        $formOptions = array('div');
+        list($options, $htmlOptions) = $this->_getHtmlOptions($options, $formOptions);
+        $out = $this->Form->submit($caption, $htmlOptions);
 
-		$this->get('#' . $htmlOptions['id']);
+        $this->get('#' . $htmlOptions['id']);
 
-		$options['data'] = $this->serializeForm(array('isForm' => false, 'inline' => true));
-		$requestString = $url = '';
-		if (isset($options['confirm'])) {
-			$requestString = $this->confirmReturn($options['confirm']);
-			unset($options['confirm']);
-		}
-		if (isset($options['url'])) {
-			$url = $options['url'];
-			unset($options['url']);
-		}
-		if (!isset($options['method'])) {
-			$options['method'] = 'post';
-		}
-		$options['dataExpression'] = true;
+        $options['data'] = $this->serializeForm(array('isForm' => false, 'inline' => true));
+        $requestString = $url = '';
+        if (isset($options['confirm'])) {
+            $requestString = $this->confirmReturn($options['confirm']);
+            unset($options['confirm']);
+        }
+        if (isset($options['url'])) {
+            $url = $options['url'];
+            unset($options['url']);
+        }
+        if (!isset($options['method'])) {
+            $options['method'] = 'post';
+        }
+        $options['dataExpression'] = true;
 
-		$buffer = isset($options['buffer']) ? $options['buffer'] : null;
-		$safe = isset($options['safe']) ? $options['safe'] : true;
-		unset($options['buffer'], $options['safe']);
+        $buffer = isset($options['buffer']) ? $options['buffer'] : null;
+        $safe = isset($options['safe']) ? $options['safe'] : true;
+        unset($options['buffer'], $options['safe']);
 
-		$requestString .= $this->request($url, $options);
-		if (!empty($requestString)) {
-			$event = $this->event('click', $requestString, $options + array('buffer' => $buffer));
-		}
-		if (isset($buffer) && !$buffer) {
-			$opts = array('safe' => $safe);
-			$out .= $this->Html->scriptBlock($event, $opts);
-		}
-		return $out;
-	}
+        $requestString .= $this->request($url, $options);
+        if (!empty($requestString)) {
+            $event = $this->event('click', $requestString, $options + array('buffer' => $buffer));
+        }
+        if (isset($buffer) && !$buffer) {
+            $opts = array('safe' => $safe);
+            $out .= $this->Html->scriptBlock($event, $opts);
+        }
+        return $out;
+    }
 
 /**
  * Parse a set of Options and extract the Html options.
@@ -412,23 +412,23 @@ class JsHelper extends AppHelper {
  * @param array $additional Array of additional keys to extract and include in the return options array.
  * @return array Array of js options and Htmloptions
  */
-	protected function _getHtmlOptions($options, $additional = array()) {
-		$htmlKeys = array_merge(
-			array('class', 'id', 'escape', 'onblur', 'onfocus', 'rel', 'title', 'style'),
-			$additional
-		);
-		$htmlOptions = array();
-		foreach ($htmlKeys as $key) {
-			if (isset($options[$key])) {
-				$htmlOptions[$key] = $options[$key];
-			}
-			unset($options[$key]);
-		}
-		if (isset($options['htmlAttributes'])) {
-			$htmlOptions = array_merge($htmlOptions, $options['htmlAttributes']);
-			unset($options['htmlAttributes']);
-		}
-		return array($options, $htmlOptions);
-	}
+    protected function _getHtmlOptions($options, $additional = array()) {
+        $htmlKeys = array_merge(
+            array('class', 'id', 'escape', 'onblur', 'onfocus', 'rel', 'title', 'style'),
+            $additional
+        );
+        $htmlOptions = array();
+        foreach ($htmlKeys as $key) {
+            if (isset($options[$key])) {
+                $htmlOptions[$key] = $options[$key];
+            }
+            unset($options[$key]);
+        }
+        if (isset($options['htmlAttributes'])) {
+            $htmlOptions = array_merge($htmlOptions, $options['htmlAttributes']);
+            unset($options['htmlAttributes']);
+        }
+        return array($options, $htmlOptions);
+    }
 
 }

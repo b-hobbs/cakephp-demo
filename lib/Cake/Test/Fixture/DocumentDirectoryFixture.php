@@ -29,24 +29,24 @@ class DocumentDirectoryFixture extends CakeTestFixture {
  *
  * @var string 'DocumentDirectory'
  */
-	public $name = 'DocumentDirectory';
+    public $name = 'DocumentDirectory';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'DocumentDirectory 1')
-	);
+    public $records = array(
+        array('name' => 'DocumentDirectory 1')
+    );
 }

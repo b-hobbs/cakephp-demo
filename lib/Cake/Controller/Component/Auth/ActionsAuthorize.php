@@ -33,10 +33,10 @@ class ActionsAuthorize extends BaseAuthorize {
  * @param CakeRequest $request The request needing authorization.
  * @return boolean
  */
-	public function authorize($user, CakeRequest $request) {
-		$Acl = $this->_Collection->load('Acl');
-		$user = array($this->settings['userModel'] => $user);
-		return $Acl->check($user, $this->action($request));
-	}
+    public function authorize($user, CakeRequest $request) {
+        $Acl = $this->_Collection->load('Acl');
+        $user = array($this->settings['userModel'] => $user);
+        return $Acl->check($user, $this->action($request));
+    }
 
 }

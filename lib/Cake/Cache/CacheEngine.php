@@ -25,7 +25,7 @@ abstract class CacheEngine {
  *
  * @var array
  */
-	public $settings = array();
+    public $settings = array();
 
 /**
  * Contains the compiled string with all groups
@@ -33,7 +33,7 @@ abstract class CacheEngine {
  *
  * @var string
  **/
-	protected $_groupPrefix = null;
+    protected $_groupPrefix = null;
 
 /**
  * Initialize the cache engine
@@ -43,23 +43,23 @@ abstract class CacheEngine {
  * @param array $settings Associative array of parameters for the engine
  * @return boolean True if the engine has been successfully initialized, false if not
  */
-	public function init($settings = array()) {
-		$settings += $this->settings + array(
-			'prefix' => 'cake_',
-			'duration' => 3600,
-			'probability' => 100,
-			'groups' => array()
-		);
-		$this->settings = $settings;
-		if (!empty($this->settings['groups'])) {
-			sort($this->settings['groups']);
-			$this->_groupPrefix = str_repeat('%s_', count($this->settings['groups']));
-		}
-		if (!is_numeric($this->settings['duration'])) {
-			$this->settings['duration'] = strtotime($this->settings['duration']) - time();
-		}
-		return true;
-	}
+    public function init($settings = array()) {
+        $settings += $this->settings + array(
+            'prefix' => 'cake_',
+            'duration' => 3600,
+            'probability' => 100,
+            'groups' => array()
+        );
+        $this->settings = $settings;
+        if (!empty($this->settings['groups'])) {
+            sort($this->settings['groups']);
+            $this->_groupPrefix = str_repeat('%s_', count($this->settings['groups']));
+        }
+        if (!is_numeric($this->settings['duration'])) {
+            $this->settings['duration'] = strtotime($this->settings['duration']) - time();
+        }
+        return true;
+    }
 
 /**
  * Garbage collection
@@ -69,8 +69,8 @@ abstract class CacheEngine {
  * @param integer $expires [optional] An expires timestamp, invalidataing all data before.
  * @return void
  */
-	public function gc($expires = null) {
-	}
+    public function gc($expires = null) {
+    }
 
 /**
  * Write value for a key into cache
@@ -80,7 +80,7 @@ abstract class CacheEngine {
  * @param integer $duration How long to cache for.
  * @return boolean True if the data was successfully cached, false on failure
  */
-	abstract public function write($key, $value, $duration);
+    abstract public function write($key, $value, $duration);
 
 /**
  * Read a key from the cache
@@ -88,7 +88,7 @@ abstract class CacheEngine {
  * @param string $key Identifier for the data
  * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
  */
-	abstract public function read($key);
+    abstract public function read($key);
 
 /**
  * Increment a number under the key and return incremented value
@@ -97,7 +97,7 @@ abstract class CacheEngine {
  * @param integer $offset How much to add
  * @return New incremented value, false otherwise
  */
-	abstract public function increment($key, $offset = 1);
+    abstract public function increment($key, $offset = 1);
 
 /**
  * Decrement a number under the key and return decremented value
@@ -106,7 +106,7 @@ abstract class CacheEngine {
  * @param integer $offset How much to subtract
  * @return New incremented value, false otherwise
  */
-	abstract public function decrement($key, $offset = 1);
+    abstract public function decrement($key, $offset = 1);
 
 /**
  * Delete a key from the cache
@@ -114,7 +114,7 @@ abstract class CacheEngine {
  * @param string $key Identifier for the data
  * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
  */
-	abstract public function delete($key);
+    abstract public function delete($key);
 
 /**
  * Delete all keys from the cache
@@ -122,7 +122,7 @@ abstract class CacheEngine {
  * @param boolean $check if true will check expiration, otherwise delete all
  * @return boolean True if the cache was successfully cleared, false otherwise
  */
-	abstract public function clear($check);
+    abstract public function clear($check);
 
 /**
  * Clears all values belonging to a group. Is upt to the implementing engine
@@ -132,9 +132,9 @@ abstract class CacheEngine {
  * @param string $groups name of the group to be cleared
  * @return boolean
  */
-	public function clearGroup($group) {
-		return false;
-	}
+    public function clearGroup($group) {
+        return false;
+    }
 
 /**
  * Does whatever initialization for each group is required
@@ -143,18 +143,18 @@ abstract class CacheEngine {
  *
  * @return array
  */
-	public function groups() {
-		return $this->settings['groups'];
-	}
+    public function groups() {
+        return $this->settings['groups'];
+    }
 
 /**
  * Cache Engine settings
  *
  * @return array settings
  */
-	public function settings() {
-		return $this->settings;
-	}
+    public function settings() {
+        return $this->settings;
+    }
 
 /**
  * Generates a safe key for use with cache engine storage engines.
@@ -162,18 +162,18 @@ abstract class CacheEngine {
  * @param string $key the key passed over
  * @return mixed string $key or false
  */
-	public function key($key) {
-		if (empty($key)) {
-			return false;
-		}
+    public function key($key) {
+        if (empty($key)) {
+            return false;
+        }
 
-		$prefix = '';
-		if (!empty($this->_groupPrefix)) {
-			$prefix = vsprintf($this->_groupPrefix, $this->groups());
-		}
+        $prefix = '';
+        if (!empty($this->_groupPrefix)) {
+            $prefix = vsprintf($this->_groupPrefix, $this->groups());
+        }
 
-		$key = preg_replace('/[\s]+/', '_', strtolower(trim(str_replace(array(DS, '/', '.'), '_', strval($key)))));
-		return $prefix . $key;
-	}
+        $key = preg_replace('/[\s]+/', '_', strtolower(trim(str_replace(array(DS, '/', '.'), '_', strval($key)))));
+        return $prefix . $key;
+    }
 
 }

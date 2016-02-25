@@ -29,28 +29,28 @@ class ImageFixture extends CakeTestFixture {
  *
  * @var string 'Image'
  */
-	public $name = 'Image';
+    public $name = 'Image';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'Image 1'),
-		array('name' => 'Image 2'),
-		array('name' => 'Image 3'),
-		array('name' => 'Image 4'),
-		array('name' => 'Image 5')
-	);
+    public $records = array(
+        array('name' => 'Image 1'),
+        array('name' => 'Image 2'),
+        array('name' => 'Image 3'),
+        array('name' => 'Image 4'),
+        array('name' => 'Image 5')
+    );
 }

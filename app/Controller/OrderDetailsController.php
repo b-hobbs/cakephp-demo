@@ -1,7 +1,5 @@
 <?php
-class OrderDetailsController extends AppController{
-     
-
-
+class OrderDetailsController extends AppController {
+    
 }
 ?>

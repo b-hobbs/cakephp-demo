@@ -29,22 +29,22 @@ class ThePaperMonkiesFixture extends CakeTestFixture {
  *
  * @var string 'ThePaperMonkies'
  */
-	public $name = 'ThePaperMonkies';
+    public $name = 'ThePaperMonkies';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'apple_id' => array('type' => 'integer', 'length' => 10, 'null' => true),
-		'device_id' => array('type' => 'integer', 'length' => 10, 'null' => true)
-	);
+    public $fields = array(
+        'apple_id' => array('type' => 'integer', 'length' => 10, 'null' => true),
+        'device_id' => array('type' => 'integer', 'length' => 10, 'null' => true)
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+    public $records = array();
 }

@@ -38,7 +38,7 @@ class TextHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array('Html');
+    public $helpers = array('Html');
 
 /**
  * An array of md5sums and their contents.
@@ -46,12 +46,12 @@ class TextHelper extends AppHelper {
  *
  * @var array
  */
-	protected $_placeholders = array();
+    protected $_placeholders = array();
 
 /**
  * String utility instance
  */
-	protected $_engine;
+    protected $_engine;
 
 /**
  * Constructor
@@ -65,24 +65,24 @@ class TextHelper extends AppHelper {
  * @param array $settings Settings array Settings array
  * @throws CakeException when the engine class could not be found.
  */
-	public function __construct(View $View, $settings = array()) {
-		$settings = Hash::merge(array('engine' => 'String'), $settings);
-		parent::__construct($View, $settings);
-		list($plugin, $engineClass) = pluginSplit($settings['engine'], true);
-		App::uses($engineClass, $plugin . 'Utility');
-		if (class_exists($engineClass)) {
-			$this->_engine = new $engineClass($settings);
-		} else {
-			throw new CakeException(__d('cake_dev', '%s could not be found', $engineClass));
-		}
-	}
+    public function __construct(View $View, $settings = array()) {
+        $settings = Hash::merge(array('engine' => 'String'), $settings);
+        parent::__construct($View, $settings);
+        list($plugin, $engineClass) = pluginSplit($settings['engine'], true);
+        App::uses($engineClass, $plugin . 'Utility');
+        if (class_exists($engineClass)) {
+            $this->_engine = new $engineClass($settings);
+        } else {
+            throw new CakeException(__d('cake_dev', '%s could not be found', $engineClass));
+        }
+    }
 
 /**
  * Call methods from String utility class
  */
-	public function __call($method, $params) {
-		return call_user_func_array(array($this->_engine, $method), $params);
-	}
+    public function __call($method, $params) {
+        return call_user_func_array(array($this->_engine, $method), $params);
+    }
 
 /**
  * Adds links (<a href=....) to a given text, by finding text that begins with
@@ -97,25 +97,25 @@ class TextHelper extends AppHelper {
  * @return string The text with links
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::autoLinkUrls
  */
-	public function autoLinkUrls($text, $options = array()) {
-		$this->_placeholders = array();
-		$options += array('escape' => true);
+    public function autoLinkUrls($text, $options = array()) {
+        $this->_placeholders = array();
+        $options += array('escape' => true);
 
-		$text = preg_replace_callback(
-			'#(?<!href="|src="|">)((?:https?|ftp|nntp)://[^\s<>()]+)#i',
-			array(&$this, '_insertPlaceHolder'),
-			$text
-		);
-		$text = preg_replace_callback(
-			'#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www.[^\n\%\ <]+[^<\n\%\,\.\ <](?<!\))#i',
-			array(&$this, '_insertPlaceHolder'),
-			$text
-		);
-		if ($options['escape']) {
-			$text = h($text);
-		}
-		return $this->_linkUrls($text, $options);
-	}
+        $text = preg_replace_callback(
+            '#(?<!href="|src="|">)((?:https?|ftp|nntp)://[^\s<>()]+)#i',
+            array(&$this, '_insertPlaceHolder'),
+            $text
+        );
+        $text = preg_replace_callback(
+            '#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www.[^\n\%\ <]+[^<\n\%\,\.\ <](?<!\))#i',
+            array(&$this, '_insertPlaceHolder'),
+            $text
+        );
+        if ($options['escape']) {
+            $text = h($text);
+        }
+        return $this->_linkUrls($text, $options);
+    }
 
 /**
  * Saves the placeholder for a string, for later use.  This gets around double
@@ -124,11 +124,11 @@ class TextHelper extends AppHelper {
  * @param array $matches An array of regexp matches.
  * @return string Replaced values.
  */
-	protected function _insertPlaceHolder($matches) {
-		$key = md5($matches[0]);
-		$this->_placeholders[$key] = $matches[0];
-		return $key;
-	}
+    protected function _insertPlaceHolder($matches) {
+        $key = md5($matches[0]);
+        $this->_placeholders[$key] = $matches[0];
+        return $key;
+    }
 
 /**
  * Replace placeholders with links.
@@ -137,17 +137,17 @@ class TextHelper extends AppHelper {
  * @param array $htmlOptions The options for the generated links.
  * @return string The text with links inserted.
  */
-	protected function _linkUrls($text, $htmlOptions) {
-		$replace = array();
-		foreach ($this->_placeholders as $hash => $url) {
-			$link = $url;
-			if (!preg_match('#^[a-z]+\://#', $url)) {
-				$url = 'http://' . $url;
-			}
-			$replace[$hash] = $this->Html->link($link, $url, $htmlOptions);
-		}
-		return strtr($text, $replace);
-	}
+    protected function _linkUrls($text, $htmlOptions) {
+        $replace = array();
+        foreach ($this->_placeholders as $hash => $url) {
+            $link = $url;
+            if (!preg_match('#^[a-z]+\://#', $url)) {
+                $url = 'http://' . $url;
+            }
+            $replace[$hash] = $this->Html->link($link, $url, $htmlOptions);
+        }
+        return strtr($text, $replace);
+    }
 
 /**
  * Links email addresses
@@ -157,13 +157,13 @@ class TextHelper extends AppHelper {
  * @return string
  * @see TextHelper::autoLinkEmails()
  */
-	protected function _linkEmails($text, $options) {
-		$replace = array();
-		foreach ($this->_placeholders as $hash => $url) {
-			$replace[$hash] = $this->Html->link($url, 'mailto:' . $url, $options);
-		}
-		return strtr($text, $replace);
-	}
+    protected function _linkEmails($text, $options) {
+        $replace = array();
+        foreach ($this->_placeholders as $hash => $url) {
+            $replace[$hash] = $this->Html->link($url, 'mailto:' . $url, $options);
+        }
+        return strtr($text, $replace);
+    }
 
 /**
  * Adds email links (<a href="mailto:....) to a given text.
@@ -177,21 +177,21 @@ class TextHelper extends AppHelper {
  * @return string The text with links
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::autoLinkEmails
  */
-	public function autoLinkEmails($text, $options = array()) {
-		$options += array('escape' => true);
-		$this->_placeholders = array();
+    public function autoLinkEmails($text, $options = array()) {
+        $options += array('escape' => true);
+        $this->_placeholders = array();
 
-		$atom = '[a-z0-9!#$%&\'*+\/=?^_`{|}~-]';
-		$text = preg_replace_callback(
-			'/(' . $atom . '+(?:\.' . $atom . '+)*@[a-z0-9-]+(?:\.[a-z0-9-]+)+)/i',
-			array(&$this, '_insertPlaceholder'),
-			$text
-		);
-		if ($options['escape']) {
-			$text = h($text);
-		}
-		return $this->_linkEmails($text, $options);
-	}
+        $atom = '[a-z0-9!#$%&\'*+\/=?^_`{|}~-]';
+        $text = preg_replace_callback(
+            '/(' . $atom . '+(?:\.' . $atom . '+)*@[a-z0-9-]+(?:\.[a-z0-9-]+)+)/i',
+            array(&$this, '_insertPlaceholder'),
+            $text
+        );
+        if ($options['escape']) {
+            $text = h($text);
+        }
+        return $this->_linkEmails($text, $options);
+    }
 
 /**
  * Convert all links and email addresses to HTML links.
@@ -205,10 +205,10 @@ class TextHelper extends AppHelper {
  * @return string The text with links
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::autoLink
  */
-	public function autoLink($text, $options = array()) {
-		$text = $this->autoLinkUrls($text, $options);
-		return $this->autoLinkEmails($text, array_merge($options, array('escape' => false)));
-	}
+    public function autoLink($text, $options = array()) {
+        $text = $this->autoLinkUrls($text, $options);
+        return $this->autoLinkEmails($text, array_merge($options, array('escape' => false)));
+    }
 
 /**
  * @see String::highlight()
@@ -219,9 +219,9 @@ class TextHelper extends AppHelper {
  * @return string The highlighted text
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::highlight
  */
-	public function highlight($text, $phrase, $options = array()) {
-		return $this->_engine->highlight($text, $phrase, $options);
-	}
+    public function highlight($text, $phrase, $options = array()) {
+        return $this->_engine->highlight($text, $phrase, $options);
+    }
 
 /**
  * @see String::stripLinks()
@@ -230,9 +230,9 @@ class TextHelper extends AppHelper {
  * @return string The text without links
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::stripLinks
  */
-	public function stripLinks($text) {
-		return $this->_engine->stripLinks($text);
-	}
+    public function stripLinks($text) {
+        return $this->_engine->stripLinks($text);
+    }
 
 /**
  * @see String::truncate()
@@ -243,9 +243,9 @@ class TextHelper extends AppHelper {
  * @return string Trimmed string.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::truncate
  */
-	public function truncate($text, $length = 100, $options = array()) {
-		return $this->_engine->truncate($text, $length, $options);
-	}
+    public function truncate($text, $length = 100, $options = array()) {
+        return $this->_engine->truncate($text, $length, $options);
+    }
 
 /**
  * @see String::excerpt()
@@ -257,9 +257,9 @@ class TextHelper extends AppHelper {
  * @return string Modified string
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::excerpt
  */
-	public function excerpt($text, $phrase, $radius = 100, $ending = '...') {
-		return $this->_engine->excerpt($text, $phrase, $radius, $ending);
-	}
+    public function excerpt($text, $phrase, $radius = 100, $ending = '...') {
+        return $this->_engine->excerpt($text, $phrase, $radius, $ending);
+    }
 
 /**
  * @see String::toList()
@@ -270,8 +270,8 @@ class TextHelper extends AppHelper {
  * @return string The glued together string.
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html#TextHelper::toList
  */
-	public function toList($list, $and = 'and', $separator = ', ') {
-		return $this->_engine->toList($list, $and, $separator);
-	}
+    public function toList($list, $and = 'and', $separator = ', ') {
+        return $this->_engine->toList($list, $and, $separator);
+    }
 
 }

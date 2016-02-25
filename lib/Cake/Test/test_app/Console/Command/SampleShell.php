@@ -23,7 +23,7 @@ class SampleShell extends Shell {
  *
  * @return void
  */
-	public function main() {
-		$this->out('This is the main method called from SampleShell');
-	}
+    public function main() {
+        $this->out('This is the main method called from SampleShell');
+    }
 }

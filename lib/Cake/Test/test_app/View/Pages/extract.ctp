@@ -16,9 +16,9 @@ echo __('You have %d new message.');
 
 // Multiline
 __('Hot features!'
-	. "\n - No Configuration:"
-		. ' Set-up the database and let the magic begin'
-	. "\n - Extremely Simple:"
-		. ' Just look at the name...It\'s Cake'
-	. "\n - Active, Friendly Community:"
-		. ' Join us #cakephp on IRC. We\'d love to help you get started');
+    . "\n - No Configuration:"
+        . ' Set-up the database and let the magic begin'
+    . "\n - Extremely Simple:"
+        . ' Just look at the name...It\'s Cake'
+    . "\n - Active, Friendly Community:"
+        . ' Join us #cakephp on IRC. We\'d love to help you get started');

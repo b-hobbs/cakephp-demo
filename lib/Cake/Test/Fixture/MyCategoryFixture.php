@@ -29,26 +29,26 @@ class MyCategoryFixture extends CakeTestFixture {
  *
  * @var string 'MyCategory'
  */
-	public $name = 'MyCategory';
+    public $name = 'MyCategory';
 
 /**
  * fields property
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false),
-	);
+    public $fields = array(
+        'id' => array('type' => 'integer', 'key' => 'primary'),
+        'name' => array('type' => 'string', 'null' => false),
+    );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('id' => 1, 'name' => 'A'),
-		array('id' => 2, 'name' => 'B'),
-		array('id' => 3, 'name' => 'C'),
-	);
+    public $records = array(
+        array('id' => 1, 'name' => 'A'),
+        array('id' => 2, 'name' => 'B'),
+        array('id' => 3, 'name' => 'C'),
+    );
 }

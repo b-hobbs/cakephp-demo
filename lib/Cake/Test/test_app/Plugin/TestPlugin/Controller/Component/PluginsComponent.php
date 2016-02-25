@@ -18,6 +18,6 @@
  */
 class PluginsComponent extends Component {
 
-	public $components = array('TestPlugin.Other');
+    public $components = array('TestPlugin.Other');
 
 }
