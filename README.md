@@ -5,6 +5,7 @@ This is just a basic demo of using the cake php framework. This was my first PHP
 
 ##Scenario
 
+```
 +-----------+
 | Customers |
 +-----------+
@@ -28,7 +29,7 @@ This is just a basic demo of using the cake php framework. This was my first PHP
 +--------+
 | ?????? |
 +--------+
-
+```
 Using the DB schema above (You have free reign on what the 'Orders'
 table looks like) create a web application to allow customers to order
 parts.
@@ -43,6 +44,7 @@ their order history.
 An order page, given an order ID in the request parameter, should look
 something like this:
 URL: http://www.somesite.com/vieworder?id=1
+```
 +------------------------------------------+
 | Order ID: 1                              |
 | Customer Name: ????????                  |
@@ -56,3 +58,4 @@ URL: http://www.somesite.com/vieworder?id=1
 +------------------------------------------+
 | Total parts ordered: ##                  |
 +-------------------------------------------
+```
